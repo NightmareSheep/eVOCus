@@ -1,2 +1,6 @@
 e.VOC.us/obj
 e.VOC.us/bin
+e.VOC.us/Scripts/bundle.js
+e.VOC.us/Scripts/bundle.js.map
+e.VOC.us/Scripts/TypeScript/*.js
+e.VOC.us/Scripts/TypeScript/*.map

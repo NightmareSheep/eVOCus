@@ -26,5 +26,10 @@ namespace e.VOC.us.Controllers
 
             return View();
         }
+
+        public ActionResult Prototype()
+        {
+            return View();
+        }
     }
 }

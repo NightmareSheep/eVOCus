@@ -1,5 +1,7 @@
-﻿ module eVOCus {
+﻿module eVOCus {
+    var game: Game;
+
      window.onload = () => {
-         alert("typescript is active");
+         game = new Game();
      }
  }

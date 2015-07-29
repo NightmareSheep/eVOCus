@@ -231,6 +231,7 @@
     <None Include="Project_Readme.html" />
   </ItemGroup>
   <ItemGroup>
+    <TypeScriptCompile Include="Scripts\TypeScript\Game.ts" />
     <TypeScriptCompile Include="Scripts\TypeScript\Main.ts" />
   </ItemGroup>
   <PropertyGroup>

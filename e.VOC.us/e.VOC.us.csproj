@@ -171,6 +171,7 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Assets\Mario.png" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="favicon.ico" />
@@ -192,6 +193,10 @@
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
+    <TypeScriptCompile Include="Scripts\TypeScript\Point.ts" />
+    <TypeScriptCompile Include="Scripts\TypeScript\SpriteObject.ts" />
+    <TypeScriptCompile Include="Scripts\TypeScript\GameObject.ts" />
+    <TypeScriptCompile Include="Scripts\TypeScript\movingObj.ts" />
     <Content Include="Scripts\_references.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">

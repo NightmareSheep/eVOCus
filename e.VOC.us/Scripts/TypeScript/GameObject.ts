@@ -19,5 +19,6 @@
 
         draw(context: CanvasRenderingContext2D, gameTime: number) {
         }
+
     }
 } 

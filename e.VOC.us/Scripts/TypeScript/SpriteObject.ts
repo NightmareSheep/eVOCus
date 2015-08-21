@@ -3,7 +3,7 @@
 module eVOCus {
     export class SpriteObject extends GameObject {
 
-        constructor(name: string, position: Point, id: string, public image: HTMLImageElement) {
+        constructor(name: string, position: Vector2D, id: string, public image: HTMLImageElement) {
             super(name, position, id);
         }
 

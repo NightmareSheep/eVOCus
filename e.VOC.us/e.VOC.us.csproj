@@ -171,7 +171,10 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Assets\Boot.png" />
     <Content Include="Assets\Mario.png" />
+    <Content Include="Assets\PirateShip.png" />
+    <Content Include="Assets\Water.jpg" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="favicon.ico" />
@@ -182,7 +185,9 @@
     <Content Include="Scripts\bootstrap.min.js" />
     <None Include="Properties\PublishProfiles\e-VOC-us-test - FTP.pubxml" />
     <None Include="Properties\PublishProfiles\e-VOC-us-test - Web Deploy.pubxml" />
+    <Content Include="Scripts\bundle.js.map" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
+    <Content Include="Scripts\bundle.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
@@ -193,10 +198,16 @@
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
-    <TypeScriptCompile Include="Scripts\TypeScript\Point.ts" />
+    <TypeScriptCompile Include="Scripts\TypeScript\Keyboard.ts" />
+    <TypeScriptCompile Include="Scripts\TypeScript\Canvas.ts" />
+    <TypeScriptCompile Include="Scripts\TypeScript\Helper.ts" />
+    <TypeScriptCompile Include="Scripts\TypeScript\RotatableRectangle.ts" />
+    <TypeScriptCompile Include="Scripts\TypeScript\Rectangle.ts" />
+    <TypeScriptCompile Include="Scripts\TypeScript\Ship.ts" />
+    <TypeScriptCompile Include="Scripts\TypeScript\RotatableSpriteObject.ts" />
+    <TypeScriptCompile Include="Scripts\TypeScript\Vector2D.ts" />
     <TypeScriptCompile Include="Scripts\TypeScript\SpriteObject.ts" />
     <TypeScriptCompile Include="Scripts\TypeScript\GameObject.ts" />
-    <TypeScriptCompile Include="Scripts\TypeScript\movingObj.ts" />
     <Content Include="Scripts\_references.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">

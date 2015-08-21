@@ -1,14 +1,14 @@
 ﻿module eVOCus {
     export class GameObject {
-        constructor(public name: string, public position: Point, public id: string) {
+        constructor(public name: string, public position: Vector2D, public id: string) {
             this.setPosition(position);
         }
 
-        getPosition(): Point {
+        getPosition(): Vector2D {
             return this.position;
         }
 
-        setPosition(p: Point) {
+        setPosition(p: Vector2D) {
             this.position.x = p.x;
             this.position.y = p.y;
         }

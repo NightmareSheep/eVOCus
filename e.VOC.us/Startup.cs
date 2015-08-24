@@ -9,6 +9,7 @@ namespace e.VOC.us
         public void Configuration(IAppBuilder app)
         {
             ConfigureAuth(app);
+            app.MapSignalR();
         }
     }
 }

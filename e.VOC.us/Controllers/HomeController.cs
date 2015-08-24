@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Microsoft.Ajax.Utilities;
 
 namespace e.VOC.us.Controllers
 {
@@ -28,6 +29,11 @@ namespace e.VOC.us.Controllers
         }
 
         public ActionResult Prototype()
+        {
+            return View();
+        }
+
+        public ActionResult Chat()
         {
             return View();
         }

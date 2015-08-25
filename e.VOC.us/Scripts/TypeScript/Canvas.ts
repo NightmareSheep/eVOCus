@@ -12,11 +12,11 @@ module eVOCus {
         }
 
         drawRotatableImage(image: HTMLImageElement, rotatableRectangle: RotatableRectangle): void {
-            this.ctx.translate(rotatableRectangle.position.x + rotatableRectangle.width, rotatableRectangle.position.y + rotatableRectangle.height);
+            this.ctx.translate(rotatableRectangle.position.x, rotatableRectangle.position.y);
             this.ctx.rotate(rotatableRectangle.angle * (Math.PI / 180));
             this.ctx.drawImage(image, -rotatableRectangle.width / 2, -rotatableRectangle.height / 2);
             this.ctx.rotate(-rotatableRectangle.angle * (Math.PI / 180));
-            this.ctx.translate(-rotatableRectangle.position.x + -rotatableRectangle.width, -rotatableRectangle.position.y + -rotatableRectangle.height);
-        }
+            this.ctx.translate(-rotatableRectangle.position.x, -rotatableRectangle.position.y);
+       }
     }
 }

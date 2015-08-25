@@ -3,34 +3,68 @@
 module eVOCus {
     export class Ship extends RotatableSpriteObject {
         private _speed: number;
-        get speed(): number { return this._speed; }
-        set speed(value: number) { this._speed = Math.min(this.maxSpeed, value); }
+        //get speed(): number { return this._speed; }
+        //set speed(value: number) { this._speed = Math.min(this.maxSpeed, value); }
 
         private _maxSpeed: number;
-        get maxSpeed(): number { return this._maxSpeed; }
-        set maxSpeed(value: number) { this._maxSpeed = value; this.speed = this._speed; }
+        //get maxSpeed(): number { return this._maxSpeed; }
+        //set maxSpeed(value: number) { this._maxSpeed = value; this.speed = this._speed; }
 
         constructor(speed: number, maxSpeed: number, public rectangle: RotatableRectangle, image: HTMLImageElement) {
             super(rectangle, image);
-            this.maxSpeed = maxSpeed;
-            this.speed = speed;
+            //this.maxSpeed = maxSpeed;
+            //this.speed = speed;
+            this.setMaxSpeed(maxSpeed);
+            this.setSpeed(speed);
         }
 
         update(gameTime: number) {
+            // speed en angle aanpassen
             if (Game.keyboard.isKeyDown(37))
                 this.rectangle.angle--;
-            if (Game.keyboard.isKeyDown(38))
-                this.speed++;
+            if (Game.keyboard.isKeyDown(38)) 
+                this.setSpeed(this.getSpeed() + 1);
             if (Game.keyboard.isKeyDown(39))
                 this.rectangle.angle++;
-            if (Game.keyboard.isKeyDown(40))
-                this.speed--;
+            if (Game.keyboard.isKeyDown(40)) 
+                this.setSpeed(this.getSpeed() - 1);
 
-            this.rectangle.position.add(Helper.angleToUnitVector(this.rectangle.angle).multiply(this.speed));
+            // angle tussen 0 en 360 graden houden
+            if (this.rectangle.angle < 0)
+                this.rectangle.angle += 360;
+            if (this.rectangle.angle > 359)
+                this.rectangle.angle -= 360;
+
+            // Binnen canvas blijven
+            if (this.rectangle.hitsBorder())
+                this.setSpeed(0);
+
+            // positie aanpassen
+            this.rectangle.position.add(Helper.angleToUnitVector(this.rectangle.angle).multiply(this.getSpeed()));
         }
 
         draw(canvas:Canvas) {
             super.draw(canvas, 0);
+        }
+
+        getSpeed(): number {
+            return this._speed;
+        }
+
+        setSpeed(value: number) {
+            if (value > 0)
+                this._speed = Math.min(this.getMaxSpeed(), value);
+            else
+                this._speed = 0;
+        }
+
+        getMaxSpeed(): number {
+            return this._maxSpeed;
+        }
+
+        setMaxSpeed(value: number) {
+            this._maxSpeed = value;
+            this.setSpeed(this._speed);
         }
 
         /*

@@ -14,7 +14,7 @@
 
             var image = new Image();
             image.src = "../Assets/PirateShip.png";
-            this.ship = new Ship(0, 5, new RotatableRectangle(new Vector2D(0, 0), 360, 120, 0), image);
+            this.ship = new Ship(0, 5, new RotatableRectangle(new Vector2D(180, 60), 360, 120, 0), image);
             // current speed, max speed, vector position, img width/height, angle
             setInterval(() => { this.gameLoop(this); }, this.timeStep);
 
@@ -27,7 +27,7 @@
         }
 
         update(gameTime: number) {
-            this.canvas.ctx.clearRect(0, 0, 1000, 1000);
+            this.canvas.ctx.clearRect(0, 0, 2000, 2000);
             this.ship.update(gameTime);
             Game.keyboard.update();
         }

@@ -10,7 +10,7 @@ module eVOCus {
         //get maxSpeed(): number { return this._maxSpeed; }
         //set maxSpeed(value: number) { this._maxSpeed = value; this.speed = this._speed; }
 
-        constructor(speed: number, maxSpeed: number, public rectangle: RotatableRectangle, image: HTMLImageElement) {
+        constructor(public id: number, speed: number, maxSpeed: number, public rectangle: RotatableRectangle, image: HTMLImageElement) {
             super(rectangle, image);
             //this.maxSpeed = maxSpeed;
             //this.speed = speed;
@@ -18,16 +18,30 @@ module eVOCus {
             this.setSpeed(speed);
         }
 
-        update(gameTime: number) {
+        update(canvas: Canvas, gameTime: number) {
             // speed en angle aanpassen
-            if (Game.keyboard.isKeyDown(37))
-                this.rectangle.angle--;
-            if (Game.keyboard.isKeyDown(38)) 
-                this.setSpeed(this.getSpeed() + 1);
-            if (Game.keyboard.isKeyDown(39))
-                this.rectangle.angle++;
-            if (Game.keyboard.isKeyDown(40)) 
-                this.setSpeed(this.getSpeed() - 1);
+            //console.log('in ship update');
+            if (this.id == 1001) {
+                if (Game.keyboard.isKeyDown(37) )
+                    this.rectangle.angle--;
+                if (Game.keyboard.isKeyDown(38) )
+                    this.setSpeed(this.getSpeed() + 1);
+                if (Game.keyboard.isKeyDown(39) )
+                    this.rectangle.angle++;
+                if (Game.keyboard.isKeyDown(40) )
+                    this.setSpeed(this.getSpeed() - 1);
+            }
+
+            if (this.id == 1002) {
+                if (Game.keyboard.isKeyDown(90))
+                    this.rectangle.angle--;
+                if (Game.keyboard.isKeyDown(83))
+                    this.setSpeed(this.getSpeed() + 1);
+                if (Game.keyboard.isKeyDown(67))
+                    this.rectangle.angle++;
+                if (Game.keyboard.isKeyDown(88))
+                    this.setSpeed(this.getSpeed() - 1);
+            }
 
             // angle tussen 0 en 360 graden houden
             if (this.rectangle.angle < 0)
@@ -36,7 +50,7 @@ module eVOCus {
                 this.rectangle.angle -= 360;
 
             // Binnen canvas blijven
-            if (this.rectangle.hitsBorder())
+            if (this.rectangle.hitsBorder(canvas))
                 this.setSpeed(0);
 
             // positie aanpassen

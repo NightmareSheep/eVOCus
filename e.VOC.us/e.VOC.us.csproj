@@ -208,6 +208,8 @@
     <TypeScriptCompile Include="Scripts\TypeScript\Vector2D.ts" />
     <TypeScriptCompile Include="Scripts\TypeScript\SpriteObject.ts" />
     <TypeScriptCompile Include="Scripts\TypeScript\GameObject.ts" />
+    <TypeScriptCompile Include="Scripts\TypeScript\GameState.ts" />
+    <TypeScriptCompile Include="Scripts\TypeScript\CanonBall.ts" />
     <Content Include="Scripts\_references.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">

@@ -8,16 +8,16 @@ module eVOCus {
         constructor(public position: Vector2D, public width: number, public height: number, public angle: number) {
         }
 
-        hitsBorder() {
+        hitsBorder(canvas: Canvas) {
             
             var _cornerLV: Vector2D = this.calcCorner(this.width / 2, this.height / -2);
             var _cornerRV: Vector2D = this.calcCorner(this.width / 2, this.height / 2);
 
-            if (Math.max(_cornerLV.x, _cornerRV.x) >= 2000 && (this.angle > 270 || this.angle < 90))
+            if (Math.max(_cornerLV.x, _cornerRV.x) >= canvas.width && (this.angle > 270 || this.angle < 90))
                 return true;
             if (Math.min(_cornerLV.x, _cornerRV.x) <= 0 && (this.angle > 90 && this.angle < 270))
                 return true;
-            if (Math.max(_cornerLV.y, _cornerRV.y) >= 2000 && (this.angle < 180))
+            if (Math.max(_cornerLV.y, _cornerRV.y) >= canvas.height && (this.angle < 180))
                 return true;
             if (Math.min(_cornerLV.y, _cornerRV.y) <= 0 && (this.angle > 180))
                 return true;

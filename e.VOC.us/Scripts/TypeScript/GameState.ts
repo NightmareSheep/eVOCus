@@ -11,6 +11,12 @@
                 //console.log('in for loop, i = ' + i);
                 this.ships[i].update(canvas, gameTime);
             }
+
+            for (var i = 0; i < this.canonBalls.length; i++) {
+                //console.log('in for loop, i = ' + i);
+                this.canonBalls[i].update(canvas, gameTime);
+            }
+
         }
 
         draw(canvas: Canvas) {
@@ -21,5 +27,23 @@
                 this.canonBalls[i].draw(canvas);
             }
         }
+
+        addShip(ship: Ship) {
+            this.ships[this.ships.length] = ship;
+        }
+
+        addCanonball(ball: CanonBall) {
+            this.canonBalls[this.canonBalls.length] = ball;
+        }
+
+        removeCanonball(ballID: number) {
+            for (var i = 0; i < this.canonBalls.length; i++) {
+                if (this.canonBalls[i].id == ballID) {
+                    this.canonBalls.splice(i, 1);
+                }
+            }
+        }
+
+
     }
 } 

@@ -9,7 +9,6 @@ module eVOCus {
         }
 
         hitsBorder(canvas: Canvas) {
-            
             var _cornerLV: Vector2D = this.calcCorner(this.width / 2, this.height / -2);
             var _cornerRV: Vector2D = this.calcCorner(this.width / 2, this.height / 2);
 
@@ -23,6 +22,8 @@ module eVOCus {
                 return true;
             return false;
         }
+
+
 
         calcCorner(dX: number, dY: number) {
             return new Vector2D(

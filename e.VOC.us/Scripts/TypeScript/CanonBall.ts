@@ -4,16 +4,16 @@ module eVOCus {
     export class CanonBall extends RotatableSpriteObject {
         private _speed: number;
         
-        constructor(speed: number, public rectangle: RotatableRectangle, image: HTMLImageElement) {
+        constructor(public id: number, speed: number, public rectangle: RotatableRectangle, image: HTMLImageElement) {
             super(rectangle, image);
             this.setSpeed(speed);
         }
 
         update(canvas: Canvas, gameTime: number) {
             // Buiten canvas verdwijnen
-            if (this.rectangle.hitsBorder(canvas))
-                //Delete object
-
+            if (this.rectangle.hitsBorder(canvas)) {
+                Game.game.gamestate.removeCanonball(this.id);
+            }
             // positie aanpassen
             this.rectangle.position.add(Helper.angleToUnitVector(this.rectangle.angle).multiply(this.getSpeed()));
         }
@@ -29,7 +29,5 @@ module eVOCus {
         setSpeed(value: number) {
             this._speed = value;
         }
-
-        
     }
 }

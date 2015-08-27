@@ -8,10 +8,12 @@
         ship: Ship;
         ship2: Ship;
         gamestate: GameState;
-        
+        static game: Game;
+
         constructor() {
+            Game.game = this;
             Game.keyboard = new Keyboard();
-            this.canvas = new Canvas(3000, 1800);
+            this.canvas = new Canvas(3000, 2400);
             this.timeStep = Math.floor(1000 / this.fps);
 
             var image = new Image();
@@ -19,13 +21,15 @@
             this.ship = new Ship(1001, 0, 5, new RotatableRectangle(new Vector2D(180, 60), 360, 120, 0), image);
             this.ship2 = new Ship(1002, 0, 5, new RotatableRectangle(new Vector2D(180, 600), 360, 120, 0), image);
             // current speed, max speed, vector position, img width/height, angle
-            setInterval(() => { this.gameLoop(this); }, this.timeStep);
 
+            this.getGameState();
+
+            setInterval(() => { this.gameLoop(this); }, this.timeStep);
         }
 
         gameLoop(gameObject: Game) {
             this.gameTime += this.timeStep;
-            this.getGameState();
+            //this.getGameState();
             this.update(this.gameTime);
             this.draw(this.canvas);
         }
@@ -38,7 +42,11 @@
 
         getGameState() {
             // Gamestate van server ophalen / ontvangen
-            this.gamestate = new GameState([this.ship, this.ship2], []);
+            //this.gamestate = new GameState([this.ship, this.ship2], []);
+            this.gamestate = new GameState([], []);
+            this.gamestate.addShip(this.ship);
+            this.gamestate.addShip(this.ship2);
+
         }
 
         draw(canvas: Canvas) {

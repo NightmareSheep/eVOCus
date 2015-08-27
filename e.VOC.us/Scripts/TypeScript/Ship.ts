@@ -30,17 +30,31 @@ module eVOCus {
                     this.rectangle.angle++;
                 if (Game.keyboard.isKeyDown(40) )
                     this.setSpeed(this.getSpeed() - 1);
+                if (Game.keyboard.isKeyPressed(13)) {
+                    var image = new Image();
+                    var canonball: CanonBall;
+                    image.src = "../Assets/cannonball.png";
+                    canonball = new CanonBall((this.id + gameTime), 10, new RotatableRectangle(this.rectangle.calcCorner(this.rectangle.width / 2, 0), 50, 50, this.rectangle.angle), image);
+                    Game.game.gamestate.addCanonball(canonball);                    
+                }
             }
 
             if (this.id == 1002) {
-                if (Game.keyboard.isKeyDown(90))
+                if (Game.keyboard.isKeyDown(65))
                     this.rectangle.angle--;
-                if (Game.keyboard.isKeyDown(83))
+                if (Game.keyboard.isKeyDown(87))
                     this.setSpeed(this.getSpeed() + 1);
-                if (Game.keyboard.isKeyDown(67))
+                if (Game.keyboard.isKeyDown(68))
                     this.rectangle.angle++;
-                if (Game.keyboard.isKeyDown(88))
+                if (Game.keyboard.isKeyDown(83))
                     this.setSpeed(this.getSpeed() - 1);
+                if (Game.keyboard.isKeyPressed(70)) {
+                    var image = new Image();
+                    var canonball: CanonBall;
+                    image.src = "../Assets/cannonball.png";
+                    canonball = new CanonBall((this.id + gameTime), 10, new RotatableRectangle(this.rectangle.calcCorner(this.rectangle.width / 2, 0), 50, 50, this.rectangle.angle), image);
+                    Game.game.gamestate.addCanonball(canonball);
+                }
             }
 
             // angle tussen 0 en 360 graden houden

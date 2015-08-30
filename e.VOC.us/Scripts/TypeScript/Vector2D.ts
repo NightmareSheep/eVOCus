@@ -9,8 +9,8 @@
         }
 
         multiply(i:number): Vector2D {
-            this.x * i;
-            this.y * i;
+            this.x *= i;
+            this.y *= i;
             return this;
         }
     }

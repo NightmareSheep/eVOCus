@@ -5,7 +5,7 @@
         timeStep: number;
         static keyboard:Keyboard;
         canvas:Canvas;
-        ship:Ship;
+        ship: Ship;
         
         constructor() {
             Game.keyboard = new Keyboard();
@@ -14,7 +14,7 @@
 
             var image = new Image();
             image.src = "../Assets/PirateShip.png";
-            this.ship = new Ship(5, 5, new RotatableRectangle(new Vector2D(100,100), 360, 120, 0), image);
+            this.ship = new Ship(0, 5, new RotatableRectangle(new Vector2D(0,0), 360, 120, 0), image);
             setInterval(() => { this.gameLoop(this); }, this.timeStep);
         }
 

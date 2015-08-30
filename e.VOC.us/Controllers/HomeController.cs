@@ -37,5 +37,10 @@ namespace e.VOC.us.Controllers
         {
             return View();
         }
+
+        public ActionResult BroadCasting()
+        {
+            return View();
+        }
     }
 }

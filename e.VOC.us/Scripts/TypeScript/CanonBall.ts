@@ -14,6 +14,14 @@ module eVOCus {
             if (this.rectangle.hitsBorder(canvas)) {
                 Game.game.gamestate.removeCanonball(this.id);
             }
+            
+            // Ander object raken
+            var hit: number = this.rectangle.hitsShip(this.id, canvas);
+            if (hit != 0) {
+                Game.game.gamestate.removeCanonball(this.id);
+                Game.game.gamestate.removeShip(hit);
+            }
+
             // positie aanpassen
             this.rectangle.position.add(Helper.angleToUnitVector(this.rectangle.angle).multiply(this.getSpeed()));
         }

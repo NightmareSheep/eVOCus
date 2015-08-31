@@ -172,6 +172,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Assets\Boot.png" />
+    <Content Include="Assets\cannonball.png" />
     <Content Include="Assets\Mario.png" />
     <Content Include="Assets\PirateShip.png" />
     <Content Include="Assets\Water.jpg" />

@@ -20,8 +20,7 @@ module eVOCus {
 
         update(canvas: Canvas, gameTime: number) {
             // speed en angle aanpassen
-            //console.log('in ship update');
-            if (this.id == 1001) {
+            if (this.id == 4001) {   
                 if (Game.keyboard.isKeyDown(37) )
                     this.rectangle.angle--;
                 if (Game.keyboard.isKeyDown(38) )
@@ -39,7 +38,7 @@ module eVOCus {
                 }
             }
 
-            if (this.id == 1002) {
+            if (this.id == 8007) {
                 if (Game.keyboard.isKeyDown(65))
                     this.rectangle.angle--;
                 if (Game.keyboard.isKeyDown(87))
@@ -67,6 +66,10 @@ module eVOCus {
             if (this.rectangle.hitsBorder(canvas))
                 this.setSpeed(0);
 
+            // Ander schip raken
+            if (this.rectangle.hitsShip(this.id, canvas) != 0) 
+                this.setSpeed(0);
+            
             // positie aanpassen
             this.rectangle.position.add(Helper.angleToUnitVector(this.rectangle.angle).multiply(this.getSpeed()));
         }

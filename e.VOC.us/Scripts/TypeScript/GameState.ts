@@ -44,6 +44,14 @@
             }
         }
 
+        removeShip(shipID: number) {
+            for (var i = 0; i < this.ships.length; i++) {
+                if (this.ships[i].id == shipID) {
+                    this.ships.splice(i, 1);
+                }
+            }
+        }
+
 
     }
 } 

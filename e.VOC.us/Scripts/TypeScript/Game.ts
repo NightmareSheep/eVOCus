@@ -18,8 +18,8 @@
 
             var image = new Image();
             image.src = "../Assets/PirateShip.png";
-            this.ship = new Ship(1001, 0, 5, new RotatableRectangle(new Vector2D(180, 60), 360, 120, 0), image);
-            this.ship2 = new Ship(1002, 0, 5, new RotatableRectangle(new Vector2D(180, 600), 360, 120, 0), image);
+            this.ship = new Ship(4001, 0, 5, new RotatableRectangle(new Vector2D(180, 60), 360, 120, 0), image);
+            this.ship2 = new Ship(8007, 0, 5, new RotatableRectangle(new Vector2D(180, 600), 360, 120, 0), image);
             // current speed, max speed, vector position, img width/height, angle
 
             this.getGameState();

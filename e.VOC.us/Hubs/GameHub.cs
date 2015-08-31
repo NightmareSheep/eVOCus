@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Web;
+using e.VOC.us.Game;
 using Microsoft.AspNet.SignalR;
 
 namespace e.VOC.us.Hubs
@@ -16,6 +17,7 @@ namespace e.VOC.us.Hubs
         private readonly IHubContext _hubContext;
         private Timer _broadcastLoop;
         private int counter;
+        private GameState game = new GameState();
         public Broadcaster()
         {
             // Save our hub context so we can easily use it 
@@ -32,6 +34,7 @@ namespace e.VOC.us.Hubs
         {
             counter++;
             _hubContext.Clients.All.updateCounter(counter);
+            _hubContext.Clients.All.sync(new GameState());
         }
 
         public void Dispose()

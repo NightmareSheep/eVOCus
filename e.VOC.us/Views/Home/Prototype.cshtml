@@ -9,9 +9,12 @@ This is the prototype page
 
 <!--  <img src="http://www.html5canvastutorials.com/demos/assets/darth-vader.jpg" />  -->
 
-
+<div id="test"></div>
 <canvas id="canvas" style="border:2px solid #000000;">
-        Your browser does not support the HTML5 canvas tag.
+    Your browser does not support the HTML5 canvas tag.
 </canvas>
 
+<script src="~/Scripts/jquery.signalR-2.2.0.min.js"></script>
+@Scripts.Render("~/bundles/signalr")
+<script src="~/signalr/hubs"></script>
 @Scripts.Render("~/Scripts/bundle.js")

@@ -1,9 +1,13 @@
-﻿namespace e.VOC.us.Game
+﻿using Newtonsoft.Json;
+
+namespace e.VOC.us.Game
 {
     public class Vector2D
     {
-        private int x;
-        private int y;
+        [JsonProperty("x")]
+        public int x;
+        [JsonProperty("y")]
+        public int y;
 
         public Vector2D(int x, int y)
         {

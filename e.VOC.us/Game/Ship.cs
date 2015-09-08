@@ -12,14 +12,28 @@ namespace e.VOC.us.Game
         [JsonProperty("rectangle")]
         private RotatableRectangle rectangle;
 
-        public Ship(Vector2D position, int angle)
+        private Player _player;
+        [JsonProperty("speed")]
+        private int _speed = 1;
+
+        public Ship(Vector2D position, int angle, Player player)
         {
-            this.rectangle = new RotatableRectangle(position, 360,120, angle);
+            rectangle = new RotatableRectangle(position, 360,120, angle);
+            _player = player;
         }
 
         public void Update()
         {
-            rectangle.position.x++;
+            if (_player.Keyboard.IsKeyDown(37))
+                rectangle.angle--;
+            if (_player.Keyboard.IsKeyDown(38))
+                _speed++;
+            if (_player.Keyboard.IsKeyDown(39))
+                rectangle.angle++;
+            if (_player.Keyboard.IsKeyDown(40))
+                _speed--;
+
+            rectangle.position.Add(Helper.AngleToUnitVector(rectangle.angle).Multiply(_speed));
         }
     }
 }

@@ -1,9 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Concurrent;
+using System.Diagnostics;
 using System.Threading;
 using System.Threading.Tasks;
-using System.Web;
 using e.VOC.us.Game;
 using Microsoft.AspNet.SignalR;
 
@@ -11,47 +9,67 @@ namespace e.VOC.us.Hubs
 {
     public class Broadcaster
     {
-        // We're going to broadcast to all clients a maximum of 25 times per second
-        private readonly TimeSpan BroadcastInterval =
-            TimeSpan.FromMilliseconds(40);
         private readonly IHubContext _hubContext;
-        private Timer _broadcastLoop;
-        private int counter;
-        private GameState game = new GameState();
+        private readonly GameState _game = new GameState();
+        public ConcurrentQueue<IInput> Input = new ConcurrentQueue<IInput>();
+        private volatile bool _stop;
+
         public Broadcaster()
         {
-            // Save our hub context so we can easily use it 
-            // to send to its connected clients
             _hubContext = GlobalHost.ConnectionManager.GetHubContext<GameHub>();
-            // Start the broadcast loop
-            _broadcastLoop = new Timer(
-                Broadcast,
-                null,
-                BroadcastInterval,
-                BroadcastInterval);
+            var gameLoopThread = new Thread(GameLoop) {IsBackground = true};
+            gameLoopThread.Start();
         }
-        public void Broadcast(object state)
+
+        private void GameLoop()
         {
-            counter++;
-            _hubContext.Clients.All.updateCounter(counter);
-            _hubContext.Clients.All.sync(new GameState());
+            var stopwatch = new Stopwatch();
+            stopwatch.Start();
+
+            while (true)
+            {
+                var currentTime = stopwatch.ElapsedMilliseconds;
+
+                ProcesInput();
+                _game.Update();
+                _hubContext.Clients.All.sync(_game);
+
+                if (_stop)
+                    return;
+
+                var elapsedTime = stopwatch.ElapsedMilliseconds - currentTime;
+
+                if (elapsedTime < 40)
+                    Thread.Sleep(40 - (int)elapsedTime);
+            }
+            
+        }
+
+        private void ProcesInput()
+        {
+            while (!Input.IsEmpty)
+            {
+                IInput input;
+                Input.TryDequeue(out input);
+                input.ProcesInput(_game);
+            }
         }
 
         public void Dispose()
         {
-            _broadcastLoop.Dispose();
+            _stop = true;
         }
     }
 
 
     public class GameHub : Hub
     {
-        private static Broadcaster _game = null;
-        private static object thisLock = new object();
-        private static int numberOfClients;
+        private static Broadcaster _game;
+        private static readonly object ThisLock = new object();
+        private static int _numberOfClients;
 
         public GameHub() { 
-            lock (thisLock)
+            lock (ThisLock)
             {
                 if (_game == null)
                     _game = new Broadcaster();
@@ -60,20 +78,23 @@ namespace e.VOC.us.Hubs
 
         public override Task OnConnected()
         {
-            lock (thisLock)
+            lock (ThisLock)
             {
-                numberOfClients++;
+                _numberOfClients++;
             }
-            
+
+            _game.Input.Enqueue(new ConnectInput(Context.ConnectionId));
             return base.OnConnected();
         }
 
         public override Task OnDisconnected(bool stopCalled)
         {
-            lock (thisLock)
+            _game.Input.Enqueue(new DisconnectInput(Context.ConnectionId));
+
+            lock (ThisLock)
             {
-                numberOfClients--;
-                if (numberOfClients == 0)
+                _numberOfClients--;
+                if (_numberOfClients == 0)
                 {
                     _game.Dispose();
                     _game = null;

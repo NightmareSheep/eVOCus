@@ -1,24 +1,25 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Collections.Generic;
 using Newtonsoft.Json;
 
 namespace e.VOC.us.Game
 {
     public class GameState
     {
-        [JsonProperty("ship")]
-        private Ship _ship;
+        public readonly Dictionary<string,Player> PlayerDictionary = new Dictionary<string, Player>();
+        [JsonProperty("players")]
+        public List<Player> Players = new List<Player>(); 
 
-        public GameState()
+        public void Update()
         {
-            _ship = new Ship(new Vector2D(100,100), 45);
+            foreach (var player in Players)
+                player.Update();
         }
 
-        public void update()
+        public void AddPlayer(string id)
         {
-            _ship
+            var player = new Player();
+            Players.Add(player);
+            PlayerDictionary.Add(id,player);
         }
     }
 }

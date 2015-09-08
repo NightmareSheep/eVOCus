@@ -1,7 +1,6 @@
 ﻿module eVOCus {
     var game: Game;
     var counter: number = 0;
-    var test: any;
      window.onload = () => {
          game = new Game();
 
@@ -12,8 +11,7 @@
              $("#test").html(counter.toString());
          };
 
-         gameHub.client.sync = (i) => {
-         };
+         gameHub.client.sync = game.sync.bind(game);
 
          $.connection.hub.start();
      }

@@ -6,6 +6,7 @@
         static keyboard:Keyboard;
         canvas:Canvas;
         ship: Ship;
+        ships: Ship[] = [];
         
         constructor() {
             Game.keyboard = new Keyboard();
@@ -31,6 +32,27 @@
 
         draw(canvas: Canvas) {
             this.ship.draw(canvas);
+            for (var i = 0; i < this.ships.length; i++) {
+                this.ships[i].draw(this.canvas);
+            }
+        }
+
+        sync(state: any) {
+            if (this.ships.length != state.players.length) {
+                var image = new Image();
+                image.src = "../Assets/PirateShip.png";
+
+                this.ships = [];
+                for (var i = 0; i < state.players.length; i++) {
+                    this.ships.push(new Ship(0, 5, new RotatableRectangle(new Vector2D(0, 0), 360, 120, 0), image));
+                }
+            }
+
+
+            for (var i = 0; i < this.ships.length; i++) {
+                this.ships[i].rectangle.position.x = state.players[i].ship.rectangle.position.x;
+                this.ships[i].rectangle.position.y = state.players[i].ship.rectangle.position.y;
+            }
         }
     }
 } 

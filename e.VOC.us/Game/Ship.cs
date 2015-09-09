@@ -34,6 +34,8 @@ namespace e.VOC.us.Game
                 _speed--;
 
             rectangle.position.Add(Helper.AngleToUnitVector(rectangle.angle).Multiply(_speed));
+            if (rectangle.position.x < 0 || rectangle.position.y < 0 || rectangle.position.x > 1000 || rectangle.position.y > 1000)
+                rectangle.position = new Vector2D(500,500);
         }
     }
 }

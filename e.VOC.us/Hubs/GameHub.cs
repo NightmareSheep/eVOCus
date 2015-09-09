@@ -1,4 +1,5 @@
-﻿using System.Collections.Concurrent;
+﻿using System;
+using System.Collections.Concurrent;
 using System.Diagnostics;
 using System.Threading;
 using System.Threading.Tasks;
@@ -13,6 +14,7 @@ namespace e.VOC.us.Hubs
         private readonly GameState _game = new GameState();
         public ConcurrentQueue<IInput> Input = new ConcurrentQueue<IInput>();
         private volatile bool _stop;
+        private const int MaxMilisecondsWithoutInput = 60000;
 
         public Broadcaster()
         {
@@ -25,19 +27,23 @@ namespace e.VOC.us.Hubs
         {
             var stopwatch = new Stopwatch();
             stopwatch.Start();
+            var milisecondsSincelastInput = 0;
 
             while (true)
             {
                 var currentTime = stopwatch.ElapsedMilliseconds;
+                if (!Input.IsEmpty)
+                    milisecondsSincelastInput = 0;
 
                 ProcesInput();
                 _game.Update();
                 _hubContext.Clients.All.sync(_game);
 
-                if (_stop)
+                if (_stop || milisecondsSincelastInput > MaxMilisecondsWithoutInput)
                     return;
 
                 var elapsedTime = stopwatch.ElapsedMilliseconds - currentTime;
+                milisecondsSincelastInput += Math.Max(40,(int)elapsedTime);
 
                 if (elapsedTime < 40)
                     Thread.Sleep(40 - (int)elapsedTime);
@@ -76,6 +82,11 @@ namespace e.VOC.us.Hubs
             }
         }
 
+        public void KeyboardInput(int key, string state)
+        {
+            _game.Input.Enqueue(new KeyboardInput(key,Context.ConnectionId,state));
+        }
+
         public override Task OnConnected()
         {
             lock (ThisLock)
@@ -94,8 +105,9 @@ namespace e.VOC.us.Hubs
             lock (ThisLock)
             {
                 _numberOfClients--;
-                if (_numberOfClients == 0)
+                if (_numberOfClients < 0)
                 {
+                    _numberOfClients = 0;
                     _game.Dispose();
                     _game = null;
                 }

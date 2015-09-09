@@ -3,12 +3,14 @@
         fps: number = 60;
         gameTime: number = 0;
         timeStep: number;
-        static keyboard:Keyboard;
+        static keyboard: Keyboard;
+        static game:Game;
         canvas:Canvas;
         ship: Ship;
         ships: Ship[] = [];
         
-        constructor() {
+        constructor(public hub: GameHubProxy) {
+            Game.game = this;
             Game.keyboard = new Keyboard();
             this.canvas = new Canvas();
             this.timeStep = Math.floor(1000 / this.fps);
@@ -31,7 +33,8 @@
         }
 
         draw(canvas: Canvas) {
-            this.ship.draw(canvas);
+            //this.ship.draw(canvas);
+            this.canvas.ctx.clearRect(0, 0, canvas.width, canvas.height);
             for (var i = 0; i < this.ships.length; i++) {
                 this.ships[i].draw(this.canvas);
             }
@@ -52,6 +55,7 @@
             for (var i = 0; i < this.ships.length; i++) {
                 this.ships[i].rectangle.position.x = state.players[i].ship.rectangle.position.x;
                 this.ships[i].rectangle.position.y = state.players[i].ship.rectangle.position.y;
+                this.ships[i].rectangle.angle = state.players[i].ship.rectangle.angle;
             }
         }
     }

@@ -16,8 +16,8 @@ namespace e.VOC.us.Game
 
         public void Update()
         {
-            Keyboard.Update();
             _ship.Update();
+            Keyboard.Update();
         }
     }
 }

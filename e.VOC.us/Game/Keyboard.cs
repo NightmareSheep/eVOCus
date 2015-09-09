@@ -10,7 +10,7 @@ namespace e.VOC.us.Game
 
         public void Update()
         {
-            
+            KeysPressed.Clear();
         }
 
         public bool IsKeyDown(int key)

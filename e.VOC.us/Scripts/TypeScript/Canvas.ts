@@ -3,11 +3,16 @@
 module eVOCus {
     export class Canvas {
         ctx:CanvasRenderingContext2D;
+        width: number;
+        height:number;
+
 
         constructor() {
             var canvas = <HTMLCanvasElement> document.getElementById("canvas");
             canvas.width = 1000;
             canvas.height = 1000;
+            this.width = 1000;
+            this.height = 1000;
             this.ctx = canvas.getContext("2d");
         }
 

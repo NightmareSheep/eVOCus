@@ -9,6 +9,5 @@ module eVOCus {
         draw(canvas: Canvas, gameTime: number) {
             canvas.drawRotatableImage(this.image, this.rectangle);
         }
-
     }
 } 

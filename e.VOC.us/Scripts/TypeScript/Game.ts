@@ -13,14 +13,16 @@
         constructor() {
             Game.game = this;
             Game.keyboard = new Keyboard();
-            this.canvas = new Canvas(3000, 2400);
+            this.canvas = new Canvas(2000, 1600);
             this.timeStep = Math.floor(1000 / this.fps);
 
             var image = new Image();
-            image.src = "../Assets/PirateShip.png";
-            this.ship = new Ship(4001, 0, 5, new RotatableRectangle(new Vector2D(180, 60), 360, 120, 0), image);
-            this.ship2 = new Ship(8007, 0, 5, new RotatableRectangle(new Vector2D(180, 600), 360, 120, 0), image);
-            // current speed, max speed, vector position, img width/height, angle
+            var aImage = new Image();
+            image.src = "../Assets/Boot-3.png";
+            aImage.src = "../Assets/Boot-1.png";
+            this.ship = new Ship(4001, 0, 5, new RotatableRectangle(new Vector2D(180, 60), 170, 110, 0), image);
+            this.ship2 = new Ship(8007, 0, 5, new RotatableRectangle(new Vector2D(180, 600), 170, 110, 0), aImage);
+            // current speed, max speed, (vector position, img width/height, angle), image
 
             this.getGameState();
 

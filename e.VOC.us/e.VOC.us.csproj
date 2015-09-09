@@ -173,6 +173,7 @@
   <ItemGroup>
     <Content Include="Assets\Boot.png" />
     <Content Include="Assets\cannonball.png" />
+    <Content Include="Assets\canonball2.jpg" />
     <Content Include="Assets\Mario.png" />
     <Content Include="Assets\PirateShip.png" />
     <Content Include="Assets\Water.jpg" />
@@ -211,6 +212,7 @@
     <TypeScriptCompile Include="Scripts\TypeScript\GameObject.ts" />
     <TypeScriptCompile Include="Scripts\TypeScript\GameState.ts" />
     <TypeScriptCompile Include="Scripts\TypeScript\CanonBall.ts" />
+    <TypeScriptCompile Include="Scripts\TypeScript\Animations.ts" />
     <Content Include="Scripts\_references.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">

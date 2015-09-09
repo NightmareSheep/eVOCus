@@ -3,19 +3,15 @@
 module eVOCus {
     export class Ship extends RotatableSpriteObject {
         private _speed: number;
-        //get speed(): number { return this._speed; }
-        //set speed(value: number) { this._speed = Math.min(this.maxSpeed, value); }
-
         private _maxSpeed: number;
-        //get maxSpeed(): number { return this._maxSpeed; }
-        //set maxSpeed(value: number) { this._maxSpeed = value; this.speed = this._speed; }
+        private _animation: Animations;
 
         constructor(public id: number, speed: number, maxSpeed: number, public rectangle: RotatableRectangle, image: HTMLImageElement) {
             super(rectangle, image);
-            //this.maxSpeed = maxSpeed;
-            //this.speed = speed;
             this.setMaxSpeed(maxSpeed);
             this.setSpeed(speed);
+            //this._animation = new Animations(image, 330, 180, 3, 3, false);
+            this._animation = new Animations(image, rectangle.width, rectangle.height*5, 5, 2000, false);
         }
 
         update(canvas: Canvas, gameTime: number) {
@@ -32,7 +28,7 @@ module eVOCus {
                 if (Game.keyboard.isKeyPressed(13)) {
                     var image = new Image();
                     var canonball: CanonBall;
-                    image.src = "../Assets/cannonball.png";
+                    image.src = "../Assets/canonball2.jpg";
                     canonball = new CanonBall((this.id + gameTime), 10, new RotatableRectangle(this.rectangle.calcCorner(this.rectangle.width / 2, 0), 50, 50, this.rectangle.angle), image);
                     Game.game.gamestate.addCanonball(canonball);                    
                 }
@@ -50,7 +46,7 @@ module eVOCus {
                 if (Game.keyboard.isKeyPressed(70)) {
                     var image = new Image();
                     var canonball: CanonBall;
-                    image.src = "../Assets/cannonball.png";
+                    image.src = "../Assets/canonball2.jpg";
                     canonball = new CanonBall((this.id + gameTime), 10, new RotatableRectangle(this.rectangle.calcCorner(this.rectangle.width / 2, 0), 50, 50, this.rectangle.angle), image);
                     Game.game.gamestate.addCanonball(canonball);
                 }
@@ -69,13 +65,16 @@ module eVOCus {
             // Ander schip raken
             if (this.rectangle.hitsShip(this.id, canvas) != 0) 
                 this.setSpeed(0);
-            
+
+            //update animatie
+            this._animation.Update(gameTime);
             // positie aanpassen
             this.rectangle.position.add(Helper.angleToUnitVector(this.rectangle.angle).multiply(this.getSpeed()));
         }
 
         draw(canvas:Canvas) {
-            super.draw(canvas, 0);
+            //super.draw(canvas, 0);
+            canvas.drawRotatableAnimatedImage(this._animation, this.rectangle, 0);
         }
 
         getSpeed(): number {

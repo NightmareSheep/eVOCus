@@ -74,14 +74,6 @@ namespace e.VOC.us.Hubs
         private static readonly object ThisLock = new object();
         private static int _numberOfClients;
 
-        public GameHub() { 
-            lock (ThisLock)
-            {
-                if (_game == null)
-                    _game = new Broadcaster();
-            }
-        }
-
         public void KeyboardInput(int key, string state)
         {
             _game.Input.Enqueue(new KeyboardInput(key,Context.ConnectionId,state));
@@ -91,6 +83,8 @@ namespace e.VOC.us.Hubs
         {
             lock (ThisLock)
             {
+                if (_game == null)
+                    _game = new Broadcaster();
                 _numberOfClients++;
             }
 
@@ -105,7 +99,7 @@ namespace e.VOC.us.Hubs
             lock (ThisLock)
             {
                 _numberOfClients--;
-                if (_numberOfClients < 0)
+                if (_numberOfClients <= 0)
                 {
                     _numberOfClients = 0;
                     _game.Dispose();

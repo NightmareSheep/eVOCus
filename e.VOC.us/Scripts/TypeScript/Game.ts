@@ -9,7 +9,6 @@
         ship: Ship;
         ship2: Ship;
         gamestate: GameState;
-        static game: Game;
         ships: Ship[] = [];
         
         constructor(public hub: GameHubProxy) {
@@ -21,13 +20,11 @@
             var aImage = new Image();
             image.src = "../Assets/Boot-3.png";
             aImage.src = "../Assets/Boot-1.png";
-            this.ship = new Ship(4001, 0, 5, new RotatableRectangle(new Vector2D(180, 60), 170, 110, 0), image);
+            this.ship = new Ship(4001, 0, 5, new RotatableRectangle(new Vector2D(50, 50), 170, 110, 0), image);
             this.ship2 = new Ship(8007, 0, 5, new RotatableRectangle(new Vector2D(180, 600), 170, 110, 0), aImage);
             // current speed, max speed, (vector position, img width/height, angle), image
 
             this.getGameState();
-            image.src = "../Assets/Boot-3.png";
-            this.ship = new Ship(0, 5, new RotatableRectangle(new Vector2D(0,0), 170, 110, 0), image);
             setInterval(() => { this.gameLoop(this); }, this.timeStep);
         }
 
@@ -55,8 +52,9 @@
 
         draw(canvas: Canvas) {
             //this.ship.draw(canvas);
-            this.gamestate.draw(canvas);
             this.canvas.ctx.clearRect(0, 0, canvas.width, canvas.height);
+            this.gamestate.draw(canvas);
+            
             for (var i = 0; i < this.ships.length; i++) {
                 this.ships[i].draw(this.canvas);
             }
@@ -69,7 +67,7 @@
 
                 this.ships = [];
                 for (var i = 0; i < state.players.length; i++) {
-                    this.ships.push(new Ship(0, 5, new RotatableRectangle(new Vector2D(0, 0), 360, 120, 0), image));
+                    this.ships.push(new Ship(4747, 0, 5, new RotatableRectangle(new Vector2D(0, 0), 360, 120, 0), image));
                 }
             }
 

@@ -3,6 +3,7 @@
   <PropertyGroup>
     <ProjectView>ProjectFiles</ProjectView>
     <NameOfLastUsedPublishProfile>e-VOC-us-test - Web Deploy</NameOfLastUsedPublishProfile>
+    <ToolsVersionPromptShown>1.4</ToolsVersionPromptShown>
   </PropertyGroup>
   <ProjectExtensions>
     <VisualStudio>

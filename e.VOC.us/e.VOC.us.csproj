@@ -21,7 +21,7 @@
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
     <IISExpressUseClassicPipelineMode />
-    <TypeScriptToolsVersion>1.0</TypeScriptToolsVersion>
+    <TypeScriptToolsVersion>1.4</TypeScriptToolsVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -171,12 +171,9 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Assets\Boot.png" />
-    <Content Include="Assets\cannonball.png" />
+    <Content Include="Assets\Boot-1.png" />
+    <Content Include="Assets\Boot-3.png" />
     <Content Include="Assets\canonball2.jpg" />
-    <Content Include="Assets\Mario.png" />
-    <Content Include="Assets\PirateShip.png" />
-    <Content Include="Assets\Water.jpg" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="favicon.ico" />

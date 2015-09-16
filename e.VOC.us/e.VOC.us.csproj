@@ -23,6 +23,7 @@
     <IISExpressUseClassicPipelineMode />
     <TypeScriptToolsVersion>1.4</TypeScriptToolsVersion>
     <TargetFrameworkProfile />
+    <UseGlobalApplicationHostFile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -189,6 +190,7 @@
     <Compile Include="Game\ConnectInput.cs" />
     <Compile Include="Game\DisconnectInput.cs" />
     <Compile Include="Game\GameState.cs" />
+    <Compile Include="Game\GameTime.cs" />
     <Compile Include="Game\IInput.cs" />
     <Compile Include="Game\KeyboardInput.cs" />
     <Compile Include="Game\Keyboard.cs" />

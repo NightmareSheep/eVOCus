@@ -63,7 +63,7 @@
         sync(state: any) {
             if (this.ships.length != state.players.length) {
                 var image = new Image();
-                image.src = "../Assets/PirateShip.png";
+                image.src = "../Assets/Boot-3.png";
 
                 this.ships = [];
                 for (var i = 0; i < state.players.length; i++) {

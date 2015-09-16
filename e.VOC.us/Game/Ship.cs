@@ -1,20 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data.Entity.Migrations.Model;
-using System.Linq;
-using System.Web;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 
 namespace e.VOC.us.Game
 {
     public class Ship
     {
         [JsonProperty("rectangle")]
-        private RotatableRectangle rectangle;
-
-        private Player _player;
+        private readonly RotatableRectangle rectangle;
         [JsonProperty("speed")]
         private int _speed = 1;
+        [JsonIgnore]
+        private readonly Player _player;
 
         public Ship(Vector2D position, int angle, Player player)
         {

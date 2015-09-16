@@ -60,14 +60,14 @@
             }
         }
 
-        sync(state: any) {
+        sync(state: InputGameState) {
             if (this.ships.length != state.players.length) {
                 var image = new Image();
                 image.src = "../Assets/Boot-3.png";
 
                 this.ships = [];
                 for (var i = 0; i < state.players.length; i++) {
-                    this.ships.push(new Ship(4747, 0, 5, new RotatableRectangle(new Vector2D(0, 0), 360, 120, 0), image));
+                    this.ships.push(new Ship(4747, 0, 5, new RotatableRectangle(new Vector2D(0, 0), 170, 110, 0), image));
                 }
             }
 

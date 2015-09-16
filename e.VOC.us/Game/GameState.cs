@@ -5,9 +5,10 @@ namespace e.VOC.us.Game
 {
     public class GameState
     {
+        [JsonIgnore]
         public readonly Dictionary<string,Player> PlayerDictionary = new Dictionary<string, Player>();
         [JsonProperty("players")]
-        public List<Player> Players = new List<Player>(); 
+        public List<Player> Players = new List<Player>();
 
         public void Update()
         {

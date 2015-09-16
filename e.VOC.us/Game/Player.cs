@@ -6,6 +6,7 @@ namespace e.VOC.us.Game
     {
         [JsonProperty("ship")]
         private readonly Ship _ship;
+        [JsonIgnore]
         public Keyboard Keyboard { get; set; }
 
         public Player()

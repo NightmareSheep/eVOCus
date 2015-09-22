@@ -20,5 +20,17 @@ namespace e.VOC.us.Game
 	        this.height = height;
 	        this.angle = angle;
 	    }
+
+	    public bool Contains(Vector2D point)
+	    {
+	        var rotatedPosition = position.Rotate(position,-angle);
+	        var rotatedPoint = point.Rotate(point, -angle);
+
+	        return 
+                rotatedPosition.x - width/2 < rotatedPoint.x &&
+                rotatedPosition.x + width/2 > rotatedPoint.x &&
+                rotatedPosition.y - height/2 < rotatedPoint.y &&
+                rotatedPosition.y + height/2 > rotatedPoint.y;
+	    }
 	}
 }

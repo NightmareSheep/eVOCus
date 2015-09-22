@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using System;
+using Newtonsoft.Json;
 
 namespace e.VOC.us.Game
 {
@@ -27,6 +28,11 @@ namespace e.VOC.us.Game
             x *= i;
             y *= i;
             return this;
+        }
+
+        public Vector2D Rotate(Vector2D v, float angle)
+        {
+            return new Vector2D((float)( x * Math.Cos(angle) + y * -Math.Sin(angle)),(float)(x * Math.Sin(angle) + y * Math.Cos(angle)));
         }
     }
 }

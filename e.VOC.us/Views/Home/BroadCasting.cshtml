@@ -17,7 +17,6 @@
                 $("#counter").html(counter);
             };
 
-
             $.connection.hub.start().done(function () {
                 hub.client.updateCounter(3);
             });

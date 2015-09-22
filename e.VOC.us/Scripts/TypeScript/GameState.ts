@@ -9,7 +9,7 @@
             //console.log('In gamestate update');
             for (var i = 0; i < this.ships.length; i++) {
                 //console.log('in for loop, i = ' + i);
-                this.ships[i].update(canvas, gameTime);
+                //this.ships[i].update(canvas, gameTime);
             }
 
             for (var i = 0; i < this.canonBalls.length; i++) {

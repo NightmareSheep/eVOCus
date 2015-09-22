@@ -1,23 +1,29 @@
-﻿using Newtonsoft.Json;
+﻿using System;
+using Newtonsoft.Json;
 
 namespace e.VOC.us.Game
 {
     public class Player
     {
+        [JsonIgnore]
+        private GameState _game;
         [JsonProperty("ship")]
-        private readonly Ship _ship;
+        public readonly Ship Ship;
         [JsonIgnore]
         public Keyboard Keyboard { get; set; }
+        [JsonProperty("id")]
+        public readonly string Id = Guid.NewGuid().ToString();
 
-        public Player()
+        public Player(GameState game)
         {
+            this._game = game;
             Keyboard = new Keyboard();
-            _ship = new Ship(new Vector2D(100,100), 0, this);
+            Ship = new Ship(new Vector2D(100,100), 0, this, _game);
         }
 
         public void Update()
         {
-            _ship.Update();
+            Ship.Update();
             Keyboard.Update();
         }
     }

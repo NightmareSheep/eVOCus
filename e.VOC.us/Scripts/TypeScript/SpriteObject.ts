@@ -1,23 +1,14 @@
 ﻿///<reference path='GameObject.ts' />
 
 module eVOCus {
-    export class SpriteObject extends GameObject {
+    export class SpriteObject {
 
-        constructor(name: string, position: Vector2D, id: string, public image: HTMLImageElement) {
-            super(name, position, id);
+        constructor(public position: Vector2D, public image: HTMLImageElement) {
         }
 
         draw(context: CanvasRenderingContext2D, gameTime: number) {
-            context.drawImage(this.image, this.position.x, this.position.y);
+            context.drawImage(this.image, this.position.x - this.image.width/2, this.position.y - this.image.height/2);
         }
-
-        overlaps(object: SpriteObject) {
-            
-            return (this.position.y + this.image.height > object.position.y && this.position.y < object.position.y + object.image.height &&
-                this.position.x + this.image.width > object.position.x && this.position.x < object.position.x + object.image.width);
-            
-        }
-
     }
 
 

@@ -6,77 +6,88 @@
         static keyboard: Keyboard;
         static game:Game;
         canvas:Canvas;
-        ship: Ship;
-        ship2: Ship;
-        gamestate: GameState;
-        ships: Ship[] = [];
+        canonballs: SpriteObject[] = [];
+        id: string;
+        players:Player[] = [];
         
         constructor(public hub: GameHubProxy) {
             Game.game = this;
             Game.keyboard = new Keyboard();
-            this.canvas = new Canvas(2000, 1600);
+            this.canvas = new Canvas(1000, 1000);
             this.timeStep = Math.floor(1000 / this.fps);
-            var image = new Image();
-            var aImage = new Image();
-            image.src = "../Assets/Boot-3.png";
-            aImage.src = "../Assets/Boot-1.png";
-            this.ship = new Ship(4001, 0, 5, new RotatableRectangle(new Vector2D(50, 50), 170, 110, 0), image);
-            this.ship2 = new Ship(8007, 0, 5, new RotatableRectangle(new Vector2D(180, 600), 170, 110, 0), aImage);
-            // current speed, max speed, (vector position, img width/height, angle), image
-
-            this.getGameState();
             setInterval(() => { this.gameLoop(this); }, this.timeStep);
         }
 
         gameLoop(gameObject: Game) {
             this.gameTime += this.timeStep;
-            //this.getGameState();
             this.update(this.gameTime);
             this.draw(this.canvas);
         }
 
         update(gameTime: number) {
             this.canvas.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-            this.gamestate.update(this.canvas, gameTime);
+            for (var i = 0; i < this.players.length; i++) {
+                this.players[i].update(gameTime);
+            }
             Game.keyboard.update();
         }
 
-        getGameState() {
-            // Gamestate van server ophalen / ontvangen
-            //this.gamestate = new GameState([this.ship, this.ship2], []);
-            this.gamestate = new GameState([], []);
-            this.gamestate.addShip(this.ship);
-            this.gamestate.addShip(this.ship2);
-
-        }
-
         draw(canvas: Canvas) {
-            //this.ship.draw(canvas);
-            this.canvas.ctx.clearRect(0, 0, canvas.width, canvas.height);
-            this.gamestate.draw(canvas);
             
-            for (var i = 0; i < this.ships.length; i++) {
-                this.ships[i].draw(this.canvas);
+            var player:Player;
+            if (this.id != "" && this.id != null) {
+                for (var i = 0; i < this.players.length; i++) {
+                    if (this.id == this.players[i].id)
+                        player = this.players[i];
+                }
+                canvas.ctx.translate((-player.ship.rectangle.position.x + canvas.width/2), (-player.ship.rectangle.position.y + canvas.height/2));
             }
+            
+            
+
+            this.canvas.ctx.fillStyle = "#FF0000";
+            this.canvas.ctx.clearRect(0, 0, canvas.width, canvas.height);
+            this.canvas.ctx.lineWidth = 10;
+            this.canvas.ctx.rect(0, 0, 800, 800);
+            this.canvas.ctx.strokeRect(0,0,1000,1000);
+
+            for (var i = 0; i < this.players.length; i++) {
+                this.players[i].draw(this.canvas);
+            }
+            for (var j = 0; j < this.canonballs.length; j++) {
+                this.canonballs[j].draw(this.canvas.ctx,0);
+            }
+
+
+
+            if (this.id != "" && this.id != null)
+                canvas.ctx.translate(-(-player.ship.rectangle.position.x + canvas.width / 2), -(-player.ship.rectangle.position.y + canvas.height / 2));
         }
 
+        // TODO: Refactor sync method
         sync(state: InputGameState) {
-            if (this.ships.length != state.players.length) {
+            if (this.players.length != state.players.length) {
                 var image = new Image();
                 image.src = "../Assets/Boot-3.png";
 
-                this.ships = [];
+                this.players = [];
                 for (var i = 0; i < state.players.length; i++) {
-                    this.ships.push(new Ship(4747, 0, 5, new RotatableRectangle(new Vector2D(0, 0), 170, 110, 0), image));
+                    this.players.push(new Player(state.players[i].id, new Ship(4747, 0, 5, new RotatableRectangle(new Vector2D(0, 0), 180, 110, 0), image)));
                 }
             }
 
-
-            for (var i = 0; i < this.ships.length; i++) {
-                this.ships[i].rectangle.position.x = state.players[i].ship.rectangle.position.x;
-                this.ships[i].rectangle.position.y = state.players[i].ship.rectangle.position.y;
-                this.ships[i].rectangle.angle = state.players[i].ship.rectangle.angle;
+            for (var i = 0; i < this.players.length; i++) {
+                this.players[i].ship.rectangle.position.x = state.players[i].ship.rectangle.position.x;
+                this.players[i].ship.rectangle.position.y = state.players[i].ship.rectangle.position.y;
+                this.players[i].ship.rectangle.angle = state.players[i].ship.rectangle.angle;
             }
+
+
+            var image = new Image();
+            image.src = "../Assets/canonball2.png";
+            this.canonballs = [];
+            for (var j = 0; j < state.canonballs.length; j++)
+                this.canonballs.push(new SpriteObject(new Vector2D(state.canonballs[j].position.x, state.canonballs[j].position.y), image));
         }
     }
 } 

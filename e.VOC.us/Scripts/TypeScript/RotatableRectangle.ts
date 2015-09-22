@@ -5,14 +5,18 @@ module eVOCus {
     // Rectangle that can rotate with the x and y in the center.
     export class RotatableRectangle {
 
+        /*
         private _cornerLV: Vector2D;
         private _cornerRV: Vector2D;
         private _cornerLA: Vector2D;
         private _cornerRA: Vector2D;
+        */
 
         constructor(public position: Vector2D, public width: number, public height: number, public angle: number) {
         }
 
+        // TODO: Move this code to server
+        /*
         hitsBorder(canvas: Canvas) {
             this.calcCorners();
             
@@ -71,6 +75,7 @@ module eVOCus {
                 corner.y < (rectangle.position.y + rectangle.height / 2)
                 );
         }
+        */
 
 
     }

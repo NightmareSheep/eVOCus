@@ -64,7 +64,7 @@ namespace e.VOC.us.Hubs
         {
             lock (_myLock)
             {
-                Input.Enqueue(new ConnectInput(Id));
+                Input.Enqueue(new ConnectInput(Id, _hubContext));
 
                 // If game is still running do nothing
                 if (!_hasStopped) return;

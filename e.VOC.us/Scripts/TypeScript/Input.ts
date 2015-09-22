@@ -1,10 +1,12 @@
 ﻿module eVOCus {
     export interface InputGameState {
-        players:InputPlayer[];
+        players: InputPlayer[];
+        canonballs: InputCanonball[];
     }
 
     export interface InputPlayer {
-        ship:InputShip
+        ship: InputShip;
+        id: string;
     }
 
     export interface InputShip {
@@ -23,5 +25,9 @@
     export interface InputPosition {
         x: number;
         y: number;
+    }
+
+    export interface InputCanonball {
+        position: InputPosition;
     }
 } 

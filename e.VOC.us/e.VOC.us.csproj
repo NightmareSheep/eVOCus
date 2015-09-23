@@ -190,6 +190,7 @@
     <Compile Include="Game\Cannonball.cs" />
     <Compile Include="Game\ConnectInput.cs" />
     <Compile Include="Game\DisconnectInput.cs" />
+    <Compile Include="Game\Game.cs" />
     <Compile Include="Game\GameState.cs" />
     <Compile Include="Game\GameTime.cs" />
     <Compile Include="Game\IInput.cs" />
@@ -253,7 +254,6 @@
     <Content Include="Views\Home\Chat.cshtml" />
     <Content Include="Views\Home\BroadCasting.cshtml" />
     <TypeScriptCompile Include="Scripts\TypeScript\Player.ts" />
-    <TypeScriptCompile Include="Scripts\TypeScript\GameState.ts" />
     <TypeScriptCompile Include="Scripts\TypeScript\Keyboard.ts" />
     <TypeScriptCompile Include="Scripts\TypeScript\Canvas.ts" />
     <TypeScriptCompile Include="Scripts\TypeScript\Helper.ts" />
@@ -266,7 +266,6 @@
     <TypeScriptCompile Include="Scripts\TypeScript\Vector2D.ts" />
     <TypeScriptCompile Include="Scripts\TypeScript\SpriteObject.ts" />
     <TypeScriptCompile Include="Scripts\TypeScript\GameObject.ts" />
-    <TypeScriptCompile Include="Scripts\TypeScript\CanonBall.ts" />
     <TypeScriptCompile Include="Scripts\TypeScript\Animations.ts" />
     <Content Include="Scripts\_references.js" />
     <Content Include="Web.config" />

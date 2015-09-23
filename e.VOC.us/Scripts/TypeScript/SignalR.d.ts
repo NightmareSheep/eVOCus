@@ -1,5 +1,4 @@
 ﻿/// <reference path="../typings/jquery/jquery.d.ts" />
-/// <reference path="GameState.ts" />
 
 interface SignalR {
     gameHub: GameHubProxy;
@@ -11,7 +10,7 @@ interface GameHubProxy {
 interface GameClient {
     updateCounter: (number) => void;
     RegisterId: (string) => void;
-    sync: (state:eVOCus.GameState) => void;
+    sync: (state:eVOCus.InputGameState) => void;
 }
 interface GameServer {
     send(name: string, message: string): JQueryPromise<void>;

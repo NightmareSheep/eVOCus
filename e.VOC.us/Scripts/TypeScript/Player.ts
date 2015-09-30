@@ -14,5 +14,10 @@ module eVOCus {
             if (this.ship != null)
                 this.ship.draw(canvas);
         }
+
+        focus(canvas: Canvas) {
+            if (this.ship)
+                canvas.ctx.translate((-this.ship.rectangle.position.x + canvas.width / 2), (-this.ship.rectangle.position.y + canvas.height / 2));
+        }
     }
 }

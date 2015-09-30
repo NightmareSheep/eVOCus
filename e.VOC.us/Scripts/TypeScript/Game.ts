@@ -33,17 +33,9 @@
         }
 
         draw(canvas: Canvas) {
-            
-            var player:Player;
-            if (this.id != "" && this.id != null) {
-                for (var i = 0; i < this.players.length; i++) {
-                    if (this.id == this.players[i].id)
-                        player = this.players[i];
-                }
-                canvas.ctx.translate((-player.ship.rectangle.position.x + canvas.width/2), (-player.ship.rectangle.position.y + canvas.height/2));
-            }
-            
-            
+            var player: Player = this.getCurrentPlayer();
+            if (player)
+                player.focus(canvas);
 
             this.canvas.ctx.fillStyle = "#FF0000";
             this.canvas.ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -59,9 +51,18 @@
             }
 
 
+            // Reset all transformations
+            canvas.ctx.setTransform(1, 0, 0, 1, 0, 0);
+        }
 
-            if (this.id != "" && this.id != null)
-                canvas.ctx.translate(-(-player.ship.rectangle.position.x + canvas.width / 2), -(-player.ship.rectangle.position.y + canvas.height / 2));
+        getCurrentPlayer() {
+            if (this.id != "" && this.id != null) {
+                for (var i = 0; i < this.players.length; i++) {
+                    if (this.id == this.players[i].id)
+                        return this.players[i];
+                }
+            }
+            return null;
         }
 
         // TODO: Refactor sync method

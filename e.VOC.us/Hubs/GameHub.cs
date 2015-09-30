@@ -13,6 +13,11 @@ namespace e.VOC.us.Hubs
             Game.Input.Enqueue(new KeyboardInput(key, Context.ConnectionId, state));
         }
 
+        public void NameInput(string name)
+        {
+            Game.Input.Enqueue(new NameInput(Context.ConnectionId, name));
+        }
+
         public override Task OnConnected()
         {
             Game.Connect(Context.ConnectionId);
@@ -24,6 +29,5 @@ namespace e.VOC.us.Hubs
             Game.Input.Enqueue(new DisconnectInput(Context.ConnectionId));
             return base.OnDisconnected(stopCalled);
         }
-
     }
 }

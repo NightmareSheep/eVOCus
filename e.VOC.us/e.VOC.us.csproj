@@ -196,6 +196,7 @@
     <Compile Include="Game\IInput.cs" />
     <Compile Include="Game\KeyboardInput.cs" />
     <Compile Include="Game\Keyboard.cs" />
+    <Compile Include="Game\NameInput.cs" />
     <Compile Include="Game\RotatableRectangle.cs" />
     <Compile Include="Game\Ship.cs" />
     <Compile Include="Game\Player.cs" />
@@ -215,6 +216,7 @@
     <Content Include="Assets\Boot-1.png" />
     <Content Include="Assets\Boot-3.png" />
     <Content Include="Assets\canonball2.jpg" />
+    <Content Include="Assets\canonball2.png" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
@@ -306,6 +308,9 @@
   <ItemGroup>
     <TypeScriptCompile Include="Scripts\TypeScript\Game.ts" />
     <TypeScriptCompile Include="Scripts\TypeScript\Main.ts" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

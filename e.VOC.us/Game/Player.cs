@@ -5,8 +5,6 @@ namespace e.VOC.us.Game
 {
     public class Player
     {
-        [JsonIgnore]
-        private GameState _game;
         [JsonProperty("ship")]
         public readonly Ship Ship;
         [JsonIgnore]
@@ -14,11 +12,13 @@ namespace e.VOC.us.Game
         [JsonProperty("id")]
         public readonly string Id = Guid.NewGuid().ToString();
 
+        [JsonProperty("name")]
+        public string Name;
+
         public Player(GameState game)
         {
-            this._game = game;
             Keyboard = new Keyboard();
-            Ship = new Ship(new Vector2D(100,100), 0, this, _game);
+            Ship = new Ship(new Vector2D(100,100), 0, this, game);
         }
 
         public void Update()

@@ -7,6 +7,7 @@
     export interface InputPlayer {
         ship: InputShip;
         id: string;
+        name: string;
     }
 
     export interface InputShip {

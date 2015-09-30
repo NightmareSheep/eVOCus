@@ -190,11 +190,13 @@
     <Compile Include="Game\Cannonball.cs" />
     <Compile Include="Game\ConnectInput.cs" />
     <Compile Include="Game\DisconnectInput.cs" />
+    <Compile Include="Game\Game.cs" />
     <Compile Include="Game\GameState.cs" />
     <Compile Include="Game\GameTime.cs" />
     <Compile Include="Game\IInput.cs" />
     <Compile Include="Game\KeyboardInput.cs" />
     <Compile Include="Game\Keyboard.cs" />
+    <Compile Include="Game\NameInput.cs" />
     <Compile Include="Game\RotatableRectangle.cs" />
     <Compile Include="Game\Ship.cs" />
     <Compile Include="Game\Player.cs" />
@@ -214,6 +216,7 @@
     <Content Include="Assets\Boot-1.png" />
     <Content Include="Assets\Boot-3.png" />
     <Content Include="Assets\canonball2.jpg" />
+    <Content Include="Assets\canonball2.png" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
@@ -253,7 +256,6 @@
     <Content Include="Views\Home\Chat.cshtml" />
     <Content Include="Views\Home\BroadCasting.cshtml" />
     <TypeScriptCompile Include="Scripts\TypeScript\Player.ts" />
-    <TypeScriptCompile Include="Scripts\TypeScript\GameState.ts" />
     <TypeScriptCompile Include="Scripts\TypeScript\Keyboard.ts" />
     <TypeScriptCompile Include="Scripts\TypeScript\Canvas.ts" />
     <TypeScriptCompile Include="Scripts\TypeScript\Helper.ts" />
@@ -266,7 +268,6 @@
     <TypeScriptCompile Include="Scripts\TypeScript\Vector2D.ts" />
     <TypeScriptCompile Include="Scripts\TypeScript\SpriteObject.ts" />
     <TypeScriptCompile Include="Scripts\TypeScript\GameObject.ts" />
-    <TypeScriptCompile Include="Scripts\TypeScript\CanonBall.ts" />
     <TypeScriptCompile Include="Scripts\TypeScript\Animations.ts" />
     <Content Include="Scripts\_references.js" />
     <Content Include="Web.config" />
@@ -307,6 +308,9 @@
   <ItemGroup>
     <TypeScriptCompile Include="Scripts\TypeScript\Game.ts" />
     <TypeScriptCompile Include="Scripts\TypeScript\Main.ts" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

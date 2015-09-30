@@ -16,6 +16,7 @@
             this.canvas = new Canvas(1000, 1000);
             this.timeStep = Math.floor(1000 / this.fps);
             setInterval(() => { this.gameLoop(this); }, this.timeStep);
+            //var name = prompt("What is your name");
         }
 
         gameLoop(gameObject: Game) {
@@ -72,7 +73,7 @@
 
                 this.players = [];
                 for (var i = 0; i < state.players.length; i++) {
-                    this.players.push(new Player(state.players[i].id, new Ship(4747, 0, 5, new RotatableRectangle(new Vector2D(0, 0), 180, 110, 0), image)));
+                    this.players.push(new Player(state.players[i].id, new Ship(4747, 0, 5, new RotatableRectangle(new Vector2D(0, 0), 180, 110, 0), image), prompt("What is your name")));
                 }
             }
 

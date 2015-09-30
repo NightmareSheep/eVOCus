@@ -22,8 +22,8 @@ module eVOCus {
             this.currentFrame = Math.floor(this.frames * (this.currentAnimationTime / this.duration));
         }
 
-        Draw(canvas: Canvas, gameTime: number, rectangle: RotatableRectangle) {
-            canvas.drawRotatableClippedImage(this.image, rectangle, 0, this.frameHeight * this.currentFrame, this.frameWidth, this.frameHeight);
+        Draw(canvas: Canvas, gameTime: number, rectangle: RotatableRectangle, name: string) {
+            canvas.drawRotatableClippedImage(this.image, rectangle, 0, this.frameHeight * this.currentFrame, this.frameWidth, this.frameHeight, name);
         }
 
         Reset() {

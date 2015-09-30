@@ -15,8 +15,8 @@ module eVOCus {
             this._animation.Update(gameTime);
         }
 
-        draw(canvas:Canvas) {
-            this._animation.Draw(canvas,0,this.rectangle);
+        draw(canvas:Canvas, name: string) {
+            this._animation.Draw(canvas,0,this.rectangle, name);
         }
     }
 }

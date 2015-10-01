@@ -16,7 +16,10 @@
             this.canvas = new Canvas(1000, 1000);
             this.timeStep = Math.floor(1000 / this.fps);
             setInterval(() => { this.gameLoop(this); }, this.timeStep);
-            //var name = prompt("What is your name");
+        }
+
+        inputName() {
+            Game.game.hub.server.nameInput(prompt("What is your name"));
         }
 
         gameLoop(gameObject: Game) {
@@ -43,8 +46,6 @@
                 }
                 canvas.ctx.translate((-player.ship.rectangle.position.x + canvas.width/2), (-player.ship.rectangle.position.y + canvas.height/2));
             }
-            
-            
 
             this.canvas.ctx.fillStyle = "#FF0000";
             this.canvas.ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -73,7 +74,7 @@
 
                 this.players = [];
                 for (var i = 0; i < state.players.length; i++) {
-                    this.players.push(new Player(state.players[i].id, new Ship(4747, 0, 5, new RotatableRectangle(new Vector2D(0, 0), 180, 110, 0), image), prompt("What is your name")));
+                    this.players.push(new Player(state.players[i].id, new Ship(4747, 0, 5, new RotatableRectangle(new Vector2D(0, 0), 180, 110, 0), image), state.players[i].name));
                 }
             }
 
@@ -81,6 +82,7 @@
                 this.players[i].ship.rectangle.position.x = state.players[i].ship.rectangle.position.x;
                 this.players[i].ship.rectangle.position.y = state.players[i].ship.rectangle.position.y;
                 this.players[i].ship.rectangle.angle = state.players[i].ship.rectangle.angle;
+                this.players[i].PlayerName = state.players[i].name;
             }
 
 

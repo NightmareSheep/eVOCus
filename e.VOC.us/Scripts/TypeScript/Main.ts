@@ -5,6 +5,6 @@
          game = new Game(gameHub);
          gameHub.client.RegisterId = (id) => {game.id = id};
          gameHub.client.sync = game.sync.bind(game);
-         $.connection.hub.start();
+         $.connection.hub.start().done(function () { game.inputName(); });
      }
  }

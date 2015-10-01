@@ -14,8 +14,10 @@ module eVOCus {
         }
 
         draw(canvas: Canvas) {
-            if (this.ship != null)
-                this.ship.draw(canvas, this.PlayerName);
+            if (this.ship != null) {
+                this.ship.draw(canvas);
+                canvas.drawRotatableText(this.PlayerName, this.ship.rectangle)
+            }
         }
     }
 }

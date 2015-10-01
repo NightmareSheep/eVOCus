@@ -14,5 +14,6 @@ interface GameClient {
 }
 interface GameServer {
     send(name: string, message: string): JQueryPromise<void>;
-    keyboardInput(key: number, state: string) : JQueryPromise<void>;
+    keyboardInput(key: number, state: string): JQueryPromise<void>;
+    nameInput(name: string): JQueryPromise<void>;
 }

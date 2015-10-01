@@ -26,9 +26,17 @@ module eVOCus {
             this.ctx.rotate(rotatableRectangle.angle * (Math.PI / 180));
             this.ctx.drawImage(image, clipX, clipY, clipWidth, clipHeight, -rotatableRectangle.width/2, -rotatableRectangle.height /2, rotatableRectangle.width, rotatableRectangle.height);
             this.ctx.rotate(-rotatableRectangle.angle * (Math.PI / 180));
-            this.ctx.font = "20px Georgia";
-            this.ctx.fillText(name, clipX, clipHeight);
             this.ctx.translate(-rotatableRectangle.position.x, -rotatableRectangle.position.y);
         }
+
+        drawRotatableText(name: string, rotatableRectangle: RotatableRectangle): void {
+            this.ctx.translate(rotatableRectangle.position.x, rotatableRectangle.position.y);
+            //Write te playername
+            this.ctx.font ="20px Georgia";
+            this.ctx.fillText(name, 0, rotatableRectangle.height);
+
+            this.ctx.translate(-rotatableRectangle.position.x, -rotatableRectangle.position.y);
+        }
+
     }
 }

@@ -8,7 +8,8 @@
         canvas:Canvas;
         canonballs: SpriteObject[] = [];
         id: string;
-        players:Player[] = [];
+        players: Player[] = [];
+        background: Background = new Background();
         
         constructor(public hub: GameHubProxy) {
             Game.game = this;
@@ -38,6 +39,7 @@
 
         draw(canvas: Canvas) {
             
+            
             var player:Player;
             if (this.id != "" && this.id != null) {
                 for (var i = 0; i < this.players.length; i++) {
@@ -53,6 +55,9 @@
             this.canvas.ctx.rect(0, 0, 800, 800);
             this.canvas.ctx.strokeRect(0,0,1000,1000);
 
+            this.background.draw(canvas);
+
+
             for (var i = 0; i < this.players.length; i++) {
                 this.players[i].draw(this.canvas);
             }
@@ -60,6 +65,7 @@
                 this.canonballs[j].draw(this.canvas.ctx,0);
             }
 
+            
 
 
             if (this.id != "" && this.id != null)
@@ -85,6 +91,7 @@
                 this.players[i].PlayerName = state.players[i].name;
             }
 
+            
 
             var image = new Image();
             image.src = "../Assets/canonball2.png";

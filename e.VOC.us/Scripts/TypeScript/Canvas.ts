@@ -32,8 +32,11 @@ module eVOCus {
         drawRotatableText(name: string, rotatableRectangle: RotatableRectangle): void {
             this.ctx.translate(rotatableRectangle.position.x, rotatableRectangle.position.y);
             //Write te playername
-            this.ctx.font ="20px Georgia";
-            this.ctx.fillText(name, 0, rotatableRectangle.height);
+            this.ctx.font = "20px Georgia";
+            this.ctx.fillStyle = 'white';
+            //this.ctx.fillText(name, 0, rotatableRectangle.height);
+
+            this.ctx.fillText(name, -(name.length*3), rotatableRectangle.height / 2);
 
             this.ctx.translate(-rotatableRectangle.position.x, -rotatableRectangle.position.y);
         }

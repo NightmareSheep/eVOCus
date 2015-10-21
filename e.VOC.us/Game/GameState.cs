@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Newtonsoft.Json;
 
 namespace e.VOC.us.Game
@@ -11,11 +12,14 @@ namespace e.VOC.us.Game
         public List<Player> Players = new List<Player>();
         [JsonProperty("canonballs")]
         public List<Cannonball> CannonBalls = new List<Cannonball>();
+        [JsonProperty("explosions")]
         public List<Vector2D> Explosions = new List<Vector2D>(); 
 
         public void Update(GameTime gametime)
         {
+            var random = new Random();
             Explosions.Clear();
+            Explosions.Add(new Vector2D(random.Next(1000),random.Next(1000)));
             foreach (var player in Players)
                 player.Update(gametime);
 

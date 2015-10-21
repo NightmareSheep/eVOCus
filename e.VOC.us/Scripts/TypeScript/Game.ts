@@ -55,6 +55,7 @@
             this.canvas.ctx.rect(0, 0, 800, 800);
             this.canvas.ctx.strokeRect(0,0,1000,1000);
 
+            //Tekenen van de water achtergrondss
             this.background.draw(canvas);
 
 

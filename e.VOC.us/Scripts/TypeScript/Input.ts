@@ -2,6 +2,7 @@
     export interface InputGameState {
         players: InputPlayer[];
         canonballs: InputCanonball[];
+        explosions: InputPosition[];
     }
 
     export interface InputPlayer {

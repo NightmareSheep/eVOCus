@@ -258,6 +258,7 @@
     <Content Include="Views\Home\Chat.cshtml" />
     <Content Include="Views\Home\BroadCasting.cshtml" />
     <TypeScriptCompile Include="Scripts\TypeScript\Background.ts" />
+    <TypeScriptCompile Include="Scripts\TypeScript\Explosion.ts" />
     <TypeScriptCompile Include="Scripts\TypeScript\Player.ts" />
     <TypeScriptCompile Include="Scripts\TypeScript\Keyboard.ts" />
     <TypeScriptCompile Include="Scripts\TypeScript\Canvas.ts" />

@@ -58,6 +58,17 @@ declare module eVOCus {
     }
 }
 declare module eVOCus {
+    class Explosion {
+        rectangle: RotatableRectangle;
+        game: Game;
+        private _animation;
+        _lifespan: number;
+        constructor(rectangle: RotatableRectangle, game: Game);
+        update(gameTime: number): void;
+        draw(canvas: Canvas): void;
+    }
+}
+declare module eVOCus {
     class Game {
         hub: GameHubProxy;
         fps: number;
@@ -70,6 +81,7 @@ declare module eVOCus {
         id: string;
         players: Player[];
         background: Background;
+        explosions: Explosion[];
         constructor(hub: GameHubProxy);
         inputName(): void;
         gameLoop(gameObject: Game): void;
@@ -88,6 +100,7 @@ declare module eVOCus {
     interface InputGameState {
         players: InputPlayer[];
         canonballs: InputCanonball[];
+        explosions: InputPosition[];
     }
     interface InputPlayer {
         ship: InputShip;

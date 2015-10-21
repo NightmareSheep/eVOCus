@@ -75,6 +75,7 @@ declare module eVOCus {
         gameLoop(gameObject: Game): void;
         update(gameTime: number): void;
         draw(canvas: Canvas): void;
+        getCurrentPlayer(): Player;
         sync(state: InputGameState): void;
     }
 }
@@ -96,6 +97,7 @@ declare module eVOCus {
     interface InputShip {
         rectangle: InputRotatableRectangle;
         speed: number;
+        boatState: string;
     }
     interface InputRotatableRectangle {
         angle: number;
@@ -133,6 +135,7 @@ declare module eVOCus {
         constructor(id: string, ship: Ship, PlayerName: string);
         update(gameTime: number): void;
         draw(canvas: Canvas): void;
+        focus(canvas: Canvas): void;
     }
 }
 declare module eVOCus {
@@ -163,6 +166,8 @@ declare module eVOCus {
         private _speed;
         private _maxSpeed;
         private _animation;
+        private _animation_death;
+        _boatState: string;
         constructor(id: number, speed: number, maxSpeed: number, rectangle: RotatableRectangle, image: HTMLImageElement);
         update(gameTime: number): void;
         draw(canvas: Canvas): void;

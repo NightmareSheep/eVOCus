@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Text;
 using Newtonsoft.Json;
 
 namespace e.VOC.us.Game
@@ -11,75 +10,52 @@ namespace e.VOC.us.Game
         [JsonProperty("speed")]
         private int _speed = 1;
         [JsonIgnore]
-        private readonly Player _player;
+        public readonly Player Player;
         [JsonIgnore]
         private readonly GameState _game;
         [JsonProperty("boatState")]
-        private string _boatState = "normal";
+        public string BoatState = "normal";
         [JsonIgnore]
-        private int _timer;
+        public IUpdatable ShipBehaviour;
+
+        //Constants
+        private const int MaxSpeed = 4;
+        public const int DeathTimer = 2000;
+        public const int SpawnTimer = 3000;
+
+        public int Speed
+        {
+            get { return _speed; }
+            set { _speed = Math.Max(0, Math.Min(MaxSpeed, value)); }
+        }
 
         public Ship(Vector2D position, int angle, Player player, GameState game)
         {
             Rectangle = new RotatableRectangle(position, 180,110, angle);
-            _player = player;
+            Player = player;
             _game = game;
+            ShipBehaviour = new NormalShipBehaviour(this);
         }
 
         public void Update(GameTime gametime)
         {
-            switch (_boatState)
-            {
-                case "normal":
-                    if (_player.Keyboard.IsKeyDown(37))
-                        Rectangle.angle--;
-                    if (_player.Keyboard.IsKeyDown(38))
-                        _speed++;
-                    if (_player.Keyboard.IsKeyDown(39))
-                        Rectangle.angle++;
-                    if (_player.Keyboard.IsKeyDown(40))
-                        _speed--;
-                    if (_player.Keyboard.IsKeyPressed(32))
-                        Fire();
-                    Rectangle.position.Add(Helper.AngleToUnitVector(Rectangle.angle).Multiply(_speed));
-                    if (Rectangle.position.x <= 0 || Rectangle.position.x >= 1000 || Rectangle.position.y <= 0 || Rectangle.position.y >= 1000)
-                        Damage();
-                    break;
-                case "dying":
-                    _timer -= (int)gametime.ElapsedMillisecondsSinceLastUpdate;
-                    if (_timer <= 0)
-                    {
-                        _timer = 3000;
-                        Random random = new Random();
-                        Rectangle.position.x = random.Next(1000);
-                        Rectangle.position.y = random.Next(1000);
-                        _boatState = "spawning";
-                    }
-                    break;
-                case "spawning":
-                    _timer -= (int)gametime.ElapsedMillisecondsSinceLastUpdate;
-                    if (_timer <= 0)
-                    {
-                        _boatState = "normal";
-                    }
-                    break;
-            }
+            ShipBehaviour?.Update(gametime);
         }
 
-        private void Fire()
+        public void Fire()
         {
             _game.CannonBalls.Add(new Cannonball(new Vector2D(Rectangle.position.x,Rectangle.position.y).Add(Helper.AngleToUnitVector(Rectangle.angle).Multiply((float)Rectangle.width/2 + 20)), Rectangle.angle, _game));
         }
 
         public bool Hit(Vector2D position)
         {
-            return _boatState == "normal" && Rectangle.Contains(position);
+            return BoatState == "normal" && Rectangle.Contains(position);
         }
 
         public void Damage()
         {
-            _boatState = "dying";
-            _timer = 1000;
+            BoatState = "dying";
+            ShipBehaviour = new DyingShipBehaviour(this, DeathTimer);
         }
     }
 }

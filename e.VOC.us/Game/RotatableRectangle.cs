@@ -5,32 +5,32 @@ namespace e.VOC.us.Game
 	public class RotatableRectangle
 	{
         [JsonProperty("position")]
-	    public Vector2D position;
+	    public Vector2D Position;
         [JsonProperty("width")]
-	    public int width;
+	    public int Width;
         [JsonProperty("height")]
-	    public int height;
+	    public int Height;
         [JsonProperty("angle")]
-	    public int angle;
+	    public int Angle;
 
 	    public RotatableRectangle(Vector2D position, int width, int height, int angle)
 	    {
-	        this.position = position;
-	        this.width = width;
-	        this.height = height;
-	        this.angle = angle;
+	        Position = position;
+	        Width = width;
+	        Height = height;
+	        Angle = angle;
 	    }
 
 	    public bool Contains(Vector2D point)
 	    {
-	        var rotatedPosition = position.Rotate(position,-angle);
-	        var rotatedPoint = point.Rotate(point, -angle);
+	        var rotatedPosition = Position.Rotate(Position,-Angle);
+	        var rotatedPoint = point.Rotate(point, -Angle);
 
-	        return 
-                rotatedPosition.x - width/2 < rotatedPoint.x &&
-                rotatedPosition.x + width/2 > rotatedPoint.x &&
-                rotatedPosition.y - height/2 < rotatedPoint.y &&
-                rotatedPosition.y + height/2 > rotatedPoint.y;
+	        return
+                rotatedPosition.x - Width/2 < rotatedPoint.x &&
+                rotatedPosition.x + Width/2 > rotatedPoint.x &&
+                rotatedPosition.y - Height/2 < rotatedPoint.y &&
+                rotatedPosition.y + Height/2 > rotatedPoint.y;
 	    }
 	}
 }

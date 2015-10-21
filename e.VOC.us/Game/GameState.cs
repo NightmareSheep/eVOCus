@@ -13,11 +13,11 @@ namespace e.VOC.us.Game
         public List<Cannonball> CannonBalls = new List<Cannonball>();
         public List<Vector2D> Explosions = new List<Vector2D>(); 
 
-        public void Update()
+        public void Update(GameTime gametime)
         {
             Explosions.Clear();
             foreach (var player in Players)
-                player.Update();
+                player.Update(gametime);
 
             for (int i = CannonBalls.Count - 1; i >= 0; i--)
                 CannonBalls[i].Update();

@@ -24,9 +24,9 @@ namespace e.VOC.us.Game
         public void Update()
         {
             _position.Add(Helper.AngleToUnitVector(_direction).Multiply(Speed));
-            foreach (var player in _game.Players.Where(player => player.Ship.Rectangle.Contains(_position)))
+            foreach (var player in _game.Players.Where(player => player.Ship.Hit(_position)))
             {
-                player.Ship.Hit();
+                player.Ship.Damage();
                 _game.CannonBalls.Remove(this);
                 _game.Explosions.Add(_position);
             }

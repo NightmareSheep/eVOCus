@@ -50,7 +50,6 @@
                 this.canonballs[j].draw(this.canvas.ctx,0);
             }
 
-
             // Reset all transformations
             canvas.ctx.setTransform(1, 0, 0, 1, 0, 0);
         }
@@ -81,6 +80,7 @@
                 this.players[i].ship.rectangle.position.x = state.players[i].ship.rectangle.position.x;
                 this.players[i].ship.rectangle.position.y = state.players[i].ship.rectangle.position.y;
                 this.players[i].ship.rectangle.angle = state.players[i].ship.rectangle.angle;
+                this.players[i].ship._boatState = state.players[i].ship.boatState;
             }
 
 

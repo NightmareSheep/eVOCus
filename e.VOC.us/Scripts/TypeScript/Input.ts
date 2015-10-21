@@ -13,6 +13,7 @@
     export interface InputShip {
         rectangle: InputRotatableRectangle;
         speed: number;
+        boatState: string;
     }
 
     export interface InputRotatableRectangle {

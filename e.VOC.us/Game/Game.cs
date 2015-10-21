@@ -34,7 +34,7 @@ namespace e.VOC.us.Game
                     lastInput = gametime.ElapsedMilliseconds;
 
                 ProcesInput();
-                _game.Update();
+                _game.Update(gametime);
                 _hubContext.Clients.All.sync(_game);
 
                 if (gametime.ElapsedMilliseconds - lastInput > MaxMilisecondsWithoutInput)

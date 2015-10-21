@@ -21,9 +21,9 @@ namespace e.VOC.us.Game
             Ship = new Ship(new Vector2D(100,100), 0, this, game);
         }
 
-        public void Update()
+        public void Update(GameTime gametime)
         {
-            Ship.Update();
+            Ship.Update(gametime);
             Keyboard.Update();
         }
     }

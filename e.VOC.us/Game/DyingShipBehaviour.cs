@@ -23,8 +23,8 @@ namespace e.VOC.us.Game
             if (_deathTimer <= 0)
             {
                 Random random = new Random();
-                _ship.Rectangle.position.x = random.Next(1000);
-                _ship.Rectangle.position.y = random.Next(1000);
+                _ship.Rectangle.Position.x = random.Next(1000);
+                _ship.Rectangle.Position.y = random.Next(1000);
                 _ship.BoatState = "spawning";
                 _ship.ShipBehaviour = new SpawningShipBehaviour(_ship, Ship.SpawnTimer);
             }

@@ -8,13 +8,13 @@ namespace e.VOC.us.Game
         [JsonProperty("position")]
         private readonly Vector2D _position;
         [JsonIgnore]
-        private readonly int _direction;
+        private readonly float _direction;
         [JsonIgnore]
         private const int Speed = 5;
         [JsonIgnore]
         private readonly GameState _game;
 
-        public Cannonball(Vector2D position, int direction, GameState game)
+        public Cannonball(Vector2D position, float direction, GameState game)
         {
             _position = position;
             _direction = direction;

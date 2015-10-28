@@ -8,7 +8,7 @@ namespace e.VOC.us.Game
         [JsonProperty("rectangle")]
         public readonly RotatableRectangle Rectangle;
         [JsonProperty("speed")]
-        private int _speed = 1;
+        private float _speed = 1;
         [JsonIgnore]
         public readonly Player Player;
         [JsonIgnore]
@@ -19,11 +19,11 @@ namespace e.VOC.us.Game
         public IUpdatable ShipBehaviour;
 
         //Constants
-        private const int MaxSpeed = 4;
+        private const int MaxSpeed = 1;
         public const int DeathTimer = 2000;
         public const int SpawnTimer = 3000;
 
-        public int Speed
+        public float Speed
         {
             get { return _speed; }
             set { _speed = Math.Max(0, Math.Min(MaxSpeed, value)); }
@@ -44,7 +44,7 @@ namespace e.VOC.us.Game
 
         public void Fire()
         {
-            _game.CannonBalls.Add(new Cannonball(new Vector2D(Rectangle.position.x,Rectangle.position.y).Add(Helper.AngleToUnitVector(Rectangle.angle).Multiply((float)Rectangle.width/2 + 20)), Rectangle.angle, _game));
+            _game.CannonBalls.Add(new Cannonball(new Vector2D(Rectangle.Position.x,Rectangle.Position.y).Add(Helper.AngleToUnitVector(Rectangle.Angle).Multiply((float)Rectangle.Width/2 + 20)), Rectangle.Angle, _game));
         }
 
         public bool Hit(Vector2D position)

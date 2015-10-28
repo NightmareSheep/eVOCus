@@ -11,9 +11,9 @@ namespace e.VOC.us.Game
         [JsonProperty("height")]
 	    public int Height;
         [JsonProperty("angle")]
-	    public int Angle;
+	    public float Angle;
 
-	    public RotatableRectangle(Vector2D position, int width, int height, int angle)
+	    public RotatableRectangle(Vector2D position, int width, int height, float angle)
 	    {
 	        Position = position;
 	        Width = width;
@@ -27,10 +27,10 @@ namespace e.VOC.us.Game
 	        var rotatedPoint = point.Rotate(point, -Angle);
 
 	        return
-                rotatedPosition.x - Width/2 < rotatedPoint.x &&
-                rotatedPosition.x + Width/2 > rotatedPoint.x &&
-                rotatedPosition.y - Height/2 < rotatedPoint.y &&
-                rotatedPosition.y + Height/2 > rotatedPoint.y;
+                rotatedPosition.x - Width/2f < rotatedPoint.x &&
+                rotatedPosition.x + Width/2f > rotatedPoint.x &&
+                rotatedPosition.y - Height/2f < rotatedPoint.y &&
+                rotatedPosition.y + Height/2f > rotatedPoint.y;
 	    }
 	}
 }

@@ -21,7 +21,7 @@ module eVOCus {
             this.ctx.translate(-rotatableRectangle.position.x, -rotatableRectangle.position.y);
         }
 
-        drawRotatableClippedImage(image: HTMLImageElement, rotatableRectangle: RotatableRectangle, clipX:number, clipY:number, clipWidth:number, clipHeight:number, name: string): void {
+        drawRotatableClippedImage(image: HTMLImageElement, rotatableRectangle: RotatableRectangle, clipX:number, clipY:number, clipWidth:number, clipHeight:number): void {
             this.ctx.translate(rotatableRectangle.position.x, rotatableRectangle.position.y);
             this.ctx.rotate(rotatableRectangle.angle * (Math.PI / 180));
             this.ctx.drawImage(image, clipX, clipY, clipWidth, clipHeight, -rotatableRectangle.width/2, -rotatableRectangle.height /2, rotatableRectangle.width, rotatableRectangle.height);

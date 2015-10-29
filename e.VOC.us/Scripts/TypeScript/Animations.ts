@@ -15,6 +15,8 @@ module eVOCus {
         }
 
         Update(gameTime: number) {
+            if (this.currentTime == 0)
+                this.currentTime = gameTime;
             this.previousTime = this.currentTime;
             this.currentTime = gameTime;
             var elapsedTime = this.currentTime - this.previousTime;
@@ -23,7 +25,7 @@ module eVOCus {
         }
 
         Draw(canvas: Canvas, gameTime: number, rectangle: RotatableRectangle) {
-            canvas.drawRotatableClippedImage(this.image, rectangle, 0, this.frameHeight * this.currentFrame, this.frameWidth, this.frameHeight, name);
+            canvas.drawRotatableClippedImage(this.image, rectangle, 0, this.frameHeight * this.currentFrame, this.frameWidth, this.frameHeight);
         }
 
         Reset() {

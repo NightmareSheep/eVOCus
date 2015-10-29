@@ -218,6 +218,7 @@
     <Content Include="Assets\Boot-3.png" />
     <Content Include="Assets\canonball2.jpg" />
     <Content Include="Assets\canonball2.png" />
+    <Content Include="Assets\explosion.png" />
     <Content Include="Assets\water.png" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />

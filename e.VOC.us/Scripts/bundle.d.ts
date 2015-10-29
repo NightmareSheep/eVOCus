@@ -53,7 +53,7 @@ declare module eVOCus {
         ctx: CanvasRenderingContext2D;
         constructor(width: number, height: number);
         drawRotatableImage(image: HTMLImageElement, rotatableRectangle: RotatableRectangle): void;
-        drawRotatableClippedImage(image: HTMLImageElement, rotatableRectangle: RotatableRectangle, clipX: number, clipY: number, clipWidth: number, clipHeight: number, name: string): void;
+        drawRotatableClippedImage(image: HTMLImageElement, rotatableRectangle: RotatableRectangle, clipX: number, clipY: number, clipWidth: number, clipHeight: number): void;
         drawRotatableText(name: string, rotatableRectangle: RotatableRectangle): void;
     }
 }

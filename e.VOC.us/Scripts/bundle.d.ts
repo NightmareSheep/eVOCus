@@ -1,4 +1,38 @@
 declare module eVOCus {
+    class Animation {
+        image: HTMLImageElement;
+        width: number;
+        height: number;
+        frames: number;
+        duration: number;
+        loop: boolean;
+        private currentTime;
+        private previousTime;
+        private currentAnimationTime;
+        private currentFrame;
+        private frameWidth;
+        private frameHeight;
+        ended: boolean;
+        constructor(image: HTMLImageElement, width: number, height: number, frames: number, duration: number, loop?: boolean);
+        Update(gameTime: number): void;
+        Draw(canvas: Canvas, gameTime: number, rectangle: RotatableRectangle): void;
+        Reset(): void;
+    }
+}
+declare module eVOCus {
+    class AnimationWithRectangle extends Animation {
+        private rectangle;
+        image: HTMLImageElement;
+        width: number;
+        height: number;
+        frames: number;
+        duration: number;
+        loop: boolean;
+        constructor(rectangle: RotatableRectangle, image: HTMLImageElement, width: number, height: number, frames: number, duration: number, loop?: boolean);
+        Draw(canvas: Canvas, gameTime: number): void;
+    }
+}
+declare module eVOCus {
     class GameObject {
         name: string;
         position: Vector2D;
@@ -56,7 +90,7 @@ declare module eVOCus {
         ctx: CanvasRenderingContext2D;
         constructor(width: number, height: number);
         drawRotatableImage(image: HTMLImageElement, rotatableRectangle: RotatableRectangle): void;
-        drawRotatableClippedImage(image: HTMLImageElement, rotatableRectangle: RotatableRectangle, clipX: number, clipY: number, clipWidth: number, clipHeight: number, name: string): void;
+        drawRotatableClippedImage(image: HTMLImageElement, rotatableRectangle: RotatableRectangle, clipX: number, clipY: number, clipWidth: number, clipHeight: number): void;
         drawRotatableText(name: string, rotatableRectangle: RotatableRectangle): void;
     }
 }
@@ -148,26 +182,6 @@ declare module eVOCus {
     }
 }
 declare module eVOCus {
-    class Animations {
-        image: HTMLImageElement;
-        width: number;
-        height: number;
-        frames: number;
-        duration: number;
-        loop: boolean;
-        private currentTime;
-        private previousTime;
-        private currentAnimationTime;
-        private currentFrame;
-        private frameWidth;
-        private frameHeight;
-        constructor(image: HTMLImageElement, width: number, height: number, frames: number, duration: number, loop?: boolean);
-        Update(gameTime: number): void;
-        Draw(canvas: Canvas, gameTime: number, rectangle: RotatableRectangle): void;
-        Reset(): void;
-    }
-}
-declare module eVOCus {
     class Game {
         hub: GameHubProxy;
         fps: number;
@@ -180,6 +194,7 @@ declare module eVOCus {
         id: string;
         players: Player[];
         background: Background;
+        oneTimeAnimations: AnimationWithRectangle[];
         constructor(hub: GameHubProxy);
         inputName(): void;
         gameLoop(gameObject: Game): void;

@@ -15,7 +15,7 @@
         constructor(public hub: GameHubProxy) {
             Game.game = this;
             Game.keyboard = new Keyboard();
-            this.canvas = new Canvas(1000, 1000);
+            this.canvas = new Canvas(window.innerWidth, window.innerHeight);
             this.timeStep = Math.floor(1000 / this.fps);
             setInterval(() => { this.gameLoop(this); }, this.timeStep);
         }

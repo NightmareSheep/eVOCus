@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using Newtonsoft.Json;
 
 namespace e.VOC.us.Game
@@ -13,13 +14,21 @@ namespace e.VOC.us.Game
         [JsonProperty("canonballs")]
         public List<Cannonball> CannonBalls = new List<Cannonball>();
         [JsonProperty("explosions")]
-        public List<Vector2D> Explosions = new List<Vector2D>(); 
+        public List<Vector2D> Explosions = new List<Vector2D>();
+        [JsonIgnore]
+        private readonly Random _random = new Random();
+
+        private int explosionTimer = 1000;
 
         public void Update(GameTime gametime)
         {
-            var random = new Random();
             Explosions.Clear();
-            Explosions.Add(new Vector2D(random.Next(1000),random.Next(1000)));
+            explosionTimer -= (int)gametime.ElapsedMillisecondsSinceLastUpdate;
+            if (explosionTimer < 0)
+            {
+                explosionTimer = 1000;
+                Explosions.Add(new Vector2D(_random.Next(1000), _random.Next(1000)));
+            }
             foreach (var player in Players)
                 player.Update(gametime);
 

@@ -1,5 +1,4 @@
-﻿using System.Data.Entity.Migrations.Model;
-using System.Diagnostics;
+﻿using System.Diagnostics;
 
 namespace e.VOC.us.Game
 {

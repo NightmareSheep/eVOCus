@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using Newtonsoft.Json;
 
 namespace e.VOC.us.Game
@@ -18,15 +17,15 @@ namespace e.VOC.us.Game
         [JsonIgnore]
         private readonly Random _random = new Random();
 
-        private int explosionTimer = 1000;
+        private int _explosionTimer = 1000;
 
         public void Update(GameTime gametime)
         {
             Explosions.Clear();
-            explosionTimer -= (int)gametime.ElapsedMillisecondsSinceLastUpdate;
-            if (explosionTimer < 0)
+            _explosionTimer -= (int)gametime.ElapsedMillisecondsSinceLastUpdate;
+            if (_explosionTimer < 0)
             {
-                explosionTimer = 1000;
+                _explosionTimer = 1000;
                 Explosions.Add(new Vector2D(_random.Next(1000), _random.Next(1000)));
             }
             foreach (var player in Players)

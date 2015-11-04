@@ -6,33 +6,33 @@ namespace e.VOC.us.Game
     public class Vector2D
     {
         [JsonProperty("x")]
-        public float x;
+        public float X;
         [JsonProperty("y")]
-        public float y;
+        public float Y;
 
         public Vector2D(float x, float y)
         {
-            this.x = x;
-            this.y = y;
+            X = x;
+            Y = y;
         }
 
         public Vector2D Add(Vector2D vector)
         {
-            x += vector.x;
-            y += vector.y;
+            X += vector.X;
+            Y += vector.Y;
             return this;
         }
 
         public Vector2D Multiply(float i)
         {
-            x *= i;
-            y *= i;
+            X *= i;
+            Y *= i;
             return this;
         }
 
         public Vector2D Rotate(Vector2D v, float angle)
         {
-            return new Vector2D((float)( x * Math.Cos(angle) + y * -Math.Sin(angle)),(float)(x * Math.Sin(angle) + y * Math.Cos(angle)));
+            return new Vector2D((float)( X * Math.Cos(angle) + Y * -Math.Sin(angle)),(float)(X * Math.Sin(angle) + Y * Math.Cos(angle)));
         }
     }
 }

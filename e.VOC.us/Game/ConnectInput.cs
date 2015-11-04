@@ -26,6 +26,7 @@ namespace e.VOC.us.Game
             }
             catch
             {
+                // ignored
             }
         }
     }

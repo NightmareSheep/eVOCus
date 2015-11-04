@@ -10,6 +10,7 @@
         id: string;
         players: Player[] = [];
         background: Background = new Background();
+        explosions: Explosion[] = [];
         
         constructor(public hub: GameHubProxy) {
             Game.game = this;
@@ -34,6 +35,9 @@
             for (var i = 0; i < this.players.length; i++) {
                 this.players[i].update(gameTime);
             }
+            for (var i = this.explosions.length - 1; i >= 0; i--) {
+                this.explosions[i].update(gameTime);
+            }
             Game.keyboard.update();
         }
 
@@ -56,11 +60,11 @@
             for (var i = 0; i < this.players.length; i++) {
                 this.players[i].draw(this.canvas);
             }
-            for (var j = 0; j < this.canonballs.length; j++) {
-                this.canonballs[j].draw(this.canvas.ctx,0);
+
+            for (var i = 0; i < this.explosions.length; i++) {
+                this.explosions[i].draw(canvas);
             }
-
-
+                        
             // Reset all transformations
             canvas.ctx.setTransform(1, 0, 0, 1, 0, 0);
         }
@@ -86,6 +90,12 @@
                     this.players.push(new Player(state.players[i].id, new Ship(4747, 0, 5, new RotatableRectangle(new Vector2D(0, 0), 180, 110, 0), image), state.players[i].name));
                 }
             }
+            
+            for (var i = 0; i < state.explosions.length; i++) {
+                var explosion = new Explosion(new RotatableRectangle(new Vector2D(state.explosions[i].x, state.explosions[i].y), 80, 80, 0), this);
+                this.explosions.push(explosion);
+            }
+            
 
             for (var i = 0; i < this.players.length; i++) {
                 this.players[i].ship.rectangle.position.x = state.players[i].ship.rectangle.position.x;
@@ -94,8 +104,6 @@
                 this.players[i].PlayerName = state.players[i].name;
                 this.players[i].ship._boatState = state.players[i].ship.boatState;
             }
-
-            
 
             var image = new Image();
             image.src = "../Assets/canonball2.png";

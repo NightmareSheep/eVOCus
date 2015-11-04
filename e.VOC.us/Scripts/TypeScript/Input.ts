@@ -3,6 +3,7 @@
         players: InputPlayer[];
         canonballs: InputCanonball[];
         explosions: InputPosition[];
+        map: InputMap;
     }
 
     export interface InputPlayer {
@@ -23,6 +24,11 @@
         width: number;
         height: number;
 
+    }
+
+    export interface InputMap {
+        width: number;
+        height: number;
     }
 
     export interface InputPosition {

@@ -198,6 +198,7 @@
     <Compile Include="Game\IUpdatable.cs" />
     <Compile Include="Game\KeyboardInput.cs" />
     <Compile Include="Game\Keyboard.cs" />
+    <Compile Include="Game\Map.cs" />
     <Compile Include="Game\NameInput.cs" />
     <Compile Include="Game\NormalShipBehaviour.cs" />
     <Compile Include="Game\RotatableRectangle.cs" />

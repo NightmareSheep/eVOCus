@@ -34,7 +34,7 @@ namespace e.VOC.us.Game
             Rectangle = new RotatableRectangle(position, 180,110, angle);
             Player = player;
             _game = game;
-            ShipBehaviour = new NormalShipBehaviour(this);
+            ShipBehaviour = new NormalShipBehaviour(this, _game);
         }
 
         public void Update(GameTime gametime)
@@ -44,7 +44,7 @@ namespace e.VOC.us.Game
 
         public void Fire()
         {
-            _game.CannonBalls.Add(new Cannonball(new Vector2D(Rectangle.Position.x,Rectangle.Position.y).Add(Helper.AngleToUnitVector(Rectangle.Angle).Multiply((float)Rectangle.Width/2 + 20)), Rectangle.Angle, _game));
+            _game.CannonBalls.Add(new Cannonball(new Vector2D(Rectangle.Position.X,Rectangle.Position.Y).Add(Helper.AngleToUnitVector(Rectangle.Angle).Multiply((float)Rectangle.Width/2 + 20)), Rectangle.Angle, _game));
         }
 
         public bool Hit(Vector2D position)
@@ -55,7 +55,7 @@ namespace e.VOC.us.Game
         public void Damage()
         {
             BoatState = "dying";
-            ShipBehaviour = new DyingShipBehaviour(this, DeathTimer);
+            ShipBehaviour = new DyingShipBehaviour(this, DeathTimer, _game);
         }
     }
 }

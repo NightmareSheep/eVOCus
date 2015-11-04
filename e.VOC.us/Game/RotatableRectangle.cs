@@ -27,10 +27,10 @@ namespace e.VOC.us.Game
 			var rotatedPoint = point.Rotate(point, -Angle);
 
 			return
-				rotatedPosition.x - Width/2f < rotatedPoint.x &&
-				rotatedPosition.x + Width/2f > rotatedPoint.x &&
-				rotatedPosition.y - Height/2f < rotatedPoint.y &&
-				rotatedPosition.y + Height/2f > rotatedPoint.y;
+				rotatedPosition.X - Width/2f < rotatedPoint.X &&
+				rotatedPosition.X + Width/2f > rotatedPoint.X &&
+				rotatedPosition.Y - Height/2f < rotatedPoint.Y &&
+				rotatedPosition.Y + Height/2f > rotatedPoint.Y;
 		}
 	}
 }

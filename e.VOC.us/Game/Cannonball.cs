@@ -31,7 +31,7 @@ namespace e.VOC.us.Game
                 _game.Explosions.Add(_position);
             }
 
-            if (_position.x < 0 || _position.y < 0 || _position.x > 1000 || _position.y > 1000)
+            if (_position.X < 0 || _position.Y < 0 || _position.X > _game.Map.Width || _position.Y > _game.Map.Height)
                 _game.CannonBalls.Remove(this);
         }
     }

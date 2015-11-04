@@ -14,10 +14,17 @@ namespace e.VOC.us.Game
         public List<Cannonball> CannonBalls = new List<Cannonball>();
         [JsonProperty("explosions")]
         public List<Vector2D> Explosions = new List<Vector2D>();
+        [JsonProperty("map")]
+        public Map Map;
         [JsonIgnore]
         private readonly Random _random = new Random();
 
         private int _explosionTimer = 1000;
+
+        public GameState()
+        {
+            Map = new Map(1000,1000);
+        }
 
         public void Update(GameTime gametime)
         {

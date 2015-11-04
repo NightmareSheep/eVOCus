@@ -10,7 +10,7 @@
         id: string;
         players: Player[] = [];
         background: Background = new Background();
-        explosions: Explosion[] = [];
+        oneTimeAnimations: AnimationWithRectangle[] = [];
         
         constructor(public hub: GameHubProxy) {
             Game.game = this;
@@ -35,8 +35,11 @@
             for (var i = 0; i < this.players.length; i++) {
                 this.players[i].update(gameTime);
             }
-            for (var i = this.explosions.length - 1; i >= 0; i--) {
-                this.explosions[i].update(gameTime);
+            for (var i = this.oneTimeAnimations.length - 1; i >= 0; i--) {
+                if (this.oneTimeAnimations[i].ended)
+                    this.oneTimeAnimations.splice(i, 1);
+                else
+                    this.oneTimeAnimations[i].Update(gameTime);
             }
             Game.keyboard.update();
         }
@@ -61,8 +64,8 @@
                 this.players[i].draw(this.canvas);
             }
 
-            for (var i = 0; i < this.explosions.length; i++) {
-                this.explosions[i].draw(canvas);
+            for (var i = 0; i < this.oneTimeAnimations.length; i++) {
+                this.oneTimeAnimations[i].Draw(canvas, this.gameTime);
             }
                         
             // Reset all transformations
@@ -92,8 +95,9 @@
             }
             
             for (var i = 0; i < state.explosions.length; i++) {
-                var explosion = new Explosion(new RotatableRectangle(new Vector2D(state.explosions[i].x, state.explosions[i].y), 80, 80, 0), this);
-                this.explosions.push(explosion);
+                var explosionImage = new Image();
+                explosionImage.src = "../Assets/explosion.png";
+                this.oneTimeAnimations.push(new AnimationWithRectangle(new RotatableRectangle(new Vector2D(state.explosions[i].x, state.explosions[i].y), 80, 80, 0), explosionImage, 80, 80 * 3, 3, 600, false));
             }
             
 

@@ -4,16 +4,16 @@ module eVOCus {
     export class Ship extends RotatableSpriteObject {
         private _speed: number;
         private _maxSpeed: number;
-        private _animation: Animations;
-        private _animation_death: Animations
+        private _animation: Animation;
+        private _animation_death: Animation
         _boatState: string;
 
         constructor(public id: number, public speed: number, public maxSpeed: number, public rectangle: RotatableRectangle, image: HTMLImageElement) {
             super(rectangle, image);
-            this._animation = new Animations(image, rectangle.width, rectangle.height * 5, 5, 2000, false);
+            this._animation = new Animation(image, rectangle.width, rectangle.height * 5, 5, 2000, false);
             var image2 = new Image();
             image2.src = "../Assets/boot-3-dead.png";
-            this._animation_death = new Animations(image2, rectangle.width, rectangle.height * 5, 5, 2000, false);
+            this._animation_death = new Animation(image2, rectangle.width, rectangle.height * 5, 5, 2000, false);
         }
 
         update(gameTime: number) {

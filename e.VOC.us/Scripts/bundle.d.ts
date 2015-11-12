@@ -45,22 +45,6 @@ declare module eVOCus {
     }
 }
 declare module eVOCus {
-    class RotatableSpriteObject {
-        rectangle: RotatableRectangle;
-        image: HTMLImageElement;
-        constructor(rectangle: RotatableRectangle, image: HTMLImageElement);
-        draw(canvas: Canvas, gameTime: number): void;
-    }
-}
-declare module eVOCus {
-    class Background {
-        private _image;
-        constructor();
-        update(gameTime: number): void;
-        draw(canvas: Canvas): void;
-    }
-}
-declare module eVOCus {
     class Canvas {
         width: number;
         height: number;
@@ -83,7 +67,6 @@ declare module eVOCus {
         canonballs: SpriteObject[];
         id: string;
         players: Player[];
-        background: Background;
         oneTimeAnimations: AnimationWithRectangle[];
         constructor(hub: GameHubProxy);
         inputName(): void;
@@ -147,6 +130,14 @@ declare module eVOCus {
     }
 }
 declare module eVOCus {
+}
+declare module eVOCus {
+    class RotatableSpriteObject {
+        rectangle: RotatableRectangle;
+        image: HTMLImageElement;
+        constructor(rectangle: RotatableRectangle, image: HTMLImageElement);
+        draw(canvas: Canvas, gameTime: number): void;
+    }
 }
 declare module eVOCus {
     class Player {

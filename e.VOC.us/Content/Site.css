@@ -4,6 +4,12 @@
     height:100%;
 }
 
+body{
+    background-image:url(../Assets/water.png);
+    background-repeat:repeat;
+}
+
+
 
 #canvas {
     display:block;

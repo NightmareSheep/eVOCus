@@ -8,6 +8,9 @@ module eVOCus {
             var canvas = <HTMLCanvasElement> document.getElementById("canvas");
             canvas.width = width;
             canvas.height = height;
+            canvas.style.width = width.toString() + "px";
+            canvas.style.height = height.toString() + "px";
+
             this.width = width;
             this.height = height;
             this.ctx = canvas.getContext("2d");

@@ -23,7 +23,7 @@ namespace e.VOC.us.Game
 
         public GameState()
         {
-            Map = new Map(1000,1000);
+            Map = new Map(5000, 5000);
         }
 
         public void Update(GameTime gametime)

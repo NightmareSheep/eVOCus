@@ -1,4 +1,5 @@
 ﻿module eVOCus {
+
     export class Game {
         fps: number = 60;
         gameTime: number = 0;
@@ -15,7 +16,7 @@
         constructor(public hub: GameHubProxy) {
             Game.game = this;
             Game.keyboard = new Keyboard();
-            this.canvas = new Canvas(window.innerWidth, window.innerHeight);
+            this.canvas = new Canvas();
             this.timeStep = Math.floor(1000 / this.fps);
             setInterval(() => { this.gameLoop(this); }, this.timeStep);
         }
@@ -53,8 +54,7 @@
             this.canvas.ctx.fillStyle = "#FF0000";
             this.canvas.ctx.clearRect(0, 0, canvas.width, canvas.height);
             this.canvas.ctx.lineWidth = 10;
-            this.canvas.ctx.rect(0, 0, 800, 800);
-            this.canvas.ctx.strokeRect(0,0,1000,1000);
+            this.canvas.ctx.strokeRect(0,0,5000,5000);
 
             //Tekenen van de water achtergrondss
             this.background.draw(canvas);

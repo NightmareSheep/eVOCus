@@ -30,12 +30,12 @@
             _ship.Rectangle.Position.Add(Helper.AngleToUnitVector(_ship.Rectangle.Angle).Multiply(_ship.Speed));
 
             if (_ship.Rectangle.Position.X < 0)
-                _ship.Rectangle.Position.X = mapWidth;
-            if (_ship.Rectangle.Position.X > mapWidth)
+                _ship.Rectangle.Position.X = _game.Map.Width;
+            if (_ship.Rectangle.Position.X > _game.Map.Width)
                 _ship.Rectangle.Position.X = 0;
             if (_ship.Rectangle.Position.Y < 0)
-                _ship.Rectangle.Position.Y = mapHeight;
-            if (_ship.Rectangle.Position.Y > mapHeight)
+                _ship.Rectangle.Position.Y = _game.Map.Height;
+            if (_ship.Rectangle.Position.Y > _game.Map.Height)
                 _ship.Rectangle.Position.Y = 0;
         }
     }

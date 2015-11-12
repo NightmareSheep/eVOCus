@@ -23,6 +23,7 @@ namespace e.VOC.us.Game
             if (_deathTimer <= 0)
             {
                 Random random = new Random();
+                _ship.Speed = 1;
                 _ship.Rectangle.Position.x = random.Next(1000);
                 _ship.Rectangle.Position.y = random.Next(1000);
                 _ship.BoatState = "spawning";

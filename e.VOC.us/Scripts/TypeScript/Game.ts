@@ -10,7 +10,6 @@
         canonballs: SpriteObject[] = [];
         id: string;
         players: Player[] = [];
-        background: Background = new Background();
         oneTimeAnimations: AnimationWithRectangle[] = [];
         
         constructor(public hub: GameHubProxy) {
@@ -55,9 +54,6 @@
             this.canvas.ctx.clearRect(0, 0, canvas.width, canvas.height);
             this.canvas.ctx.lineWidth = 10;
             this.canvas.ctx.strokeRect(0,0,5000,5000);
-
-            //Tekenen van de water achtergrondss
-            this.background.draw(canvas);
 
 
             for (var i = 0; i < this.players.length; i++) {

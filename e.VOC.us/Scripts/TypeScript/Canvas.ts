@@ -8,12 +8,12 @@ module eVOCus {
 
         constructor() {
             var canvas = <HTMLCanvasElement> document.getElementById("canvas");
-
             canvas.width = canvas.clientWidth;
             canvas.height = canvas.clientHeight;
             
             this.width = canvas.width;
             this.height = canvas.height;
+
             this.ctx = canvas.getContext("2d");
         }
 

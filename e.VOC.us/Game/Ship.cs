@@ -19,7 +19,7 @@ namespace e.VOC.us.Game
         public IUpdatable ShipBehaviour;
 
         //Constants
-        private const int MaxSpeed = 1;
+        private const int MaxSpeed = 5;
         public const int DeathTimer = 2000;
         public const int SpawnTimer = 3000;
 

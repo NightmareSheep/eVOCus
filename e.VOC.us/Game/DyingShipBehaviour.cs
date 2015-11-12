@@ -23,6 +23,7 @@ namespace e.VOC.us.Game
                 Random random = new Random();
                 _ship.Rectangle.Position.X = random.Next(1000);
                 _ship.Rectangle.Position.Y = random.Next(1000);
+                _ship.Speed = 1;
                 _ship.BoatState = "spawning";
                 _ship.ShipBehaviour = new SpawningShipBehaviour(_ship, Ship.SpawnTimer, _game);
             }

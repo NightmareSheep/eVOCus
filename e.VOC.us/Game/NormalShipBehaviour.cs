@@ -4,8 +4,10 @@
     {
         private readonly Ship _ship;
         private readonly GameState _game;
-        private const float TurnSpeed = 0.4f;
-        private const float AccelSpeed = 0.01f;
+        private const float TurnSpeed = 1.0f;
+        private const float AccelSpeed = 0.1f;
+        private const int mapWidth = 1000;
+        private const int mapHeight = 1000;
 
         public NormalShipBehaviour(Ship ship, GameState game)
         {
@@ -26,8 +28,15 @@
             if (_ship.Player.Keyboard.IsKeyPressed(32))
                 _ship.Fire();
             _ship.Rectangle.Position.Add(Helper.AngleToUnitVector(_ship.Rectangle.Angle).Multiply(_ship.Speed));
-            if (_ship.Rectangle.Position.X <= 0 || _ship.Rectangle.Position.X >= _game.Map.Width || _ship.Rectangle.Position.Y <= 0 || _ship.Rectangle.Position.Y >= _game.Map.Height)
-                _ship.Damage();
+
+            if (_ship.Rectangle.Position.X < 0)
+                _ship.Rectangle.Position.X = mapWidth;
+            if (_ship.Rectangle.Position.X > mapWidth)
+                _ship.Rectangle.Position.X = 0;
+            if (_ship.Rectangle.Position.Y < 0)
+                _ship.Rectangle.Position.Y = mapHeight;
+            if (_ship.Rectangle.Position.Y > mapHeight)
+                _ship.Rectangle.Position.Y = 0;
         }
     }
 }

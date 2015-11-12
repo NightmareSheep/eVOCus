@@ -67,6 +67,10 @@
             for (var i = 0; i < this.oneTimeAnimations.length; i++) {
                 this.oneTimeAnimations[i].Draw(canvas, this.gameTime);
             }
+
+            for (var i = 0; i < this.canonballs.length; i++) {
+                this.canonballs[i].draw(canvas.ctx, this.gameTime);
+            }
                         
             // Reset all transformations
             canvas.ctx.setTransform(1, 0, 0, 1, 0, 0);

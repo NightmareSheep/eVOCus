@@ -5,8 +5,46 @@
 }
 
 body{
-    background-image:url(../Assets/water.png);
+}
+
+
+.background-animations{
+    background-color:red;
+    z-index:-10;
+}
+
+.water-background{
+    background-image:url(../Assets/water-layer.png);
     background-repeat:repeat;
+    z-index:1;
+}
+
+.water-middle{
+    background-image:url(../Assets/water-middle.png);
+    background-repeat:repeat;
+    z-index:2;
+}
+
+.water-foreground{
+   background-image: url(../Assets/water-foreground.png);
+   background-repeat:repeat;
+   z-index:3;
+}
+
+
+
+
+
+
+
+
+
+
+
+.fullscreen{
+    position:absolute;
+    height:100%;
+    width:100%;
 }
 
 
@@ -15,6 +53,7 @@ body{
     display:block;
     padding:0;
     margin:0 auto;
+    z-index:10;
 }
 
 .navigation{

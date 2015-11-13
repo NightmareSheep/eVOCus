@@ -51,9 +51,9 @@
 
             this.canvas.ctx.fillStyle = "#FF0000";
             this.canvas.ctx.clearRect(0, 0, canvas.width, canvas.height);
-            this.canvas.ctx.lineWidth = 10;
-            this.canvas.ctx.rect(0, 0, 800, 800);
-            this.canvas.ctx.strokeRect(0,0,1000,1000);
+            //this.canvas.ctx.lineWidth = 10;
+            //this.canvas.ctx.rect(0, 0, 800, 800);
+            //this.canvas.ctx.strokeRect(0,0,1000,1000);
 
 
             for (var i = 0; i < this.players.length; i++) {

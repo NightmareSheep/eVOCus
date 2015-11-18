@@ -4,3 +4,6 @@ e.VOC.us/Scripts/bundle.js
 e.VOC.us/Scripts/bundle.js.map
 e.VOC.us/Scripts/TypeScript/*.js
 e.VOC.us/Scripts/TypeScript/*.map
+e.VOC.us/Scripts/bundle.d.ts
+.vs/e.VOC.us/v14/.suo
+.vs/config/applicationhost.config

@@ -27,7 +27,7 @@ namespace e.VOC.us.Game
             _lifetime -= (int)gametime.ElapsedMillisecondsSinceLastUpdate;
             foreach (var player in _game.Players.Where(player => player.Ship.Hit(_position)))
             {
-                player.Ship.Damage();
+                player.Ship.Damage(_owner);
                 _game.CannonBalls.Remove(this);
                 _game.Explosions.Add(_position);
             }

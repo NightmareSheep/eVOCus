@@ -10,6 +10,11 @@ namespace e.VOC.us.Game
         [JsonProperty("y")]
         public float Y;
 
+        [JsonIgnore]
+        public float Length => (float)Math.Sqrt(X * X + Y * Y);
+        [JsonIgnore]
+        public Vector2D UnitVector => new Vector2D(X / Length, Y / Length);
+
         public Vector2D(float x, float y)
         {
             X = x;

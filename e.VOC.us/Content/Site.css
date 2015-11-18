@@ -111,29 +111,31 @@ body {
     margin: 0 auto;
 }
 
-    .logo a {
-        display: block;
-        width: 200px;
-        border: 5px solid white;
-        text-align: center;
-        margin: 0 auto;
-        padding: 10px;
-        margin-top: 40px;
-        color: white;
-        text-transform: uppercase;
-        font-size: 2rem;
-        font-weight: bold;
-        -moz-transition: all 0.2s ease-in-out;
-        -o-transition: all 0.2s ease-in-out;
-        -webkit-transition: all 0.2s ease-in-out;
-        transition: all 0.2s ease-in-out;
-    }
+.logo a {
+    display: block;
+    width: 200px;
+    border: 5px solid white;
+    text-align: center;
+    margin: 0 auto;
+    padding: 10px;
+    margin-top: 40px;
+    color: white;
+    text-transform: uppercase;
+    font-size: 2rem;
+    font-weight: bold;
+    -moz-transition: all 0.2s ease-in-out;
+    -o-transition: all 0.2s ease-in-out;
+    -webkit-transition: all 0.2s ease-in-out;
+    transition: all 0.2s ease-in-out;
+}
 
-        .logo a:hover {
-            text-decoration: none;
-            -moz-transform: scale(1.2);
-            -ms-transform: scale(1.2);
-            -o-transform: scale(1.2);
-            -webkit-transform: scale(1.2);
-            transform: scale(1.2);
-        }
+.logo a:hover {
+    text-decoration: none;
+    -moz-transform: scale(1.2);
+    -ms-transform: scale(1.2);
+    -o-transform: scale(1.2);
+    -webkit-transform: scale(1.2);
+    transform: scale(1.2);
+}
+
+

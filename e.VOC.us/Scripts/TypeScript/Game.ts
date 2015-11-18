@@ -11,12 +11,14 @@
         id: string;
         players: Player[] = [];
         oneTimeAnimations: AnimationWithRectangle[] = [];
+        scoreboard: Scoreboard;
         
         constructor(public hub: GameHubProxy) {
             Game.game = this;
             Game.keyboard = new Keyboard();
             this.canvas = new Canvas();
             this.timeStep = Math.floor(1000 / this.fps);
+            this.scoreboard = new Scoreboard();
             setInterval(() => { this.gameLoop(this); }, this.timeStep);
         }
 
@@ -42,6 +44,7 @@
                     this.oneTimeAnimations[i].Update(gameTime);
             }
             Game.keyboard.update();
+            this.scoreboard.update();
         }
 
         draw(canvas: Canvas) {
@@ -99,7 +102,7 @@
             for (var i = 0; i < state.explosions.length; i++) {
                 var explosionImage = new Image();
                 explosionImage.src = "../Assets/explosion.png";
-                this.oneTimeAnimations.push(new AnimationWithRectangle(new RotatableRectangle(new Vector2D(state.explosions[i].x, state.explosions[i].y), 80, 80, 0), explosionImage, 80, 80 * 3, 3, 600, false));
+                this.oneTimeAnimations.push(new AnimationWithRectangle(new RotatableRectangle(new Vector2D(state.explosions[i].x, state.explosions[i].y), 80, 80, 0), explosionImage, 80, 80 * 3, 3, 300, false));
             }
             
 
@@ -108,6 +111,7 @@
                 this.players[i].ship.rectangle.position.y = state.players[i].ship.rectangle.position.y;
                 this.players[i].ship.rectangle.angle = state.players[i].ship.rectangle.angle;
                 this.players[i].PlayerName = state.players[i].name;
+                this.players[i].score = state.players[i].score;
                 this.players[i].ship._boatState = state.players[i].ship.boatState;
             }
 

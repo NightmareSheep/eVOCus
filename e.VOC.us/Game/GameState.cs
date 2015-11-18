@@ -24,6 +24,7 @@ namespace e.VOC.us.Game
 
         public void Update(GameTime gametime)
         {
+            Explosions.Clear();
             foreach (var player in Players)
                 player.Update(gametime);
 

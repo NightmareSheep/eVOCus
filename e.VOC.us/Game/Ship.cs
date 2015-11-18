@@ -44,7 +44,7 @@ namespace e.VOC.us.Game
 
         public void Fire()
         {
-            _game.CannonBalls.Add(new Cannonball(new Vector2D(Rectangle.Position.X,Rectangle.Position.Y).Add(Helper.AngleToUnitVector(Rectangle.Angle).Multiply((float)Rectangle.Width/2 + 20)), Rectangle.Angle, _game, 2000));
+            _game.CannonBalls.Add(new Cannonball(new Vector2D(Rectangle.Position.X,Rectangle.Position.Y).Add(Helper.AngleToUnitVector(Rectangle.Angle).Multiply((float)Rectangle.Width/2 + 20)), Rectangle.Angle, _game, 2000, Player));
         }
 
         public bool Hit(Vector2D position)

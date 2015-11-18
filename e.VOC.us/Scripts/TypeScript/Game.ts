@@ -1,4 +1,5 @@
 ﻿module eVOCus {
+
     export class Game {
         fps: number = 60;
         gameTime: number = 0;
@@ -10,13 +11,16 @@
         id: string;
         players: Player[] = [];
         oneTimeAnimations: AnimationWithRectangle[] = [];
+        scoreboard: Scoreboard;
         environment: Environment;
+
         
         constructor(public hub: GameHubProxy) {
             Game.game = this;
             Game.keyboard = new Keyboard();
-            this.canvas = new Canvas(window.innerWidth, window.innerHeight);
+            this.canvas = new Canvas();
             this.timeStep = Math.floor(1000 / this.fps);
+            this.scoreboard = new Scoreboard();
             this.environment = new Environment();
             setInterval(() => { this.gameLoop(this); }, this.timeStep);
             
@@ -44,6 +48,7 @@
                     this.oneTimeAnimations[i].Update(gameTime);
             }
             Game.keyboard.update();
+            this.scoreboard.update();
             this.environment.update();
         }
 
@@ -55,9 +60,10 @@
 
             this.canvas.ctx.fillStyle = "#FF0000";
             this.canvas.ctx.clearRect(0, 0, canvas.width, canvas.height);
-            //this.canvas.ctx.lineWidth = 10;
-            //this.canvas.ctx.rect(0, 0, 800, 800);
-            //this.canvas.ctx.strokeRect(0,0,1000,1000);
+            this.canvas.ctx.lineWidth = 10;
+            this.canvas.ctx.strokeRect(0,0,5000,5000);
+
+
 
 
             for (var i = 0; i < this.players.length; i++) {
@@ -101,7 +107,7 @@
             for (var i = 0; i < state.explosions.length; i++) {
                 var explosionImage = new Image();
                 explosionImage.src = "../Assets/explosion.png";
-                this.oneTimeAnimations.push(new AnimationWithRectangle(new RotatableRectangle(new Vector2D(state.explosions[i].x, state.explosions[i].y), 80, 80, 0), explosionImage, 80, 80 * 3, 3, 600, false));
+                this.oneTimeAnimations.push(new AnimationWithRectangle(new RotatableRectangle(new Vector2D(state.explosions[i].x, state.explosions[i].y), 80, 80, 0), explosionImage, 80, 80 * 3, 3, 300, false));
             }
             
 
@@ -110,6 +116,7 @@
                 this.players[i].ship.rectangle.position.y = state.players[i].ship.rectangle.position.y;
                 this.players[i].ship.rectangle.angle = state.players[i].ship.rectangle.angle;
                 this.players[i].PlayerName = state.players[i].name;
+                this.players[i].score = state.players[i].score;
                 this.players[i].ship._boatState = state.players[i].ship.boatState;
             }
 

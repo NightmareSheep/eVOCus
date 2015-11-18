@@ -234,6 +234,7 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\Scoreboard.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -279,6 +280,7 @@
     <TypeScriptCompile Include="Scripts\TypeScript\RotatableSpriteObject.ts" />
     <TypeScriptCompile Include="Scripts\TypeScript\SignalR.d.ts" />
     <TypeScriptCompile Include="Scripts\TypeScript\Input.ts" />
+    <TypeScriptCompile Include="Scripts\TypeScript\Scoreboard.ts" />
     <TypeScriptCompile Include="Scripts\TypeScript\Environment.ts" />
     <TypeScriptCompile Include="Scripts\TypeScript\Vector2D.ts" />
     <TypeScriptCompile Include="Scripts\TypeScript\SpriteObject.ts" />

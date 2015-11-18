@@ -15,6 +15,9 @@ namespace e.VOC.us.Game
         [JsonProperty("name")]
         public string Name;
 
+        [JsonProperty("score")]
+        public int Score;
+
         public Player(GameState game)
         {
             Keyboard = new Keyboard();

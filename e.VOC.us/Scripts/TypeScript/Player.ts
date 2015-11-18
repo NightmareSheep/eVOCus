@@ -3,7 +3,7 @@
 module eVOCus {
     export class Player {
 
-        //private _playerName: string = 'Hielke';
+        public score:number;
 
         constructor(public id:string, public ship: Ship, public PlayerName: string) {
         }

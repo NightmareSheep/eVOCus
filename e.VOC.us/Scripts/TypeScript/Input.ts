@@ -10,6 +10,7 @@
         ship: InputShip;
         id: string;
         name: string;
+        score: number;
     }
 
     export interface InputShip {

@@ -187,6 +187,8 @@ declare module eVOCus {
         private _maxSpeed;
         private _animation;
         private _animation_death;
+        private _rippleTime;
+        private _currentRippleTime;
         _boatState: string;
         constructor(id: number, speed: number, maxSpeed: number, rectangle: RotatableRectangle, image: HTMLImageElement);
         update(gameTime: number): void;

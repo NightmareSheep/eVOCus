@@ -23,17 +23,6 @@ module eVOCus {
         focus(canvas: Canvas) {
             if (this.ship)
                 canvas.ctx.translate((-this.ship.rectangle.position.x + canvas.width / 2), (-this.ship.rectangle.position.y + canvas.height / 2));
-
-                //Background water
-                $('.water-background').css("background-position-x", (-this.ship.rectangle.position.x + canvas.width / 2)/4);
-                $('.water-background').css("background-position-y", (-this.ship.rectangle.position.y + canvas.height / 2) / 4);
-
-                $('.water-middle').css("background-position-x", (-this.ship.rectangle.position.x + canvas.width / 2) / 2);
-                $('.water-middle').css("background-position-y", (-this.ship.rectangle.position.y + canvas.height / 2) / 2);
-
-                $('.water-foreground').css("background-position-x", (-this.ship.rectangle.position.x + canvas.width / 2));
-                $('.water-foreground').css("background-position-y", (-this.ship.rectangle.position.y + canvas.height / 2));
-                
         }
     }
 }

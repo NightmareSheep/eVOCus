@@ -45,93 +45,6 @@ declare module eVOCus {
     }
 }
 declare module eVOCus {
-    class Canvas {
-        width: number;
-        height: number;
-        ctx: CanvasRenderingContext2D;
-        constructor(width: number, height: number);
-        drawRotatableImage(image: HTMLImageElement, rotatableRectangle: RotatableRectangle): void;
-        drawRotatableClippedImage(image: HTMLImageElement, rotatableRectangle: RotatableRectangle, clipX: number, clipY: number, clipWidth: number, clipHeight: number): void;
-        drawRotatableText(name: string, rotatableRectangle: RotatableRectangle): void;
-    }
-}
-declare module eVOCus {
-    class Game {
-        hub: GameHubProxy;
-        fps: number;
-        gameTime: number;
-        timeStep: number;
-        static keyboard: Keyboard;
-        static game: Game;
-        canvas: Canvas;
-        canonballs: SpriteObject[];
-        id: string;
-        players: Player[];
-        oneTimeAnimations: AnimationWithRectangle[];
-        constructor(hub: GameHubProxy);
-        inputName(): void;
-        gameLoop(gameObject: Game): void;
-        update(gameTime: number): void;
-        draw(canvas: Canvas): void;
-        getCurrentPlayer(): Player;
-        sync(state: InputGameState): void;
-    }
-}
-declare module eVOCus {
-    class Helper {
-        static angleToUnitVector(angle: number): Vector2D;
-    }
-}
-declare module eVOCus {
-    interface InputGameState {
-        players: InputPlayer[];
-        canonballs: InputCanonball[];
-        explosions: InputPosition[];
-        map: InputMap;
-    }
-    interface InputPlayer {
-        ship: InputShip;
-        id: string;
-        name: string;
-    }
-    interface InputShip {
-        rectangle: InputRotatableRectangle;
-        speed: number;
-        boatState: string;
-    }
-    interface InputRotatableRectangle {
-        angle: number;
-        position: InputPosition;
-        width: number;
-        height: number;
-    }
-    interface InputMap {
-        width: number;
-        height: number;
-    }
-    interface InputPosition {
-        x: number;
-        y: number;
-    }
-    interface InputCanonball {
-        position: InputPosition;
-    }
-}
-declare module eVOCus {
-    class Keyboard {
-        keysDown: number[];
-        keysPressed: number[];
-        constructor();
-        update(): void;
-        private keyDown(event);
-        private keyUp(event);
-        isKeyDown(key: number): boolean;
-        isKeyPressed(key: number): boolean;
-    }
-}
-declare module eVOCus {
-}
-declare module eVOCus {
     class RotatableSpriteObject {
         rectangle: RotatableRectangle;
         image: HTMLImageElement;
@@ -148,6 +61,34 @@ declare module eVOCus {
         update(gameTime: number): void;
         draw(canvas: Canvas): void;
         focus(canvas: Canvas): void;
+    }
+}
+declare module eVOCus {
+    class Keyboard {
+        keysDown: number[];
+        keysPressed: number[];
+        constructor();
+        update(): void;
+        private keyDown(event);
+        private keyUp(event);
+        isKeyDown(key: number): boolean;
+        isKeyPressed(key: number): boolean;
+    }
+}
+declare module eVOCus {
+    class Canvas {
+        width: number;
+        height: number;
+        ctx: CanvasRenderingContext2D;
+        constructor(width: number, height: number);
+        drawRotatableImage(image: HTMLImageElement, rotatableRectangle: RotatableRectangle): void;
+        drawRotatableClippedImage(image: HTMLImageElement, rotatableRectangle: RotatableRectangle, clipX: number, clipY: number, clipWidth: number, clipHeight: number): void;
+        drawRotatableText(name: string, rotatableRectangle: RotatableRectangle): void;
+    }
+}
+declare module eVOCus {
+    class Helper {
+        static angleToUnitVector(angle: number): Vector2D;
     }
 }
 declare module eVOCus {
@@ -186,11 +127,38 @@ declare module eVOCus {
     }
 }
 declare module eVOCus {
-    class SpriteObject {
-        position: Vector2D;
-        image: HTMLImageElement;
-        constructor(position: Vector2D, image: HTMLImageElement);
-        draw(context: CanvasRenderingContext2D, gameTime: number): void;
+    interface InputGameState {
+        players: InputPlayer[];
+        canonballs: InputCanonball[];
+        explosions: InputPosition[];
+        map: InputMap;
+    }
+    interface InputPlayer {
+        ship: InputShip;
+        id: string;
+        name: string;
+    }
+    interface InputShip {
+        rectangle: InputRotatableRectangle;
+        speed: number;
+        boatState: string;
+    }
+    interface InputRotatableRectangle {
+        angle: number;
+        position: InputPosition;
+        width: number;
+        height: number;
+    }
+    interface InputMap {
+        width: number;
+        height: number;
+    }
+    interface InputPosition {
+        x: number;
+        y: number;
+    }
+    interface InputCanonball {
+        position: InputPosition;
     }
 }
 declare module eVOCus {
@@ -201,4 +169,36 @@ declare module eVOCus {
         add(vector: Vector2D): Vector2D;
         multiply(i: number): Vector2D;
     }
+}
+declare module eVOCus {
+    class SpriteObject {
+        position: Vector2D;
+        image: HTMLImageElement;
+        constructor(position: Vector2D, image: HTMLImageElement);
+        draw(context: CanvasRenderingContext2D, gameTime: number): void;
+    }
+}
+declare module eVOCus {
+    class Game {
+        hub: GameHubProxy;
+        fps: number;
+        gameTime: number;
+        timeStep: number;
+        static keyboard: Keyboard;
+        static game: Game;
+        canvas: Canvas;
+        canonballs: SpriteObject[];
+        id: string;
+        players: Player[];
+        oneTimeAnimations: AnimationWithRectangle[];
+        constructor(hub: GameHubProxy);
+        inputName(): void;
+        gameLoop(gameObject: Game): void;
+        update(gameTime: number): void;
+        draw(canvas: Canvas): void;
+        getCurrentPlayer(): Player;
+        sync(state: InputGameState): void;
+    }
+}
+declare module eVOCus {
 }

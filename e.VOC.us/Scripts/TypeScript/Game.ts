@@ -56,6 +56,8 @@
             this.canvas.ctx.strokeRect(0,0,5000,5000);
 
 
+
+
             for (var i = 0; i < this.players.length; i++) {
                 this.players[i].draw(this.canvas);
             }

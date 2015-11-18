@@ -13,7 +13,6 @@ module eVOCus {
             
             this.width = canvas.width;
             this.height = canvas.height;
-
             this.ctx = canvas.getContext("2d");
         }
 

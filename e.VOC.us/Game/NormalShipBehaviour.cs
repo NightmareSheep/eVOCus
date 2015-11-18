@@ -6,8 +6,8 @@
         private readonly GameState _game;
         private const float TurnSpeed = 1.0f;
         private const float AccelSpeed = 0.1f;
-        private const int mapWidth = 1000;
-        private const int mapHeight = 1000;
+        private const int mapWidth = 1600;
+        private const int mapHeight = 1600;
 
         public NormalShipBehaviour(Ship ship, GameState game)
         {

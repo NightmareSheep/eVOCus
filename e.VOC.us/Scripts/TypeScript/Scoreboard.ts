@@ -16,7 +16,7 @@
                 playersWithScores.push({ 'name': player.PlayerName, 'score': player.score });
             }
 
-            playersWithScores.sort((p1, p2) => { return p1.score - p2.score });
+            playersWithScores.sort((p1, p2) => { return p2.score - p1.score });
             var innerHtml = "";
             for (i = 0; i < playersWithScores.length; i++) {
                 var playerWithScore = playersWithScores[i];

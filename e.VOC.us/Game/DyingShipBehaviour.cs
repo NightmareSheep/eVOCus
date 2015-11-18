@@ -21,9 +21,12 @@ namespace e.VOC.us.Game
             if (_deathTimer <= 0)
             {
                 Random random = new Random();
-                _ship.Rectangle.Position.X = random.Next(1000);
-                _ship.Rectangle.Position.Y = random.Next(1000);
+                _ship.Rectangle.Position.X = random.Next(_game.Map.Width);
+                _ship.Rectangle.Position.Y = random.Next(_game.Map.Height);
                 _ship.Speed = 1;
+                _ship.Rectangle.Angle =
+                    Helper.VectorToAngle(new Vector2D(_game.Map.Width/2f - _ship.Rectangle.Position.X,
+                        _game.Map.Height/2f - _ship.Rectangle.Position.Y));
                 _ship.BoatState = "spawning";
                 _ship.ShipBehaviour = new SpawningShipBehaviour(_ship, Ship.SpawnTimer, _game);
             }

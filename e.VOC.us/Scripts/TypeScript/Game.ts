@@ -10,13 +10,16 @@
         id: string;
         players: Player[] = [];
         oneTimeAnimations: AnimationWithRectangle[] = [];
+        environment: Environment;
         
         constructor(public hub: GameHubProxy) {
             Game.game = this;
             Game.keyboard = new Keyboard();
             this.canvas = new Canvas(window.innerWidth, window.innerHeight);
             this.timeStep = Math.floor(1000 / this.fps);
+            this.environment = new Environment();
             setInterval(() => { this.gameLoop(this); }, this.timeStep);
+            
         }
 
         inputName() {
@@ -41,6 +44,7 @@
                     this.oneTimeAnimations[i].Update(gameTime);
             }
             Game.keyboard.update();
+            this.environment.update();
         }
 
         draw(canvas: Canvas) {

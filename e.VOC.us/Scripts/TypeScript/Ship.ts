@@ -21,12 +21,12 @@ module eVOCus {
         update(gameTime: number) {
             
 
-            this._currentRippleTime -= Game.game.timeStep;
+            this._currentRippleTime -= Game.instance.timeStep;
             if (this._currentRippleTime < 0) {
                 this._currentRippleTime = this._rippleTime;
                 var explosionImage = new Image();
                 explosionImage.src = "../Assets/ship-waves.png";
-                Game.game.oneTimeAnimations.push(new AnimationWithRectangle(new RotatableRectangle(new Vector2D(this.rectangle.position.x, this.rectangle.position.y), 80, 80, this.rectangle.angle), explosionImage, 80, 80 * 10, 10, 5000, false));
+                Game.instance.oneTimeAnimations.push(new AnimationWithRectangle(new RotatableRectangle(new Vector2D(this.rectangle.position.x, this.rectangle.position.y), 80, 80, this.rectangle.angle), explosionImage, 80, 80 * 10, 10, 5000, false));
             }
             this._animation.Update(gameTime);
             this._animation_death.Update(gameTime);

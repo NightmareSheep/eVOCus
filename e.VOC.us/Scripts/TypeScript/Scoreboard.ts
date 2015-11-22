@@ -11,8 +11,8 @@
 
             var playersWithScores: IPlayerWithScore[] = [];
 
-            for (var i = 0; i < Game.game.players.length; i++) {
-                var player = Game.game.players[i];
+            for (var i = 0; i < Game.instance.players.length; i++) {
+                var player = Game.instance.players[i];
                 playersWithScores.push({ 'name': player.PlayerName, 'score': player.score });
             }
 

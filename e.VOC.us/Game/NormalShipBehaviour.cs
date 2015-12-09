@@ -4,7 +4,7 @@
     {
         private readonly Ship _ship;
         private readonly GameState _game;
-        private const float TurnSpeed = 1.0f;
+        private const float TurnSpeed = 2.0f;
         private const float AccelSpeed = 0.1f;
         private const int mapWidth = 1600;
         private const int mapHeight = 1600;

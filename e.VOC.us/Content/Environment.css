@@ -1,0 +1,65 @@
+﻿.background-animations {
+    z-index: -10;
+    overflow:hidden;
+}
+
+.foreground-animations {
+    z-index: 5;
+    overflow:hidden;
+}
+
+
+
+.water-background {
+    background-repeat: repeat;
+    background-color: #1675b8;
+    z-index: 1;
+}
+
+.water-middle {
+    background-image: url(../Assets/Environment/water-cloudy.png) ;
+    background-repeat: repeat;
+    opacity:0.6;
+    z-index: 2;
+}
+
+.water-foreground {
+    background-image: url(../Assets/Environment/water-texture.png);
+    background-repeat: repeat;
+    opacity:0.8;
+    z-index: 3;
+}
+
+
+
+.clouds-middle{
+    position:absolute;
+    top:0;
+    left:0;
+    width:500px;
+    height:500px;
+}
+
+.cloud1{
+    position:absolute;
+    width:944px;
+    height:687px;
+    background-image: url(../Assets/Environment/cloud1.png);
+    background-repeat:no-repeat;
+}
+
+.cloud2{
+    position:absolute;
+    width:1144px;
+    height:1000px;
+    background-image: url(../Assets/Environment/cloud2.png);
+    background-repeat:no-repeat;
+}
+
+.cloud3{
+    position:absolute;
+    width:1144px;
+    height:1000px;
+    background-image: url(../Assets/Environment/cloud3.png);
+    background-repeat:no-repeat;
+}

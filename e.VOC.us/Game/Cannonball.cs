@@ -7,23 +7,24 @@ namespace e.VOC.us.Game
     {
         [JsonProperty("position")] private readonly Vector2D _position;
         [JsonIgnore] private readonly float _direction;
-        [JsonIgnore] private const int Speed = 5;
         [JsonIgnore] private readonly GameState _game;
         [JsonIgnore] private int _lifetime;
+        [JsonIgnore] private readonly float _speed;
         [JsonIgnore] private Player _owner;
 
-        public Cannonball(Vector2D position, float direction, GameState game, int lifetime, Player owner = null)
+        public Cannonball(Vector2D position, float direction, GameState game, int lifetime, float speed, Player owner = null)
         {
             _position = position;
             _direction = direction;
             _game = game;
             _lifetime = lifetime;
+            _speed = speed;
             _owner = owner;
         }
 
         public void Update(GameTime gametime)
         {
-            _position.Add(Helper.AngleToUnitVector(_direction).Multiply(Speed));
+            _position.Add(Helper.AngleToUnitVector(_direction).Multiply(_speed));
             _lifetime -= (int)gametime.ElapsedMillisecondsSinceLastUpdate;
             foreach (var player in _game.Players.Where(player => player.Ship.Hit(_position)))
             {

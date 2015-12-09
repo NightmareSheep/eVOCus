@@ -5,7 +5,7 @@
         gameTime: number = 0;
         timeStep: number;
         static keyboard: Keyboard;
-        static game:Game;
+        static instance:Game;
         canvas:Canvas;
         canonballs: SpriteObject[] = [];
         id: string;
@@ -16,7 +16,7 @@
 
         
         constructor(public hub: GameHubProxy) {
-            Game.game = this;
+            Game.instance = this;
             Game.keyboard = new Keyboard();
             this.canvas = new Canvas();
             this.timeStep = Math.floor(1000 / this.fps);
@@ -27,7 +27,7 @@
         }
 
         inputName() {
-            Game.game.hub.server.nameInput(prompt("What is your name"));
+            Game.instance.hub.server.nameInput(prompt("What is your name"));
         }
 
         gameLoop(gameObject: Game) {
@@ -63,16 +63,16 @@
             this.canvas.ctx.lineWidth = 10;
             this.canvas.ctx.strokeRect(0,0,5000,5000);
 
-
+            for (var i = 0; i < this.oneTimeAnimations.length; i++) {
+                this.oneTimeAnimations[i].Draw(canvas, this.gameTime);
+            }
 
 
             for (var i = 0; i < this.players.length; i++) {
                 this.players[i].draw(this.canvas);
             }
 
-            for (var i = 0; i < this.oneTimeAnimations.length; i++) {
-                this.oneTimeAnimations[i].Draw(canvas, this.gameTime);
-            }
+            
 
             for (var i = 0; i < this.canonballs.length; i++) {
                 this.canonballs[i].draw(canvas.ctx, this.gameTime);

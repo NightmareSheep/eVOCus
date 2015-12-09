@@ -17,9 +17,9 @@ module eVOCus {
 
         Update(gameTime: number) {
             if (this.loop)
-                this.currentAnimationTime = (this.currentAnimationTime + Game.game.timeStep) % this.duration;
+                this.currentAnimationTime = (this.currentAnimationTime + Game.instance.timeStep) % this.duration;
             else
-                this.currentAnimationTime = Math.min(this.currentAnimationTime + Game.game.timeStep, this.duration);
+                this.currentAnimationTime = Math.min(this.currentAnimationTime + Game.instance.timeStep, this.duration);
             if (!this.loop && this.currentAnimationTime == this.duration)
                 this.ended = true;
             this.currentFrame = Math.min(this.frames - 1, Math.floor(this.frames * (this.currentAnimationTime / this.duration)));

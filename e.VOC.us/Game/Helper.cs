@@ -11,7 +11,7 @@ namespace e.VOC.us.Game
 
         public static float VectorToAngle(Vector2D vector)
         {
-            return (float)Math.Tanh(vector.Y/ vector.X);
+            return (float)(Math.Tanh(vector.Y/ vector.X) * (180f / Math.PI));
         }
     }
 }

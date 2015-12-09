@@ -33,7 +33,7 @@ module eVOCus {
 
         hitsShip(num: number, canvas: Canvas) {
             this.calcCorners();
-            var ships: Array<Ship> = Game.game.gamestate.ships;
+            var ships: Array<Ship> = Game.instance.gamestate.ships;
 
             for (var i = 0; i < ships.length; i++) {
                 canvas.ctx.translate(-ships[i].rectangle.position.x, -ships[i].rectangle.position.y);

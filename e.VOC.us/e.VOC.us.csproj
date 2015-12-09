@@ -221,8 +221,14 @@
     <Content Include="Assets\Boot-1.png" />
     <Content Include="Assets\Boot-3-dead.png" />
     <Content Include="Assets\Boot-3.png" />
+    <Content Include="Assets\cannon.png" />
     <Content Include="Assets\canonball2.jpg" />
     <Content Include="Assets\canonball2.png" />
+    <Content Include="Assets\Environment\cloud1.png" />
+    <Content Include="Assets\Environment\cloud2.png" />
+    <Content Include="Assets\Environment\cloud3.png" />
+    <Content Include="Assets\Environment\water-cloudy.png" />
+    <Content Include="Assets\Environment\water-texture.png" />
     <Content Include="Assets\explosion.png" />
     <Content Include="Assets\home-background.jpg" />
     <Content Include="Assets\logo.png" />

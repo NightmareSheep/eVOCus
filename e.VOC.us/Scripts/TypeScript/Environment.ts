@@ -3,13 +3,18 @@
         player: Player;
         private waterMiddle;
         private waterForeground;
+        private cloudsBackground;
         private cloudsMiddle;
+        private cloudsForeground;
+        
 
 
         constructor() {
             this.waterForeground = $('.water-foreground');
             this.waterMiddle = $('.water-middle');
+            this.cloudsBackground = $('.clouds-background');
             this.cloudsMiddle = $('.clouds-middle');
+            this.cloudsForeground = $('.clouds-foreground');
 
             this.createClouds();
         }
@@ -33,9 +38,10 @@
             var cloudHeight = (Math.ceil(mapHeight / 1000));
 
             //Chance of spawning a cloud on map grid square
-            var cloudSpawnPercentage = 25;
+            var cloudSpawnPercentage = 50;
             
             var cloudTypes = ['cloud1', 'cloud2', 'cloud3'];
+            var cloudLayers = [this.cloudsMiddle, this.cloudsForeground, this.cloudsBackground ];
             
             for (var x = 0; x < cloudWidth; x++) {
                 for (var y = 0; y < cloudHeight; y++) {
@@ -56,8 +62,9 @@
                         cloud.css('left', cloudXOffset);
                         cloud.css('top', cloudYOffset);
                         
-                        //Append to cloud layer
-                        this.cloudsMiddle.append(cloud);
+                        //Append to random cloud layer
+                        var randomLayer = Math.round(Math.random() * (cloudLayers.length - 1));
+                        cloudLayers[randomLayer].append(cloud);
 
                     }
                 }
@@ -74,8 +81,14 @@
         }
 
         animateClouds() {
-            this.cloudsMiddle.css("left", (-this.player.ship.rectangle.position.x * 2));
-            this.cloudsMiddle.css("top", (-this.player.ship.rectangle.position.y * 2));
+            this.cloudsBackground.css("left", (-this.player.ship.rectangle.position.x * 2));
+            this.cloudsBackground.css("top", (-this.player.ship.rectangle.position.y * 2));
+
+            this.cloudsMiddle.css("left", (-this.player.ship.rectangle.position.x * 3));
+            this.cloudsMiddle.css("top", (-this.player.ship.rectangle.position.y * 3));
+
+            this.cloudsForeground.css("left", (-this.player.ship.rectangle.position.x * 4));
+            this.cloudsForeground.css("top", (-this.player.ship.rectangle.position.y * 4));
         }
     }
 } 

@@ -30,7 +30,14 @@
     z-index: 3;
 }
 
-
+.clouds-background{
+    position:absolute;
+    top:0;
+    left:0;
+    width:500px;
+    height:500px;
+    z-index:1;
+}
 
 .clouds-middle{
     position:absolute;
@@ -38,7 +45,20 @@
     left:0;
     width:500px;
     height:500px;
+    z-index:2;
+    opacity:0.8;
 }
+
+.clouds-foreground{
+    position:absolute;
+    top:0;
+    left:0;
+    width:500px;
+    height:500px;
+    z-index:3;
+    opacity:0.5;
+}
+
 
 .cloud1{
     position:absolute;

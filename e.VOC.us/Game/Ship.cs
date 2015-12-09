@@ -17,6 +17,8 @@ namespace e.VOC.us.Game
         public string BoatState = "normal";
         [JsonIgnore]
         public IUpdatable ShipBehaviour;
+        [JsonProperty("cannons")]
+        public Cannon[] Cannons;
 
         //Constants
         private const int MaxSpeed = 5;
@@ -34,12 +36,17 @@ namespace e.VOC.us.Game
             Rectangle = new RotatableRectangle(position, 180,110, angle);
             Player = player;
             _game = game;
+            Cannons = new Cannon[1];
+            Cannons[0] = new Cannon(this, new Vector2D(90, 55), 0);
             ShipBehaviour = new NormalShipBehaviour(this, _game);
+
         }
 
         public void Update(GameTime gametime)
         {
             ShipBehaviour?.Update(gametime);
+            foreach (var cannon in Cannons)
+                cannon.Update();
         }
 
         public void Fire()

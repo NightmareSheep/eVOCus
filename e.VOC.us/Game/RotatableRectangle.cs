@@ -23,8 +23,8 @@ namespace e.VOC.us.Game
 
 		public bool Contains(Vector2D point)
 		{
-			var rotatedPosition = Position.Rotate(Position,-Angle);
-			var rotatedPoint = point.Rotate(point, -Angle);
+			var rotatedPosition = Position.Rotate(-Angle);
+			var rotatedPoint = point.Rotate(-Angle);
 
 			return
 				rotatedPosition.X - Width/2f < rotatedPoint.X &&

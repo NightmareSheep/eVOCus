@@ -118,6 +118,7 @@
                 this.players[i].PlayerName = state.players[i].name;
                 this.players[i].score = state.players[i].score;
                 this.players[i].ship._boatState = state.players[i].ship.boatState;
+                this.players[i].ship._cannons[0].rectangle.position = new Vector2D(state.players[i].ship.cannons[0].rectangle.position.x, state.players[i].ship.cannons[0].rectangle.position.y);
             }
 
             var image = new Image();

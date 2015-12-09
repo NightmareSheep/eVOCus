@@ -187,6 +187,7 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Game\Cannon.cs" />
     <Compile Include="Game\Cannonball.cs" />
     <Compile Include="Game\ConnectInput.cs" />
     <Compile Include="Game\DisconnectInput.cs" />

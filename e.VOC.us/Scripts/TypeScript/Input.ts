@@ -17,6 +17,11 @@
         rectangle: InputRotatableRectangle;
         speed: number;
         boatState: string;
+        cannons: InputCannon[];
+    }
+
+    export interface InputCannon {
+        rectangle: InputRotatableRectangle;
     }
 
     export interface InputRotatableRectangle {

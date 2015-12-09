@@ -35,7 +35,7 @@ namespace e.VOC.us.Game
             return this;
         }
 
-        public Vector2D Rotate(Vector2D v, float angle)
+        public Vector2D Rotate(float angle)
         {
             return new Vector2D((float)( X * Math.Cos(angle) + Y * -Math.Sin(angle)),(float)(X * Math.Sin(angle) + Y * Math.Cos(angle)));
         }

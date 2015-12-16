@@ -1,15 +1,18 @@
 ﻿module eVOCus {
     export class Environment {
         player: Player;
+        private waterEntities;
         private waterMiddle;
         private waterForeground;
         private cloudsBackground;
         private cloudsMiddle;
         private cloudsForeground;
-        
+        private environmentAI;
+        private testAI;
 
 
         constructor() {
+            this.waterEntities = $('.water-entities');
             this.waterForeground = $('.water-foreground');
             this.waterMiddle = $('.water-middle');
             this.cloudsBackground = $('.clouds-background');
@@ -17,6 +20,7 @@
             this.cloudsForeground = $('.clouds-foreground');
 
             this.createClouds();
+            this.createAI();
         }
 
         update() {
@@ -25,6 +29,7 @@
             if (this.player != null) {
                 this.animateWater();
                 this.animateClouds();
+                this.updateAI();
             }
         }
 
@@ -48,11 +53,10 @@
                     var cloudDicePercentage = ~~(Math.random() * 100);
                     if (cloudDicePercentage < cloudSpawnPercentage) {
                         //Let's paint some happy little clouds
-                        var cloud = $("<div>")
+                        var cloud = $("<div>");
 
                         //Random cloud class
                         var randomCloud = Math.round(Math.random() * (cloudTypes.length - 1));
-                        console.log(randomCloud);
                         cloud.addClass(cloudTypes[randomCloud]);
                         
                         //Randomise cloud settings
@@ -71,9 +75,55 @@
             }
         }
 
+        createAI() {
+            this.environmentAI = [];
+            for (var i = 0; i < 5; i++) {
+                var graphicAI = $("<div>").addClass("testAI");
+                var AI = {
+                    graphic: graphicAI,
+                    top: ~~(Math.random()*5000),
+                    left: ~~(Math.random() * 5000),
+                    speed: (Math.random() * 3) + 1,
+                    rotation: 0,
+                    rotatemodifier: 0,
+                    rotateaction: 0,
+                    actioncount: 1
+                }
+                this.environmentAI.push(AI);
+                this.waterEntities.append(graphicAI);
+            }
+        }
 
+        updateAI() {
+            for (var i = 0; i < this.environmentAI.length; i++) {
+                this.environmentAI[i].top += Math.sin(this.environmentAI[i].rotation * Math.PI / 180) * this.environmentAI[i].speed;
+                this.environmentAI[i].left += Math.cos(this.environmentAI[i].rotation * Math.PI / 180) * this.environmentAI[i].speed;
+                this.environmentAI[i].rotation += this.environmentAI[i].rotateaction;
+
+                if (this.environmentAI[i].rotatemodifier > this.environmentAI[i].rotateaction) {
+                    this.environmentAI[i].rotateaction += 0.01;
+                } else if (this.environmentAI[i].rotatemodifier < this.environmentAI[i].rotateaction) {
+                    this.environmentAI[i].rotateaction -= 0.01;
+                } else {
+                    this.environmentAI[i].rotateaction = this.environmentAI[i].rotatemodifier;
+                }
+
+                this.environmentAI[i].actioncount--;
+                if (!this.environmentAI[i].actioncount) {
+                    this.environmentAI[i].rotatemodifier = ((Math.random() * 50) - 25) / 100;
+                    this.environmentAI[i].actioncount = ~~(Math.random() * 250) + 50;
+                }
+
+                this.environmentAI[i].graphic.css("transform", "rotate(" + (this.environmentAI[i].rotation - 270) + "deg)");
+                this.environmentAI[i].graphic.css("left", this.environmentAI[i].left);
+                this.environmentAI[i].graphic.css("top", this.environmentAI[i].top);
+            }
+        }
 
         animateWater() {
+            this.waterEntities.css("left", (-this.player.ship.rectangle.position.x * 1));
+            this.waterEntities.css("top", (-this.player.ship.rectangle.position.y * 1));
+
             this.waterMiddle.css("background-position-x", (-this.player.ship.rectangle.position.x + Game.instance.canvas.width / 2) / 2);
             this.waterMiddle.css("background-position-y", (-this.player.ship.rectangle.position.y + Game.instance.canvas.height / 2) / 2);
             this.waterForeground.css("background-position-x", (-this.player.ship.rectangle.position.x + Game.instance.canvas.width / 2));

@@ -13,29 +13,36 @@
 .water-background {
     background-repeat: repeat;
     background-color: #1675b8;
+
     z-index: 1;
 }
+
+.water-entities{
+    position:absolute;
+    top:0;
+    left:0;
+    z-index:2;
+}
+
 
 .water-middle {
     background-image: url(../Assets/Environment/water-cloudy.png) ;
     background-repeat: repeat;
     opacity:0.6;
-    z-index: 2;
+    z-index: 3;
 }
 
 .water-foreground {
     background-image: url(../Assets/Environment/water-texture.png);
     background-repeat: repeat;
     opacity:0.8;
-    z-index: 3;
+    z-index: 4;
 }
 
 .clouds-background{
     position:absolute;
     top:0;
     left:0;
-    width:500px;
-    height:500px;
     z-index:1;
 }
 
@@ -43,8 +50,6 @@
     position:absolute;
     top:0;
     left:0;
-    width:500px;
-    height:500px;
     z-index:2;
     opacity:0.8;
 }
@@ -53,8 +58,6 @@
     position:absolute;
     top:0;
     left:0;
-    width:500px;
-    height:500px;
     z-index:3;
     opacity:0.5;
 }
@@ -82,4 +85,22 @@
     height:1000px;
     background-image: url(../Assets/Environment/cloud3.png);
     background-repeat:no-repeat;
+}
+
+.testAI{
+    opacity:0;
+    position:absolute;
+    width:500px;
+    height:800px;
+    background-image: url(../Assets/Environment/shark.png);
+    background-repeat:no-repeat;
+    background-position:center;
+    animation: AIFade 10s ease-in-out 2s infinite;
+    
+}
+
+@keyframes AIFade{
+    0% {opacity:0.3;}
+    50%{opacity:0.7;}
+    100%{opacity:0.3;}
 }

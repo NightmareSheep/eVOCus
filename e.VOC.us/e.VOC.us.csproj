@@ -21,7 +21,7 @@
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
     <IISExpressUseClassicPipelineMode />
-    <TypeScriptToolsVersion>1.4</TypeScriptToolsVersion>
+    <TypeScriptToolsVersion>1.6</TypeScriptToolsVersion>
     <TargetFrameworkProfile />
     <UseGlobalApplicationHostFile />
   </PropertyGroup>
@@ -195,6 +195,7 @@
     <Compile Include="Game\Game.cs" />
     <Compile Include="Game\GameState.cs" />
     <Compile Include="Game\GameTime.cs" />
+    <Compile Include="Game\IHasRotatableRectangle.cs" />
     <Compile Include="Game\IInput.cs" />
     <Compile Include="Game\IUpdatable.cs" />
     <Compile Include="Game\KeyboardInput.cs" />
@@ -202,6 +203,7 @@
     <Compile Include="Game\Map.cs" />
     <Compile Include="Game\NameInput.cs" />
     <Compile Include="Game\NormalShipBehaviour.cs" />
+    <Compile Include="Game\Platform.cs" />
     <Compile Include="Game\RotatableRectangle.cs" />
     <Compile Include="Game\Ship.cs" />
     <Compile Include="Game\Player.cs" />

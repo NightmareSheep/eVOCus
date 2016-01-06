@@ -5,20 +5,14 @@ namespace e.VOC.us.Game
 {
     public class Ship
     {
-        [JsonProperty("rectangle")]
-        public readonly RotatableRectangle Rectangle;
-        [JsonProperty("speed")]
-        private float _speed = 1;
-        [JsonIgnore]
-        public readonly Player Player;
-        [JsonIgnore]
-        private readonly GameState _game;
-        [JsonProperty("boatState")]
-        public string BoatState = "normal";
-        [JsonIgnore]
-        public IUpdatable ShipBehaviour;
-        [JsonProperty("cannons")]
-        public Cannon[] Cannons;
+        [JsonProperty("rectangle")] public readonly RotatableRectangle Rectangle;
+        [JsonProperty("speed")] private float _speed = 1;
+        [JsonProperty("boatState")] public string BoatState = "normal";
+        [JsonProperty("cannons")] public Cannon[] Cannons;
+        [JsonIgnore] public readonly Player Player;
+        [JsonIgnore] private readonly GameState _game;
+        [JsonIgnore] public IUpdatable ShipBehaviour;
+        [JsonIgnore] private readonly Platform _platform;
 
         //Constants
         private const int MaxSpeed = 5;
@@ -37,14 +31,16 @@ namespace e.VOC.us.Game
             Player = player;
             _game = game;
             Cannons = new Cannon[1];
-            Cannons[0] = new Cannon(this, new Vector2D(90, 55), 0);
+            Cannons[0] = new Cannon(new Vector2D(Rectangle.Position.X + 69, Rectangle.Position.Y), Rectangle.Angle);
             ShipBehaviour = new NormalShipBehaviour(this, _game);
-
+            _platform = new Platform(Rectangle);
+            _platform.Children.Add(Cannons[0]);
         }
 
         public void Update(GameTime gametime)
         {
             ShipBehaviour?.Update(gametime);
+            _platform.Update();
             foreach (var cannon in Cannons)
                 cannon.Update();
         }

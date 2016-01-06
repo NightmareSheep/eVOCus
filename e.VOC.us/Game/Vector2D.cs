@@ -35,9 +35,14 @@ namespace e.VOC.us.Game
             return this;
         }
 
+        /// <summary>
+        /// Calculate and return the rotated vector, does not rotate the vector it is called on.
+        /// </summary>
+        /// <param name="angle">Angle in radians</param>
+        /// <returns>The rotated vector</returns>
         public Vector2D Rotate(float angle)
         {
-            return new Vector2D((float)( X * Math.Cos(angle) + Y * -Math.Sin(angle)),(float)(X * Math.Sin(angle) + Y * Math.Cos(angle)));
+            return new Vector2D((float)( X * Math.Cos(angle) - Y * Math.Sin(angle)),(float)(X * Math.Sin(angle) + Y * Math.Cos(angle)));
         }
     }
 }

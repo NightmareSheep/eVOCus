@@ -19,8 +19,8 @@ module eVOCus {
             this._animation_death = new Animation(image2, rectangle.width, rectangle.height * 5, 5, 2000, false);
 
             var image = new Image();
-            image.src = "../Assets/canonball2.png";
-            this._cannons = [new RotatableSpriteObject(new RotatableRectangle(new Vector2D(0,0), 30, 30, 0), image)];
+            image.src = "../Assets/cannon.png";
+            this._cannons = [new RotatableSpriteObject(new RotatableRectangle(new Vector2D(0,0), 38, 20, 0), image)];
         }
 
         update(gameTime: number) {

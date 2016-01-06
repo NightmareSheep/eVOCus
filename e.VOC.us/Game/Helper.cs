@@ -13,5 +13,10 @@ namespace e.VOC.us.Game
         {
             return (float)(Math.Tanh(vector.Y/ vector.X) * (180f / Math.PI));
         }
+
+        public static float DegreesToRadians(float degrees)
+        {
+            return (float)(Math.PI/180f) *degrees;
+        }
     }
 }

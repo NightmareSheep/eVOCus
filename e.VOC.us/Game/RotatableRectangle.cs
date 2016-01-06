@@ -32,5 +32,7 @@ namespace e.VOC.us.Game
 				rotatedPosition.Y - Height/2f < rotatedPoint.Y &&
 				rotatedPosition.Y + Height/2f > rotatedPoint.Y;
 		}
+
+	    public RotatableRectangle Clone() => new RotatableRectangle(new Vector2D(Position.X, Position.Y), Width, Height, Angle);
 	}
 }

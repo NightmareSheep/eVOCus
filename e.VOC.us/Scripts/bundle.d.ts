@@ -58,8 +58,16 @@ declare module eVOCus {
 declare module eVOCus {
     class Environment {
         player: Player;
+        private waterMiddle;
+        private waterForeground;
+        private cloudsBackground;
+        private cloudsMiddle;
+        private cloudsForeground;
         constructor();
         update(): void;
+        createClouds(): void;
+        animateWater(): void;
+        animateClouds(): void;
     }
 }
 declare module eVOCus {

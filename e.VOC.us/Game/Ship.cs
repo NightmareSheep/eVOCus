@@ -13,9 +13,12 @@ namespace e.VOC.us.Game
         [JsonIgnore] private readonly GameState _game;
         [JsonIgnore] public IUpdatable ShipBehaviour;
         [JsonIgnore] private readonly Platform _platform;
+        [JsonIgnore] public ShipTypes ShipType { get; }
 
+        [JsonIgnore] public float TurnSpeed { get; }
+        [JsonIgnore] public float AccelSpeed { get; }
         //Constants
-        private const int MaxSpeed = 5;
+        [JsonIgnore] public float MaxSpeed { get; }
         public const int DeathTimer = 2000;
         public const int SpawnTimer = 3000;
 
@@ -30,11 +33,29 @@ namespace e.VOC.us.Game
             Rectangle = new RotatableRectangle(position, 180,110, angle);
             Player = player;
             _game = game;
+            TurnSpeed = 2.0f;
+            AccelSpeed = 0.1f;
+            MaxSpeed = 5f;
             Cannons = new Cannon[1];
-            Cannons[0] = new Cannon(new Vector2D(Rectangle.Position.X + 69, Rectangle.Position.Y), Rectangle.Angle);
+            Cannons[0] = new Cannon(new Vector2D(Rectangle.Position.X + 69, Rectangle.Position.Y), Rectangle.Angle, this, _game);
             ShipBehaviour = new NormalShipBehaviour(this, _game);
             _platform = new Platform(Rectangle);
             _platform.Children.Add(Cannons[0]);
+        }
+
+        public Ship(ShipTypes shipType, RotatableRectangle rectangle, Cannon[] cannons, Player player, GameState game, float turnSpeed, float accelSpeed, float maxSpeed)
+        {
+            ShipType = shipType;
+            Rectangle = rectangle;
+            Player = player;
+            _game = game;
+            TurnSpeed = turnSpeed;
+            AccelSpeed = accelSpeed;
+            MaxSpeed = maxSpeed;
+            Cannons = cannons;
+            ShipBehaviour = new NormalShipBehaviour(this, _game);
+            _platform = new Platform(Rectangle);
+            _platform.Children.AddRange(cannons);
         }
 
         public void Update(GameTime gametime)
@@ -42,7 +63,7 @@ namespace e.VOC.us.Game
             ShipBehaviour?.Update(gametime);
             _platform.Update();
             foreach (var cannon in Cannons)
-                cannon.Update();
+                cannon.Update(gametime);
         }
 
         public void Fire()

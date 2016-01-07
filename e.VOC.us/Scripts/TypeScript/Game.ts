@@ -13,6 +13,7 @@
         players: Player[] = [];
         oneTimeAnimations: AnimationWithRectangle[] = [];
         scoreboard: Scoreboard;
+        minimap: Minimap;
         environment: Environment;
 
         
@@ -22,6 +23,7 @@
             this.canvas = new Canvas();
             this.timeStep = Math.floor(1000 / this.fps);
             this.scoreboard = new Scoreboard();
+            this.minimap = new Minimap();
             this.environment = new Environment();
             setInterval(() => { this.gameLoop(this); }, this.timeStep);
             
@@ -59,6 +61,7 @@
 
             Game.keyboard.update();
             this.scoreboard.update();
+            this.minimap.update();
             this.environment.update();
         }
 
@@ -89,6 +92,8 @@
                 this.canonballs[i].draw(canvas.ctx, this.gameTime);
             }
                         
+            this.minimap.draw();
+
             // Reset all transformations
             canvas.ctx.setTransform(1, 0, 0, 1, 0, 0);
         }

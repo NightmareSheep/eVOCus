@@ -77,6 +77,7 @@ declare module eVOCus {
         players: Player[];
         oneTimeAnimations: AnimationWithRectangle[];
         scoreboard: Scoreboard;
+        minimap: Minimap;
         environment: Environment;
         constructor(hub: GameHubProxy);
         inputName(): void;
@@ -141,6 +142,17 @@ declare module eVOCus {
     }
 }
 declare module eVOCus {
+}
+declare module eVOCus {
+    class Minimap {
+        ctx: CanvasRenderingContext2D;
+        width: number;
+        height: number;
+        minimapElement: HTMLElement;
+        constructor();
+        update(): void;
+        draw(): void;
+    }
 }
 declare module eVOCus {
     class RotatableSpriteObject {

@@ -20,8 +20,8 @@ module eVOCus {
 
         update(gameTime: number) {
             this._currentWaveTime -= Game.instance.timeStep * (this.speed + 0.1);
-            console.log("Ship speed: " + this.speed);
-            console.log("Wave time: " + this._currentWaveTime);
+            //console.log("Ship speed: " + this.speed);
+            //console.log("Wave time: " + this._currentWaveTime);
             if (this._currentWaveTime < 0) {
                 this._currentWaveTime = this._waveTime;
                 Game.instance.waves.push(new Wave(new Vector2D(this.rectangle.position.x, this.rectangle.position.y), this.rectangle.angle));

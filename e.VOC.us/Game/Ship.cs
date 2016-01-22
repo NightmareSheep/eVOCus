@@ -12,7 +12,7 @@ namespace e.VOC.us.Game
         [JsonIgnore] public readonly Player Player;
         [JsonIgnore] private readonly GameState _game;
         [JsonIgnore] public IUpdatable ShipBehaviour;
-        [JsonIgnore] private readonly Platform _platform;
+        [JsonIgnore] public readonly Platform Platform;
         [JsonIgnore] public ShipTypes ShipType { get; }
 
         [JsonIgnore] public float TurnSpeed { get; }
@@ -39,8 +39,8 @@ namespace e.VOC.us.Game
             Cannons = new Cannon[1];
             Cannons[0] = new Cannon(new Vector2D(Rectangle.Position.X + 69, Rectangle.Position.Y), Rectangle.Angle, this, _game);
             ShipBehaviour = new NormalShipBehaviour(this, _game);
-            _platform = new Platform(Rectangle);
-            _platform.Children.Add(Cannons[0]);
+            Platform = new Platform(Rectangle);
+            Platform.Children.Add(Cannons[0]);
         }
 
         public Ship(ShipTypes shipType, RotatableRectangle rectangle, Cannon[] cannons, Player player, GameState game, float turnSpeed, float accelSpeed, float maxSpeed)
@@ -54,14 +54,13 @@ namespace e.VOC.us.Game
             MaxSpeed = maxSpeed;
             Cannons = cannons;
             ShipBehaviour = new NormalShipBehaviour(this, _game);
-            _platform = new Platform(Rectangle);
-            _platform.Children.AddRange(cannons);
+            Platform = new Platform(Rectangle);
         }
 
         public void Update(GameTime gametime)
         {
             ShipBehaviour?.Update(gametime);
-            _platform.Update();
+            Platform.Update();
             foreach (var cannon in Cannons)
                 cannon.Update(gametime);
         }

@@ -21,7 +21,7 @@ namespace e.VOC.us.Game
         public Player(GameState game)
         {
             Keyboard = new Keyboard();
-            Ship = new Ship(new Vector2D(100,100), 0, this, game);
+            Ship = game.ShipFactory.Ship(ShipTypes.Frigate, new Vector2D(100, 100), 0, this, game);
         }
 
         public void Update(GameTime gametime)

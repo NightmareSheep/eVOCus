@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Newtonsoft.Json;
 
 namespace e.VOC.us.Game
@@ -16,6 +15,10 @@ namespace e.VOC.us.Game
         public List<Vector2D> Explosions = new List<Vector2D>();
         [JsonProperty("map")]
         public Map Map;
+        [JsonIgnore]
+        private readonly IShipFactory _shipFactory = new NormalShipFactory();
+        [JsonIgnore]
+        public IShipFactory ShipFactory => _shipFactory;
 
         public GameState()
         {

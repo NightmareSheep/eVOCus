@@ -7,7 +7,8 @@ module eVOCus {
         }
 
         draw(canvas: Canvas, gameTime: number) {
-            canvas.drawRotatableImage(this.image, this.rectangle);
+            //canvas.drawRotatableImage(this.image, this.rectangle);
+            canvas.drawRotatableClippedImage(this.image, this.rectangle, 0, 0, this.image.width, this.image.height);
         }
     }
 } 

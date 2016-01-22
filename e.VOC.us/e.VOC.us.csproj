@@ -247,6 +247,7 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\Environment.css" />
+    <Content Include="Content\Minimap.css" />
     <Content Include="Content\Scoreboard.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
@@ -265,6 +266,7 @@
     <Content Include="Scripts\bundle.js.map" />
     <Content Include="Scripts\bundle.js" />
     <None Include="Scripts\jquery-2.1.4.intellisense.js" />
+    <Content Include="Scripts\Interface.js" />
     <Content Include="Scripts\jquery-2.1.4.js" />
     <Content Include="Scripts\jquery-2.1.4.min.js" />
     <Content Include="Scripts\jquery-2.1.4.min.map" />
@@ -283,6 +285,7 @@
     <Content Include="Views\Home\Chat.cshtml" />
     <Content Include="Views\Home\BroadCasting.cshtml" />
     <TypeScriptCompile Include="Scripts\TypeScript\AnimationWithRectangle.ts" />
+    <TypeScriptCompile Include="Scripts\TypeScript\Minimap.ts" />
     <TypeScriptCompile Include="Scripts\TypeScript\Player.ts" />
     <TypeScriptCompile Include="Scripts\TypeScript\Keyboard.ts" />
     <TypeScriptCompile Include="Scripts\TypeScript\Canvas.ts" />
@@ -325,6 +328,7 @@
     <Content Include="Views\Account\Register.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Home\Prototype.cshtml" />
+    <TypeScriptCompile Include="Scripts\TypeScript\Wave.ts" />
     <TypeScriptCompile Include="Scripts\typings\jquery\jquery.d.ts" />
     <TypeScriptCompile Include="Scripts\typings\signalr\signalr.d.ts" />
   </ItemGroup>

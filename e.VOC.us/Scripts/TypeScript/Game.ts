@@ -4,14 +4,16 @@
         fps: number = 60;
         gameTime: number = 0;
         timeStep: number;
-        static keyboard: Keyboard;
+        static keyboard: Keyboard
         static instance:Game;
         canvas:Canvas;
         canonballs: SpriteObject[] = [];
+        waves: Wave[] = [];
         id: string;
         players: Player[] = [];
         oneTimeAnimations: AnimationWithRectangle[] = [];
         scoreboard: Scoreboard;
+        minimap: Minimap;
         environment: Environment;
 
         
@@ -21,6 +23,7 @@
             this.canvas = new Canvas();
             this.timeStep = Math.floor(1000 / this.fps);
             this.scoreboard = new Scoreboard();
+            this.minimap = new Minimap();
             this.environment = new Environment();
             setInterval(() => { this.gameLoop(this); }, this.timeStep);
             
@@ -47,8 +50,18 @@
                 else
                     this.oneTimeAnimations[i].Update(gameTime);
             }
+
+            for (var i = this.waves.length - 1; i >= 0; i--) {
+                if (this.waves[i]._rectangle.rectangle.width > 15) {
+                    this.waves[i].update(gameTime);
+                }
+                else
+                    this.waves.splice(i, 1);
+            }
+
             Game.keyboard.update();
             this.scoreboard.update();
+            this.minimap.update();
             this.environment.update();
         }
 
@@ -67,17 +80,20 @@
                 this.oneTimeAnimations[i].Draw(canvas, this.gameTime);
             }
 
+            for (var i = 0; i < this.waves.length; i++) {
+                this.waves[i].draw(this.canvas, this.gameTime);
+            }
 
             for (var i = 0; i < this.players.length; i++) {
                 this.players[i].draw(this.canvas);
             }
 
-            
-
             for (var i = 0; i < this.canonballs.length; i++) {
                 this.canonballs[i].draw(canvas.ctx, this.gameTime);
             }
                         
+            this.minimap.draw();
+
             // Reset all transformations
             canvas.ctx.setTransform(1, 0, 0, 1, 0, 0);
         }
@@ -120,6 +136,7 @@
                 this.players[i].ship._boatState = state.players[i].ship.boatState;
                 this.players[i].ship._cannons[0].rectangle.position = new Vector2D(state.players[i].ship.cannons[0].rectangle.position.x, state.players[i].ship.cannons[0].rectangle.position.y);
                 this.players[i].ship._cannons[0].rectangle.angle = state.players[i].ship.cannons[0].rectangle.angle;
+                this.players[i].ship.speed = state.players[i].ship.speed;
             }
 
             var image = new Image();

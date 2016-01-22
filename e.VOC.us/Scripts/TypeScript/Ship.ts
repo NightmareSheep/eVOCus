@@ -6,10 +6,10 @@ module eVOCus {
         private _maxSpeed: number;
         private _animation: Animation;
         private _animation_death: Animation
-        private _rippleTime: number = 100;
-        private _currentRippleTime: number = 100;
         public _boatState: string;
         public _cannons: RotatableSpriteObject[];
+        private _waveTime: number = 1000;
+        private _currentWaveTime: number = 1000;  
 
         constructor(public id: number, public speed: number, public maxSpeed: number, public rectangle: RotatableRectangle, image: HTMLImageElement) {
             super(rectangle, image);
@@ -24,14 +24,12 @@ module eVOCus {
         }
 
         update(gameTime: number) {
-            
-
-            this._currentRippleTime -= Game.instance.timeStep;
-            if (this._currentRippleTime < 0) {
-                this._currentRippleTime = this._rippleTime;
-                var explosionImage = new Image();
-                explosionImage.src = "../Assets/ship-waves.png";
-                Game.instance.oneTimeAnimations.push(new AnimationWithRectangle(new RotatableRectangle(new Vector2D(this.rectangle.position.x, this.rectangle.position.y), 80, 80, this.rectangle.angle), explosionImage, 80, 80 * 10, 10, 5000, false));
+            this._currentWaveTime -= Game.instance.timeStep * (this.speed + 0.1);
+            //console.log("Ship speed: " + this.speed);
+            //console.log("Wave time: " + this._currentWaveTime);
+            if (this._currentWaveTime < 0) {
+                this._currentWaveTime = this._waveTime;
+                Game.instance.waves.push(new Wave(new Vector2D(this.rectangle.position.x, this.rectangle.position.y), this.rectangle.angle));
             }
             this._animation.Update(gameTime);
             this._animation_death.Update(gameTime);

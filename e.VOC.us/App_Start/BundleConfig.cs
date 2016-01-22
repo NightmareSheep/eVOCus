@@ -21,13 +21,15 @@ namespace e.VOC.us
 
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
                       "~/Scripts/bootstrap.js",
+                      "~/Scripts/interface.js",
                       "~/Scripts/respond.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
                       "~/Content/site.css",
                        "~/Content/environment.css",
-                      "~/Content/scoreboard.css"));
+                      "~/Content/scoreboard.css",
+                      "~/Content/minimap.css"));
 
             bundles.Add(new ScriptBundle("~/bundles/signalr").Include(
                         "~/Scripts/jquery-{version}.js",

@@ -33,7 +33,17 @@
 </div>
 
 
-<script src="~/Scripts/jquery.signalR-2.2.0.min.js"></script>
-@Scripts.Render("~/bundles/signalr")
-<script src="~/signalr/hubs"></script>
-@Scripts.Render("~/Scripts/bundle.js")
+
+
+@section scripts
+{
+    @Scripts.Render("~/bundles/signalr")
+    @* ReSharper disable once Html.PathError *@
+    <script src="~/signalr/hubs"></script>
+    @Scripts.Render("~/Scripts/bundle.js")
+}
+
+@section Styles
+{
+    @Styles.Render("~/Content/game")
+}

@@ -237,6 +237,7 @@
     <Content Include="Assets\Environment\water-texture.png" />
     <Content Include="Assets\explosion.png" />
     <Content Include="Assets\home-background.jpg" />
+    <Content Include="Assets\iconDropdown.png" />
     <Content Include="Assets\logo.png" />
     <Content Include="Assets\ship-waves.png" />
     <Content Include="Assets\water-cloudy.png" />

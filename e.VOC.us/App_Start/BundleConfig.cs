@@ -28,7 +28,9 @@ namespace e.VOC.us
                       "~/Content/bootstrap.css",
                       "~/Content/site.css",
                        "~/Content/environment.css",
-                      "~/Content/scoreboard.css",
+                      "~/Content/scoreboard.css"));
+
+            bundles.Add(new StyleBundle("~/Content/game").Include(
                       "~/Content/minimap.css"));
 
             bundles.Add(new ScriptBundle("~/bundles/signalr").Include(

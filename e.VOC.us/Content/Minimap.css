@@ -33,7 +33,7 @@
     transition: all 1s ease-in-out;
 }
 
-img {
+.minimap img {
     position: absolute;
     top: 0px;
     right: 0px;

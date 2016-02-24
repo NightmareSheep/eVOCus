@@ -16,7 +16,7 @@
         minimap: Minimap;
         environment: Environment;
         focus: Vector2D = new Vector2D(0,0);
-        gameObjects: ServerObject[] = [];
+        gameObjects: IServerObject[] = [];
 
         
         constructor(public hub: GameHubProxy) {

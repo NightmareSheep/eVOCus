@@ -1,7 +1,7 @@
 ﻿///<reference path='RotatableSpriteObject.ts' />
 
 module eVOCus {
-    export class Ship extends RotatableSpriteObject implements ServerObject {
+    export class Ship extends RotatableSpriteObject implements IServerObject {
         private _speed: number;
         private _maxSpeed: number;
         private _animation: Animation;

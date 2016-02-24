@@ -20,6 +20,10 @@ namespace e.VOC.us.Game
             _deathTimer -= (int)gametime.ElapsedMillisecondsSinceLastUpdate;
             if (_deathTimer <= 0)
             {
+                _game.GameObjects.Add(new Spawner(_game, _ship.Player, _ship.Rectangle.Position, _ship.Rectangle.Angle));
+                _game.GameObjects.Remove(_ship);
+                
+                /*
                 Random random = new Random();
                 _ship.Rectangle.Position.X = random.Next(_game.Map.Width);
                 _ship.Rectangle.Position.Y = random.Next(_game.Map.Height);
@@ -29,6 +33,7 @@ namespace e.VOC.us.Game
                         _game.Map.Height/2f - _ship.Rectangle.Position.Y));
                 _ship.BoatState = "spawning";
                 _ship.ShipBehaviour = new SpawningShipBehaviour(_ship, Ship.SpawnTimer, _game);
+                */
             }
         }
     }

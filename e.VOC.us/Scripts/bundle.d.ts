@@ -88,7 +88,7 @@ declare module eVOCus {
         minimap: Minimap;
         environment: Environment;
         focus: Vector2D;
-        gameObjects: ServerObject[];
+        gameObjects: IServerObject[];
         constructor(hub: GameHubProxy);
         inputName(): void;
         gameLoop(gameObject: Game): void;
@@ -105,7 +105,7 @@ declare module eVOCus {
 }
 declare module eVOCus {
     class Initializer {
-        static initialize(serverObj: any): Ship;
+        static initialize(serverObj: any): IServerObject;
     }
 }
 declare module eVOCus {
@@ -227,7 +227,7 @@ declare module eVOCus {
     }
 }
 declare module eVOCus {
-    interface ServerObject {
+    interface IServerObject {
         id: string;
         update(gametime: number): void;
         draw(canvas: Canvas): void;
@@ -235,7 +235,7 @@ declare module eVOCus {
     }
 }
 declare module eVOCus {
-    class Ship extends RotatableSpriteObject implements ServerObject {
+    class Ship extends RotatableSpriteObject implements IServerObject {
         playerId: string;
         speed: number;
         maxSpeed: number;
@@ -256,12 +256,12 @@ declare module eVOCus {
     }
 }
 declare module eVOCus {
-    class Spawner implements ServerObject {
-        position: Vector2D;
-        angle: number;
+    class Spawner implements IServerObject {
+        rectangle: RotatableRectangle;
         playerId: string;
         shipType: string;
         id: string;
+        animation: Animation;
         constructor(serverObj: any);
         update(gametime: number): void;
         synchronize(serverObj: any): void;

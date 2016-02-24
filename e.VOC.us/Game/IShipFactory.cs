@@ -2,6 +2,6 @@
 {
     public interface IShipFactory
     {
-        Ship Ship(ShipTypes shipType, Vector2D position, int angle, Player player, GameState game);
+        Ship Ship(ShipTypes shipType, Vector2D position, float angle, Player player, GameState game);
     }
 }

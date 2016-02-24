@@ -1,12 +1,13 @@
 ﻿module eVOCus {
-    export class Spawner extends ServerObject {
+    export class Spawner implements  ServerObject {
         position: Vector2D;
         angle: number;
         playerId : string;
-        shipType : string;
+        shipType: string;
+        id: string;
 
         constructor(serverObj: any) {
-            super(serverObj);
+            this.id = serverObj.id;
             this.position = serverObj.position;
             this.angle = serverObj.position;
             this.playerId = serverObj.playerId;

@@ -1,7 +1,7 @@
 ﻿///<reference path='RotatableSpriteObject.ts' />
 
 module eVOCus {
-    export class Ship extends RotatableSpriteObject {
+    export class Ship extends RotatableSpriteObject implements ServerObject {
         private _speed: number;
         private _maxSpeed: number;
         private _animation: Animation;
@@ -9,10 +9,12 @@ module eVOCus {
         public _boatState: string;
         public _cannons: RotatableSpriteObject[];
         private _waveTime: number = 1000;
-        private _currentWaveTime: number = 1000;  
+        private _currentWaveTime: number = 1000;
+        public id: string;
 
-        constructor(public id: number, public speed: number, public maxSpeed: number, public rectangle: RotatableRectangle, image: HTMLImageElement) {
+        constructor(id: string, public playerId : string, public speed: number, public maxSpeed: number, public rectangle: RotatableRectangle, image: HTMLImageElement) {
             super(rectangle, image);
+            this.id = id;
             this._animation = new Animation(image, rectangle.width, rectangle.height * 5, 5, 2000, false);
             var image2 = new Image();
             image2.src = "../Assets/boot-3-dead.png";
@@ -20,8 +22,10 @@ module eVOCus {
 
             var image = new Image();
             image.src = "../Assets/cannon.png";
-            this._cannons = [new RotatableSpriteObject(new RotatableRectangle(new Vector2D(0,0), 38, 20, 0), image)];
+            this._cannons = [new RotatableSpriteObject(new RotatableRectangle(new Vector2D(0, 0), 38, 20, 0), image)];
         }
+
+
 
         update(gameTime: number) {
             this._currentWaveTime -= Game.instance.timeStep * (this.speed + 0.1);
@@ -33,7 +37,8 @@ module eVOCus {
             }
             this._animation.Update(gameTime);
             this._animation_death.Update(gameTime);
-            Game.instance.focus = this.rectangle.position;
+            if (this.playerId === Game.instance.id)
+                Game.instance.focus = this.rectangle.position;
         }
 
         draw(canvas: Canvas) {
@@ -45,6 +50,16 @@ module eVOCus {
             for (var i = 0; i < this._cannons.length; i++) {
                 this._cannons[i].draw(canvas, 0);
             }
+        }
+
+        synchronize(serverObj: any) {
+            this.rectangle.position.x = serverObj.rectangle.position.x;
+            this.rectangle.position.y = serverObj.rectangle.position.y;
+            this.rectangle.angle = serverObj.rectangle.angle;
+            this._boatState = serverObj.boatState;
+            this.speed = serverObj.speed;
+            this._cannons[0].rectangle.position = serverObj.cannons[0].rectangle.position;
+            this._cannons[0].rectangle.angle = serverObj.cannons[0].rectangle.angle;
         }
     }
 }

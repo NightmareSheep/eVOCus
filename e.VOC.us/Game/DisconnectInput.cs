@@ -14,6 +14,7 @@
             if (gameState.PlayerDictionary.ContainsKey(_connectionId))
             {
                 var player = gameState.PlayerDictionary[_connectionId];
+                player.Disconnect();
                 gameState.PlayerDictionary.Remove(_connectionId);
                 gameState.Players.Remove(player);
             }

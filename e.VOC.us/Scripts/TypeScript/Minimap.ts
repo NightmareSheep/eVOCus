@@ -25,7 +25,7 @@
             this.ctx.clearRect(0, 0, this.width, this.height);
             this.ctx.lineWidth = 0;
             this.ctx.strokeRect(0, 0, this.width, this.height);
-
+            /*
             for (var i = 0; i < Game.instance.players.length; i++) {
                 var player = Game.instance.players[i];
                 var centerX = player.ship.rectangle.position.x / 5000 * this.width;
@@ -44,8 +44,6 @@
                     this.ctx.lineTo(-4, 3);
                     this.ctx.lineTo(-2, 0);
                     this.ctx.closePath();
-                    /*this.ctx.arc(centerX, centerY, 5, 0, 2 * Math.PI);
-                    this.ctx.arc(centerX, centerY, 1, 0, 2 * Math.PI);*/
                     this.ctx.strokeStyle = "#c95264";
                     this.ctx.fillStyle = "#c95264";
                     this.ctx.fill();
@@ -65,6 +63,7 @@
                 
                 //this.ctx.strokeRect(player.ship.rectangle.position.x / 5000 * this.width, player.ship.rectangle.position.y / 5000 * this.height, 2, 2);
             }
+            */
 
         }
 

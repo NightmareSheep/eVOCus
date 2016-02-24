@@ -30,6 +30,10 @@ namespace e.VOC.us.Game
         public void Update(GameTime gametime)
         {
             Explosions.Clear();
+
+            for (int i = GameObjects.Count - 1; i >= 0; i--)
+                GameObjects[i].Update(gametime);
+
             foreach (var player in Players)
                 player.Update(gametime);
 

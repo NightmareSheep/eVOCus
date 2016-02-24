@@ -87,6 +87,8 @@ declare module eVOCus {
         scoreboard: Scoreboard;
         minimap: Minimap;
         environment: Environment;
+        focus: Vector2D;
+        gameObjects: ServerObject[];
         constructor(hub: GameHubProxy);
         inputName(): void;
         gameLoop(gameObject: Game): void;
@@ -102,11 +104,21 @@ declare module eVOCus {
     }
 }
 declare module eVOCus {
+    class Initializer {
+        static initialize(serverObj: any): Ship;
+    }
+}
+declare module eVOCus {
     interface InputGameState {
         players: InputPlayer[];
         canonballs: InputCanonball[];
         explosions: InputPosition[];
         map: InputMap;
+        gameObjects: InputGameObject[];
+    }
+    interface InputGameObject {
+        id: string;
+        typeId: string;
     }
     interface InputPlayer {
         ship: InputShip;
@@ -177,13 +189,11 @@ declare module eVOCus {
 declare module eVOCus {
     class Player {
         id: string;
-        ship: Ship;
         PlayerName: string;
         score: number;
-        constructor(id: string, ship: Ship, PlayerName: string);
+        constructor(id: string, PlayerName: string);
         update(gameTime: number): void;
         draw(canvas: Canvas): void;
-        focus(canvas: Canvas): void;
     }
 }
 declare module eVOCus {
@@ -217,17 +227,16 @@ declare module eVOCus {
     }
 }
 declare module eVOCus {
-    class ServerObject {
+    interface ServerObject {
         id: string;
-        constructor(serverObj: any);
         update(gametime: number): void;
         draw(canvas: Canvas): void;
         synchronize(serverObj: any): void;
     }
 }
 declare module eVOCus {
-    class Ship extends RotatableSpriteObject {
-        id: number;
+    class Ship extends RotatableSpriteObject implements ServerObject {
+        playerId: string;
         speed: number;
         maxSpeed: number;
         rectangle: RotatableRectangle;
@@ -239,17 +248,20 @@ declare module eVOCus {
         _cannons: RotatableSpriteObject[];
         private _waveTime;
         private _currentWaveTime;
-        constructor(id: number, speed: number, maxSpeed: number, rectangle: RotatableRectangle, image: HTMLImageElement);
+        id: string;
+        constructor(id: string, playerId: string, speed: number, maxSpeed: number, rectangle: RotatableRectangle, image: HTMLImageElement);
         update(gameTime: number): void;
         draw(canvas: Canvas): void;
+        synchronize(serverObj: any): void;
     }
 }
 declare module eVOCus {
-    class Spawner extends ServerObject {
+    class Spawner implements ServerObject {
         position: Vector2D;
         angle: number;
         playerId: string;
         shipType: string;
+        id: string;
         constructor(serverObj: any);
         update(gametime: number): void;
         synchronize(serverObj: any): void;

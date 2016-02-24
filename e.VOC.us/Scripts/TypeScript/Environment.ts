@@ -74,21 +74,21 @@
 
 
         animateWater() {
-            this.waterMiddle.css("background-position-x", (-this.player.ship.rectangle.position.x + Game.instance.canvas.width / 2) / 2);
-            this.waterMiddle.css("background-position-y", (-this.player.ship.rectangle.position.y + Game.instance.canvas.height / 2) / 2);
-            this.waterForeground.css("background-position-x", (-this.player.ship.rectangle.position.x + Game.instance.canvas.width / 2));
-            this.waterForeground.css("background-position-y", (-this.player.ship.rectangle.position.y + Game.instance.canvas.height / 2));
+            this.waterMiddle.css("background-position-x", (-Game.instance.focus.x + Game.instance.canvas.width / 2) / 2);
+            this.waterMiddle.css("background-position-y", (-Game.instance.focus.y + Game.instance.canvas.height / 2) / 2);
+            this.waterForeground.css("background-position-x", (-Game.instance.focus.x + Game.instance.canvas.width / 2));
+            this.waterForeground.css("background-position-y", (-Game.instance.focus.y + Game.instance.canvas.height / 2));
         }
 
         animateClouds() {
-            this.cloudsBackground.css("left", (-this.player.ship.rectangle.position.x * 2));
-            this.cloudsBackground.css("top", (-this.player.ship.rectangle.position.y * 2));
+            this.cloudsBackground.css("left", (-Game.instance.focus.x * 2));
+            this.cloudsBackground.css("top", (-Game.instance.focus.y * 2));
 
-            this.cloudsMiddle.css("left", (-this.player.ship.rectangle.position.x * 3));
-            this.cloudsMiddle.css("top", (-this.player.ship.rectangle.position.y * 3));
+            this.cloudsMiddle.css("left", (-Game.instance.focus.x * 3));
+            this.cloudsMiddle.css("top", (-Game.instance.focus.y * 3));
 
-            this.cloudsForeground.css("left", (-this.player.ship.rectangle.position.x * 4));
-            this.cloudsForeground.css("top", (-this.player.ship.rectangle.position.y * 4));
+            this.cloudsForeground.css("left", (-Game.instance.focus.x * 4));
+            this.cloudsForeground.css("top", (-Game.instance.focus.y * 4));
         }
     }
 } 

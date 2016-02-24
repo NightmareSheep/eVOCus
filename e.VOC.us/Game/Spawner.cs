@@ -35,7 +35,7 @@
                 _shipType++;
             if (_player.Keyboard.IsKeyPressed(13))
             {
-                _player.Ship = _game.ShipFactory.Ship(_shipType, _position, _angle, _player, _game);
+                _game.GameObjects.Add(_game.ShipFactory.Ship(_shipType, _position, _angle, _player, _game));
                 _game.GameObjects.Remove(this);
             }
         }

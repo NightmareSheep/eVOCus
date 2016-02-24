@@ -5,8 +5,6 @@ namespace e.VOC.us.Game
 {
     public class Player
     {
-        [JsonProperty("ship")]
-        public Ship Ship;
         [JsonIgnore]
         public Keyboard Keyboard { get; set; }
         [JsonProperty("id")]
@@ -18,15 +16,21 @@ namespace e.VOC.us.Game
         [JsonProperty("score")]
         public int Score;
 
+        public event Action PlayerDisconnect;
+
+        public void Disconnect()
+        {
+            PlayerDisconnect?.Invoke();
+        }
+
         public Player(GameState game)
         {
             Keyboard = new Keyboard();
-            Ship = game.ShipFactory.Ship(ShipTypes.Frigate, new Vector2D(100, 100), 0, this, game);
+            game.GameObjects.Add(game.ShipFactory.Ship(ShipTypes.Frigate, new Vector2D(100, 100), 0, this, game));
         }
 
         public void Update(GameTime gametime)
         {
-            Ship.Update(gametime);
             Keyboard.Update();
         }
     }

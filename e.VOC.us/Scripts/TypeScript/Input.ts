@@ -4,6 +4,12 @@
         canonballs: InputCanonball[];
         explosions: InputPosition[];
         map: InputMap;
+        gameObjects: InputGameObject[];
+    }
+
+    export interface InputGameObject {
+        id: string;
+        typeId: string;
     }
 
     export interface InputPlayer {

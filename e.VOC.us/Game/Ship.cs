@@ -3,12 +3,14 @@ using Newtonsoft.Json;
 
 namespace e.VOC.us.Game
 {
-    public class Ship
+    public class Ship : GameObject
     {
         [JsonProperty("rectangle")] public readonly RotatableRectangle Rectangle;
         [JsonProperty("speed")] private float _speed = 1;
         [JsonProperty("boatState")] public string BoatState = "normal";
         [JsonProperty("cannons")] public Cannon[] Cannons;
+        // ReSharper disable once NotAccessedField.Local
+        [JsonProperty("playerId")] private string _playerId;
         [JsonIgnore] public readonly Player Player;
         [JsonIgnore] private readonly GameState _game;
         [JsonIgnore] public IUpdatable ShipBehaviour;
@@ -28,23 +30,10 @@ namespace e.VOC.us.Game
             set { _speed = Math.Max(0, Math.Min(MaxSpeed, value)); }
         }
 
-        public Ship(Vector2D position, int angle, Player player, GameState game)
-        {
-            Rectangle = new RotatableRectangle(position, 180,110, angle);
-            Player = player;
-            _game = game;
-            TurnSpeed = 2.0f;
-            AccelSpeed = 0.1f;
-            MaxSpeed = 5f;
-            Cannons = new Cannon[1];
-            Cannons[0] = new Cannon(new Vector2D(Rectangle.Position.X + 69, Rectangle.Position.Y), Rectangle.Angle, this, _game);
-            ShipBehaviour = new NormalShipBehaviour(this, _game);
-            Platform = new Platform(Rectangle);
-            Platform.Children.Add(Cannons[0]);
-        }
-
         public Ship(ShipTypes shipType, RotatableRectangle rectangle, Cannon[] cannons, Player player, GameState game, float turnSpeed, float accelSpeed, float maxSpeed)
         {
+            TypeId = "ship";
+            _playerId = player.Id;
             ShipType = shipType;
             Rectangle = rectangle;
             Player = player;
@@ -55,9 +44,11 @@ namespace e.VOC.us.Game
             Cannons = cannons;
             ShipBehaviour = new NormalShipBehaviour(this, _game);
             Platform = new Platform(Rectangle);
+            player.PlayerDisconnect += () => { game.GameObjects.Remove(this); };
+            
         }
 
-        public void Update(GameTime gametime)
+        public override void Update(GameTime gametime)
         {
             ShipBehaviour?.Update(gametime);
             Platform.Update();

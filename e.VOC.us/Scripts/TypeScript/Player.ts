@@ -5,19 +5,19 @@ module eVOCus {
 
         public score:number;
 
-        constructor(public id:string, public ship: Ship, public PlayerName: string) {
+        constructor(public id:string, public PlayerName: string) {
         }
 
         update(gameTime: number) {
-            if (this.ship != null)
-                this.ship.update(gameTime);
         }
 
         draw(canvas: Canvas) {
+            /*
             if (this.ship != null) {
                 this.ship.draw(canvas);
                 canvas.drawRotatableText(this.PlayerName, this.ship.rectangle);
             }
+            */
         }
     }
 }

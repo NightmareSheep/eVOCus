@@ -1,21 +1,8 @@
 ﻿module eVOCus {
-    export class ServerObject {
+    export interface ServerObject {
         id: string;
-
-        constructor(serverObj: any) {
-            this.id = serverObj.id;
-        }
-
-        update(gametime : number) {
-            
-        }
-
-        draw(canvas: Canvas) {
-            
-        }
-
-        synchronize(serverObj: any) {
-            
-        }
-    }
+        update(gametime : number) : void;
+        draw(canvas: Canvas) : void;
+        synchronize(serverObj: any) : void;
+}
 } 

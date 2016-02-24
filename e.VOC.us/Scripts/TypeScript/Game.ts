@@ -15,7 +15,8 @@
         scoreboard: Scoreboard;
         minimap: Minimap;
         environment: Environment;
-        focus: Vector2D;
+        focus: Vector2D = new Vector2D(0,0);
+        gameObjects: ServerObject[] = [];
 
         
         constructor(public hub: GameHubProxy) {
@@ -60,6 +61,10 @@
                     this.waves.splice(i, 1);
             }
 
+            for (var i = this.gameObjects.length - 1; i >= 0; i--) {
+                this.gameObjects[i].update(gameTime);
+            }
+
             Game.keyboard.update();
             this.scoreboard.update();
             this.minimap.update();
@@ -88,6 +93,10 @@
                 this.players[i].draw(this.canvas);
             }
 
+            for (var i = this.gameObjects.length - 1; i >= 0; i--) {
+                this.gameObjects[i].draw(canvas);
+            }
+
             for (var i = 0; i < this.canonballs.length; i++) {
                 this.canonballs[i].draw(canvas.ctx, this.gameTime);
             }
@@ -110,13 +119,41 @@
 
         // TODO: Refactor sync method
         sync(state: InputGameState) {
+            for (var i = 0; i < state.gameObjects.length; i++) {
+                var serverObject = state.gameObjects[i];
+                var clientObjExists = false;
+                for (var j = 0; j < this.gameObjects.length; j++) {
+                    var clientObject = this.gameObjects[j];
+                    if (clientObject.id === serverObject.id) {
+                        clientObject.synchronize(serverObject);
+                        clientObjExists = true;
+                    }
+                }
+                if (!clientObjExists)
+                    Game.instance.gameObjects.push(Initializer.initialize(serverObject));
+            }
+
+            for (var i = this.gameObjects.length - 1; i >= 0; i--) {
+                var clientObject = this.gameObjects[i];
+                var serverObjectExists = false;
+                for (var j = 0; j < state.gameObjects.length; j++) {
+                    var serverObject = state.gameObjects[j];
+                    if (clientObject.id === serverObject.id) {
+                        serverObjectExists = true;
+                        break;
+                    }
+                }
+                if (!serverObjectExists)
+                    Game.instance.gameObjects.splice(i, 1); 
+            }
+
             if (this.players.length != state.players.length) {
                 var image = new Image();
                 image.src = "../Assets/Boot-3.png";
 
                 this.players = [];
                 for (var i = 0; i < state.players.length; i++) {
-                    this.players.push(new Player(state.players[i].id, new Ship(4747, 0, 5, new RotatableRectangle(new Vector2D(0, 0), 180, 110, 0), image), state.players[i].name));
+                    this.players.push(new Player(state.players[i].id, state.players[i].name));
                 }
             }
             
@@ -128,15 +165,8 @@
             
 
             for (var i = 0; i < this.players.length; i++) {
-                this.players[i].ship.rectangle.position.x = state.players[i].ship.rectangle.position.x;
-                this.players[i].ship.rectangle.position.y = state.players[i].ship.rectangle.position.y;
-                this.players[i].ship.rectangle.angle = state.players[i].ship.rectangle.angle;
                 this.players[i].PlayerName = state.players[i].name;
                 this.players[i].score = state.players[i].score;
-                this.players[i].ship._boatState = state.players[i].ship.boatState;
-                this.players[i].ship._cannons[0].rectangle.position = new Vector2D(state.players[i].ship.cannons[0].rectangle.position.x, state.players[i].ship.cannons[0].rectangle.position.y);
-                this.players[i].ship._cannons[0].rectangle.angle = state.players[i].ship.cannons[0].rectangle.angle;
-                this.players[i].ship.speed = state.players[i].ship.speed;
             }
 
             var image = new Image();

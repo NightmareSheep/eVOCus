@@ -26,9 +26,13 @@ namespace e.VOC.us.Game
         {
             _position.Add(Helper.AngleToUnitVector(_direction).Multiply(_speed));
             _lifetime -= (int)gametime.ElapsedMillisecondsSinceLastUpdate;
-            foreach (var player in _game.Players.Where(player => player.Ship.Hit(_position)))
+            foreach (Ship ship in _game.GameObjects.Where(gameObject =>
             {
-                player.Ship.Damage(_owner);
+                var ship = gameObject as Ship;
+                return ship != null && ship.Hit(_position);
+            }))
+            {
+                ship.Damage(_owner);
                 _game.CannonBalls.Remove(this);
                 _game.Explosions.Add(_position);
             }

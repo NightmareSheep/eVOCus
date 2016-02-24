@@ -19,6 +19,8 @@ namespace e.VOC.us.Game
         private readonly IShipFactory _shipFactory = new NormalShipFactory();
         [JsonIgnore]
         public IShipFactory ShipFactory => _shipFactory;
+        [JsonProperty("gameObjects")]
+        public List<GameObject> GameObjects = new List<GameObject>(); 
 
         public GameState()
         {

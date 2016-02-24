@@ -15,6 +15,7 @@
         scoreboard: Scoreboard;
         minimap: Minimap;
         environment: Environment;
+        
 
         
         constructor(public hub: GameHubProxy) {

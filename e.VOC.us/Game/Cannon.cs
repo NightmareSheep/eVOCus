@@ -16,7 +16,7 @@ namespace e.VOC.us.Game
         {
             _ship = ship;
             _game = game;
-            Rectangle = new RotatableRectangle(position, 38, 20, angle);
+            Rectangle = new RotatableRectangle(position, 38, 20, angle); 
         }
 
         public void Update(GameTime gametime)

@@ -193,6 +193,7 @@
     <Compile Include="Game\DisconnectInput.cs" />
     <Compile Include="Game\DyingShipBehaviour.cs" />
     <Compile Include="Game\Game.cs" />
+    <Compile Include="Game\GameObject.cs" />
     <Compile Include="Game\GameState.cs" />
     <Compile Include="Game\GameTime.cs" />
     <Compile Include="Game\IHasRotatableRectangle.cs" />
@@ -211,6 +212,7 @@
     <Compile Include="Game\Player.cs" />
     <Compile Include="Game\Helper.cs" />
     <Compile Include="Game\ShipType.cs" />
+    <Compile Include="Game\Spawner.cs" />
     <Compile Include="Game\SpawningShipBehaviour.cs" />
     <Compile Include="Game\Vector2D.cs" />
     <Compile Include="Global.asax.cs">
@@ -291,6 +293,8 @@
     <TypeScriptCompile Include="Scripts\TypeScript\Keyboard.ts" />
     <TypeScriptCompile Include="Scripts\TypeScript\Canvas.ts" />
     <TypeScriptCompile Include="Scripts\TypeScript\Helper.ts" />
+    <TypeScriptCompile Include="Scripts\TypeScript\Spawner.ts" />
+    <TypeScriptCompile Include="Scripts\TypeScript\ServerObject.ts" />
     <TypeScriptCompile Include="Scripts\TypeScript\RotatableRectangle.ts" />
     <TypeScriptCompile Include="Scripts\TypeScript\Rectangle.ts" />
     <TypeScriptCompile Include="Scripts\TypeScript\Ship.ts" />

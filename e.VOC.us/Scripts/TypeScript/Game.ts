@@ -15,7 +15,7 @@
         scoreboard: Scoreboard;
         minimap: Minimap;
         environment: Environment;
-        
+        focus: Vector2D;
 
         
         constructor(public hub: GameHubProxy) {
@@ -68,9 +68,8 @@
 
         draw(canvas: Canvas) {
 
-            var player: Player = this.getCurrentPlayer();
-            if (player)
-                player.focus(canvas);
+            // set focus.
+            canvas.ctx.translate((-this.focus.x + canvas.width / 2), (-this.focus.y + canvas.height / 2));
 
             this.canvas.ctx.fillStyle = "#FF0000";
             this.canvas.ctx.clearRect(0, 0, canvas.width, canvas.height);

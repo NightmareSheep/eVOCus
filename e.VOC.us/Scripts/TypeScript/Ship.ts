@@ -33,6 +33,7 @@ module eVOCus {
             }
             this._animation.Update(gameTime);
             this._animation_death.Update(gameTime);
+            Game.instance.focus = this.rectangle.position;
         }
 
         draw(canvas: Canvas) {

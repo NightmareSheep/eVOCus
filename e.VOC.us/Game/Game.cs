@@ -1,4 +1,6 @@
-﻿using System.Collections.Concurrent;
+﻿using System;
+using System.Collections.Concurrent;
+using System.Diagnostics;
 using System.Threading;
 using e.VOC.us.Hubs;
 using Microsoft.AspNet.SignalR;
@@ -13,6 +15,7 @@ namespace e.VOC.us.Game
         private const int MaxMilisecondsWithoutInput = 60000;
         private readonly object _myLock = new object();
         private bool _hasStopped = true;
+        private const int Timestep = 32;
 
         public Game()
         {
@@ -26,9 +29,10 @@ namespace e.VOC.us.Game
 
             while (true)
             {
-                if (gametime.ElapsedMillisecondsSinceLastUpdate < 40)
-                    Thread.Sleep(40 - (int)gametime.ElapsedMillisecondsSinceLastUpdate);
-
+                if (gametime.ElapsedMillisecondsSinceLastUpdate < Timestep - 10)
+                    Thread.Sleep(Math.Max(0, (Timestep - 10) - (int) gametime.ElapsedMillisecondsSinceLastUpdate));
+                while (gametime.ElapsedMillisecondsSinceLastUpdate < Timestep) { }
+                
                 gametime.Update();
                 if (!Input.IsEmpty)
                     lastInput = gametime.ElapsedMilliseconds;
@@ -79,7 +83,7 @@ namespace e.VOC.us.Game
             {
                 IInput input;
                 Input.TryDequeue(out input);
-                input.ProcesInput(_game);
+                input?.ProcesInput(_game);
             }
         }
     }

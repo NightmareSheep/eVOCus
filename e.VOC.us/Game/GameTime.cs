@@ -7,7 +7,7 @@ namespace e.VOC.us.Game
         private readonly Stopwatch _stopwatch = new Stopwatch();
         private long _lastUpdate;
 
-        public long ElapsedMilliseconds { get; set; }
+        public long ElapsedMilliseconds => _stopwatch?.ElapsedMilliseconds ?? 0;
         public long ElapsedMillisecondsSinceLastUpdate => ElapsedMilliseconds - _lastUpdate;
 
         public GameTime()
@@ -18,7 +18,6 @@ namespace e.VOC.us.Game
         public void Update()
         {
             _lastUpdate = ElapsedMilliseconds;
-            ElapsedMilliseconds = _stopwatch.ElapsedMilliseconds;
         }
     }
 }

@@ -119,6 +119,18 @@
 
         // TODO: Refactor sync method
         sync(state: InputGameState) {
+            if (this.players.length !== state.players.length) {
+                this.players = [];
+                for (var i = 0; i < state.players.length; i++) {
+                    this.players.push(new Player(state.players[i].id, state.players[i].name));
+                }
+            }
+
+            for (var i = 0; i < this.players.length; i++) {
+                this.players[i].playerName = state.players[i].name;
+                this.players[i].score = state.players[i].score;
+            }
+
             for (var i = 0; i < state.gameObjects.length; i++) {
                 var serverObject = state.gameObjects[i];
                 var clientObjExists = false;
@@ -147,15 +159,7 @@
                     Game.instance.gameObjects.splice(i, 1); 
             }
 
-            if (this.players.length != state.players.length) {
-                var image = new Image();
-                image.src = "../Assets/Boot-3.png";
-
-                this.players = [];
-                for (var i = 0; i < state.players.length; i++) {
-                    this.players.push(new Player(state.players[i].id, state.players[i].name));
-                }
-            }
+            
             
             for (var i = 0; i < state.explosions.length; i++) {
                 var explosionImage = new Image();
@@ -164,10 +168,7 @@
             }
             
 
-            for (var i = 0; i < this.players.length; i++) {
-                this.players[i].PlayerName = state.players[i].name;
-                this.players[i].score = state.players[i].score;
-            }
+            
 
             var image = new Image();
             image.src = "../Assets/canonball2.png";

@@ -50,6 +50,8 @@ module eVOCus {
             for (var i = 0; i < this._cannons.length; i++) {
                 this._cannons[i].draw(canvas, 0);
             }
+
+            canvas.drawRotatableText(Game.instance.getCurrentPlayer().playerName, this.rectangle);
         }
 
         synchronize(serverObj: any) {

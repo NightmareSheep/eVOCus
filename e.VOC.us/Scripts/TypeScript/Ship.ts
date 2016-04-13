@@ -11,6 +11,8 @@ module eVOCus {
         private _waveTime: number = 1000;
         private _currentWaveTime: number = 1000;
         public id: string;
+        private currentTime: number = 0;
+        private previousTime: number = 0;
 
         constructor(id: string, public playerId : string, public speed: number, public maxSpeed: number, public rectangle: RotatableRectangle, image: HTMLImageElement) {
             super(rectangle, image);
@@ -28,9 +30,10 @@ module eVOCus {
 
 
         update(gameTime: number) {
-            this._currentWaveTime -= Game.instance.timeStep * (this.speed + 0.1);
-            //console.log("Ship speed: " + this.speed);
-            //console.log("Wave time: " + this._currentWaveTime);
+            this.previousTime = this.currentTime;
+            this.currentTime = gameTime;
+            const elapsedTime = this.previousTime === 0 ? 0 : this.currentTime - this.previousTime;
+            this._currentWaveTime -= elapsedTime * (this.speed + 0.1);
             if (this._currentWaveTime < 0) {
                 this._currentWaveTime = this._waveTime;
                 Game.instance.waves.push(new Wave(new Vector2D(this.rectangle.position.x, this.rectangle.position.y), this.rectangle.angle));
@@ -39,10 +42,12 @@ module eVOCus {
             this._animation_death.Update(gameTime);
             if (this.playerId === Game.instance.id)
                 Game.instance.focus = this.rectangle.position;
+
+            //this.rectangle.position.x += 5;
         }
 
         draw(canvas: Canvas) {
-            if (this._boatState == "dying" || this._boatState == "spawning")
+            if (this._boatState === "dying" || this._boatState === "spawning")
                 this._animation_death.Draw(canvas, 0, this.rectangle);
             else
                 this._animation.Draw(canvas, 0, this.rectangle);

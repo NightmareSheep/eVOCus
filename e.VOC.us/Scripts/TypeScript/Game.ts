@@ -1,10 +1,9 @@
 ﻿module eVOCus {
-
     export class Game {
-        fps: number = 60;
+        fps: number = 30;
         gameTime: number = 0;
-        timeStep: number;
-        static keyboard: Keyboard
+        //timeStep: number;
+        static keyboard: Keyboard;
         static instance:Game;
         canvas:Canvas;
         canonballs: SpriteObject[] = [];
@@ -23,22 +22,40 @@
             Game.instance = this;
             Game.keyboard = new Keyboard();
             this.canvas = new Canvas();
-            this.timeStep = Math.floor(1000 / this.fps);
+            //this.timeStep = Math.floor(1000 / this.fps);
             this.scoreboard = new Scoreboard();
             this.minimap = new Minimap();
             this.environment = new Environment();
-            setInterval(() => { this.gameLoop(this); }, this.timeStep);
-            
+            //setInterval(() => { this.gameLoop(this); }, this.timeStep);
+            //requestAnimationFrame((time) => { this.gameLoop(this, time); });
+        }
+
+        start(id: string, gameTime: number) {
+            this.id = id;
+            this.gameTime = gameTime;
+            requestAnimationFrame((timestamp) => {
+                this.lastFrameTimeMs = timestamp; this.gameLoop(this, timestamp); });
         }
 
         inputName() {
             Game.instance.hub.server.nameInput(prompt("What is your name"));
         }
 
-        gameLoop(gameObject: Game) {
-            this.gameTime += this.timeStep;
+        lastFrameTimeMs : number = 0; // The last time the loop was run
+        maxFps : number = 60; // The maximum FPS we want to allow
+
+        gameLoop(gameObject: Game, timestamp: number) {
+            
+            if (timestamp < this.lastFrameTimeMs + (1000 / this.maxFps)) {
+                requestAnimationFrame((time) => { this.gameLoop(this, time); });
+                return;
+            }
+            const elapsedTime = timestamp - this.lastFrameTimeMs;
+            this.gameTime += elapsedTime;
+            this.lastFrameTimeMs = timestamp;
             this.update(this.gameTime);
             this.draw(this.canvas);
+            requestAnimationFrame((time) => { this.gameLoop(this, time); });
         }
 
         update(gameTime: number) {
@@ -119,6 +136,7 @@
 
         // TODO: Refactor sync method
         sync(state: InputGameState) {
+            console.log("sync");
             if (this.players.length !== state.players.length) {
                 this.players = [];
                 for (var i = 0; i < state.players.length; i++) {

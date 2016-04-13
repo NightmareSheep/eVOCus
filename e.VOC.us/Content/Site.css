@@ -1,4 +1,14 @@
-﻿body, html {
+﻿* {
+  /*outline: dashed 1px rgba(255, 0, 255, .2);*/
+}
+
+.clearfix:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+body, html {
     margin: 0;
     width: 100%;
     height: 100%;
@@ -8,7 +18,6 @@ body {
  
 }
 
-
 #canvas {
     display: block;
     padding: 0;
@@ -16,16 +25,6 @@ body {
     width: 100%;
     height: 100%;
 }
-
-
-
-
-
-
-
-
-
-
 
 .fullscreen {
     position: absolute;
@@ -40,8 +39,6 @@ body {
    -o-transform: translateZ(0);
    transform: translateZ(0);
 }
-
-
 
 #canvas {
     display: block;
@@ -63,14 +60,11 @@ body {
     transition: opacity 0.4s ease-in-out;
 }
 
-   
-    .navigation a {
+.navigation a {
         color: white;
         text-transform: uppercase;
         padding: 10px;
-    }
-
-
+}
 
 .home {
     position: relative;
@@ -119,3 +113,116 @@ body {
 }
 
 
+.logoSmall {
+    position: relative;
+    top: 10%;
+    text-align: center;
+    display: block;
+}
+
+.hostedGames {
+    width: 60%;
+    height: 70%;
+    position: relative;
+    top: 15%;
+    padding: 10px 20px 10px 20px;
+    margin: 0 auto;
+    border: 1px solid white;
+    overflow: auto;
+}
+
+.hostedGames h2 {
+    color: #ffffff;
+    border-bottom: 2px solid white;
+    padding-bottom:10px;
+}
+
+.gamesList {
+    position: relative;
+    height: 40px;
+    border-bottom: 1px solid white;
+    margin-bottom: 7px;
+}
+
+.gamesList:nth-last-child(2) {
+    border-bottom: 0;
+    border-bottom: 2px solid white;
+    padding-bottom: 30px;
+}
+
+.hostedGames h4 {
+    position: absolute;
+    color: #ffffff;
+    font-size: 16px;
+    display: inline;
+}
+
+.joinButton {
+    position: absolute;
+    top: 50%;
+    right: 0px;
+    transform: translateY(-50%);
+    width: 100px;
+    font-size: 14px;
+    color: #ffffff;
+    border: 2px solid white;
+    border-radius: 3px;
+    text-align: center;
+    cursor: pointer;
+}
+
+.joinButton:hover {
+    color: #000000;
+    background-color: #ffffff;
+}
+
+.newGameButton {
+    position: relative;
+    margin-top: 20px;
+    float: right;
+    width: 120px;
+    font-size: 14px;
+    color: #000000;
+    background-color: #ffffff;
+    border: 2px solid white;
+    border-radius: 3px;
+    text-align: center;
+    cursor: pointer;
+}
+
+.dropdown {
+    position: relative;
+    width: 150px;
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+    z-index: 3;
+}
+
+.dropbtn {
+    color: white;
+    width: 100%;
+    padding: 5px 10px;
+    font-size: 16px;
+    border: 1px solid white;
+    cursor: pointer;
+    background: url("../Assets/iconDropdown.png") no-repeat right;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 100%;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+}
+
+.dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+.dropdown-content a:hover {background-color: #f1f1f1}

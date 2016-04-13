@@ -186,6 +186,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\GameHostingController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Game\Cannon.cs" />
     <Compile Include="Game\Cannonball.cs" />
@@ -243,6 +244,7 @@
     <Content Include="Assets\home-background.jpg" />
     <Content Include="Assets\iconDropdown.png" />
     <Content Include="Assets\logo.png" />
+    <Content Include="Assets\logo_small.png" />
     <Content Include="Assets\ship-waves.png" />
     <Content Include="Assets\water-cloudy.png" />
     <Content Include="Assets\water-texture.png" />
@@ -289,6 +291,9 @@
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Views\Home\Chat.cshtml" />
     <Content Include="Views\Home\BroadCasting.cshtml" />
+    <Content Include="Views\GameHosting\HostedGamesList.cshtml" />
+    <Content Include="Views\GameHosting\NewGame.cshtml" />
+    <Content Include="Views\GameHosting\JoinGame.cshtml" />
     <TypeScriptCompile Include="Scripts\TypeScript\AnimationWithRectangle.ts" />
     <TypeScriptCompile Include="Scripts\TypeScript\Minimap.ts" />
     <TypeScriptCompile Include="Scripts\TypeScript\Player.ts" />

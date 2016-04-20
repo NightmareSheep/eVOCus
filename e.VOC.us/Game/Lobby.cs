@@ -13,11 +13,15 @@ namespace e.VOC.us.Game
         public Guid Id { get; set; } = Guid.NewGuid();
         public List<Slot> Slots { get; set; } = new List<Slot>();
         private readonly object _myLock = new object();
+        private bool _disbanded;
 
         public bool Join(LobbyPlayer lobbyPlayer)
         {
             lock (_myLock)
             {
+                if (_disbanded)
+                    return false;
+
                 foreach (var slot in Slots)
                 {
                     if (slot.LobbyPlayer == null)
@@ -35,6 +39,12 @@ namespace e.VOC.us.Game
             lock (_myLock)
             {
                 Slots.First(slot => slot.LobbyPlayer.ConnectionId == connectionId).LobbyPlayer = null;
+                if (Slots.All(slot => slot.LobbyPlayer == null))
+                {
+                    _disbanded = true;
+                    Lobby lobby;
+                    Lobbies.TryRemove(Id, out lobby);
+                }
             }
         }
 

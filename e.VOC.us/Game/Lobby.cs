@@ -7,7 +7,8 @@ namespace e.VOC.us.Game
 {
     public class Lobby
     {
-        public static ConcurrentDictionary<Guid,Lobby> Lobbies { get; set; } = new ConcurrentDictionary<Guid, Lobby>();
+        public static ConcurrentDictionary<Guid,Lobby> Lobbies { get; } = new ConcurrentDictionary<Guid, Lobby>();
+        public static ConcurrentDictionary<string, Guid> MemberShip { get; } = new ConcurrentDictionary<string, Guid>();
 
         public string Name { get; set; }
         public Guid Id { get; set; } = Guid.NewGuid();
@@ -48,15 +49,15 @@ namespace e.VOC.us.Game
             }
         }
 
-        public bool Switch(LobbyPlayer lobbyPlayer, int position, int destination)
+        public bool Switch(string connectionId, int position, int destination)
         {
             lock (_myLock)
             {
-                if (Slots.Count < position && Slots.Count < destination && Slots[position].LobbyPlayer.Id.Equals(lobbyPlayer.Id) &&
+                if (Slots.Count < position && Slots.Count < destination && Slots[position].LobbyPlayer.ConnectionId.Equals(connectionId) &&
                     Slots[destination].LobbyPlayer == null)
                 {
+                    Slots[destination].LobbyPlayer = Slots[position].LobbyPlayer;
                     Slots[position].LobbyPlayer = null;
-                    Slots[destination].LobbyPlayer = lobbyPlayer;
                     return true;
                 }
                 return false;

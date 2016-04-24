@@ -1,0 +1,50 @@
+﻿using System;
+using System.Threading.Tasks;
+using e.VOC.us.Game;
+using Microsoft.AspNet.SignalR;
+
+namespace e.VOC.us.Hubs
+{
+    public class LobbyHub : Hub
+    {
+        private const string LobbyPrefix = "lobby_";
+
+        private Lobby GetLobby(string gameId)
+        {
+            Guid id = new Guid(gameId);
+            Lobby lobby;
+            Lobby.Lobbies.TryGetValue(id, out lobby);
+            return lobby;
+        }
+
+        private void Join(string gameId, string playerId, string name)
+        {
+            var lobby = GetLobby(gameId);
+            var joinSuccesfull = lobby?.Join(new LobbyPlayer(new Guid(playerId), Context.ConnectionId, name)) ?? false;
+            if (joinSuccesfull)
+                Groups.Add(Context.ConnectionId, LobbyPrefix + gameId);
+            Clients.Caller.joinCallback(joinSuccesfull, lobby);
+        }
+
+        private void Switch(string gameId, int position, int destination)
+        {
+            var lobby = GetLobby(gameId);
+            var switchSuccesfull = lobby.Switch(Context.ConnectionId, position, destination);
+            if (switchSuccesfull)
+                Clients.Group(LobbyPrefix + gameId).updateLobby(lobby);
+        }
+
+        public override Task OnDisconnected(bool stopCalled)
+        {
+            Guid gameId;
+            if (Lobby.MemberShip.TryRemove(Context.ConnectionId, out gameId))
+            {
+                Lobby lobby;
+                Lobby.Lobbies.TryGetValue(gameId, out lobby);
+                lobby?.Leave(Context.ConnectionId);
+                Clients.Group(LobbyPrefix + gameId)?.updateLobby(lobby);
+            }
+            return base.OnDisconnected(stopCalled);
+        }
+    }
+}

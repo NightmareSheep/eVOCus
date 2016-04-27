@@ -16,6 +16,13 @@ namespace e.VOC.us.Game
         private readonly object _myLock = new object();
         private bool _disbanded;
 
+        public Lobby(string name, List<Slot> slots)
+        {
+            Name = name;
+            Slots = slots;
+        }
+
+
         public bool Join(LobbyPlayer lobbyPlayer)
         {
             lock (_myLock)

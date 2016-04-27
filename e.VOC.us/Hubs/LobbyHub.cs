@@ -17,21 +17,25 @@ namespace e.VOC.us.Hubs
             return lobby;
         }
 
-        private void Join(string gameId, string playerId, string name)
+        public void Join(string gameId, string playerId, string name)
         {
             var lobby = GetLobby(gameId);
             var joinSuccesfull = lobby?.Join(new LobbyPlayer(new Guid(playerId), Context.ConnectionId, name)) ?? false;
             if (joinSuccesfull)
+            {
+                Lobby.MemberShip.TryAdd(Context.ConnectionId, lobby.Id);
                 Groups.Add(Context.ConnectionId, LobbyPrefix + gameId);
-            Clients.Caller.joinCallback(joinSuccesfull, lobby);
+                Clients.OthersInGroup(LobbyPrefix + gameId).updateLobby(lobby.Slots);
+            }
+            Clients.Caller.joinCallback(joinSuccesfull, lobby?.Slots);
         }
 
-        private void Switch(string gameId, int position, int destination)
+        public void Switch(string gameId, int position, int destination)
         {
             var lobby = GetLobby(gameId);
             var switchSuccesfull = lobby.Switch(Context.ConnectionId, position, destination);
             if (switchSuccesfull)
-                Clients.Group(LobbyPrefix + gameId).updateLobby(lobby);
+                Clients.Group(LobbyPrefix + gameId).updateLobby(lobby.Slots);
         }
 
         public override Task OnDisconnected(bool stopCalled)
@@ -42,7 +46,7 @@ namespace e.VOC.us.Hubs
                 Lobby lobby;
                 Lobby.Lobbies.TryGetValue(gameId, out lobby);
                 lobby?.Leave(Context.ConnectionId);
-                Clients.Group(LobbyPrefix + gameId)?.updateLobby(lobby);
+                Clients.Group(LobbyPrefix + gameId)?.updateLobby(lobby?.Slots);
             }
             return base.OnDisconnected(stopCalled);
         }

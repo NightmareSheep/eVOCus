@@ -11,7 +11,7 @@
 function LobbyViewModel() {
     var self = this;
     self.gameId = $("#gameId").attr("gameId");
-    self.slots = ko.observableArray([{ "Team": "red", "LobbyPlayer": { "Name": "Frank" } }]);
+    self.slots = ko.observableArray([]);
 
     self.lobbyHub = $.connection.lobbyHub;
     self.lobbyHub.client.updateLobby = function(slots) {
@@ -19,6 +19,9 @@ function LobbyViewModel() {
     }
     self.lobbyHub.client.joinCallback = function(joinSuccesfull, slots) {
         self.slots(slots);
+    }
+    self.switchToSlot = function (data, event) {
+        self.lobbyHub.server.switch(self.gameId, ko.contextFor(event.target).$index());
     }
     $.connection.hub.start().done(function() { self.lobbyHub.server.join(self.gameId, guid(), "playerName") });
 }

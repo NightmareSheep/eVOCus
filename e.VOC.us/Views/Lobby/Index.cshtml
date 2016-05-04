@@ -15,12 +15,14 @@
         <tr>
             <th>Team</th>
             <th>Name</th>
+            <th>Switch</th>
         </tr>
     </thead>
     <tbody data-bind="foreach: slots">
         <tr>
             <td data-bind="text: Team"></td>
             <td data-bind="text: LobbyPlayer !== null ? LobbyPlayer.Name : ''"></td>
+            <td><button data-bind="click: $parent.switchToSlot">Switch</button></td>
         </tr>
     </tbody>
 </table>

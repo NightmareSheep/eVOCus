@@ -46,7 +46,7 @@ namespace e.VOC.us.Game
         {
             lock (_myLock)
             {
-                Slots.First(slot => slot.LobbyPlayer.ConnectionId == connectionId).LobbyPlayer = null;
+                Slots.First(slot => slot.LobbyPlayer?.ConnectionId == connectionId).LobbyPlayer = null;
                 if (Slots.All(slot => slot.LobbyPlayer == null))
                 {
                     _disbanded = true;
@@ -56,15 +56,16 @@ namespace e.VOC.us.Game
             }
         }
 
-        public bool Switch(string connectionId, int position, int destination)
+        public bool Switch(string connectionId, int destination)
         {
             lock (_myLock)
             {
-                if (Slots.Count < position && Slots.Count < destination && Slots[position].LobbyPlayer.ConnectionId.Equals(connectionId) &&
-                    Slots[destination].LobbyPlayer == null)
+                var positionSlot = Slots.First(slot => slot.LobbyPlayer?.ConnectionId?.Equals(connectionId) ?? false);
+
+                if (positionSlot != null && destination < Slots.Count && Slots[destination].LobbyPlayer == null)
                 {
-                    Slots[destination].LobbyPlayer = Slots[position].LobbyPlayer;
-                    Slots[position].LobbyPlayer = null;
+                    Slots[destination].LobbyPlayer = positionSlot.LobbyPlayer;
+                    positionSlot.LobbyPlayer = null;
                     return true;
                 }
                 return false;

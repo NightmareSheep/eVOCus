@@ -30,10 +30,10 @@ namespace e.VOC.us.Hubs
             Clients.Caller.joinCallback(joinSuccesfull, lobby?.Slots);
         }
 
-        public void Switch(string gameId, int position, int destination)
+        public void Switch(string gameId, int destination)
         {
             var lobby = GetLobby(gameId);
-            var switchSuccesfull = lobby.Switch(Context.ConnectionId, position, destination);
+            var switchSuccesfull = lobby.Switch(Context.ConnectionId, destination);
             if (switchSuccesfull)
                 Clients.Group(LobbyPrefix + gameId).updateLobby(lobby.Slots);
         }

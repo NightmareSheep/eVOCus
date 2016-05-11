@@ -10,6 +10,7 @@ namespace e.VOC.us.Game
         [JsonIgnore]
         public string ConnectionId { get; set; }
         public string Name { get; set; }
+        public bool Ready { get; set; }
 
         public LobbyPlayer(Guid id, string connectionId, string name)
         {

@@ -20,10 +20,27 @@ function LobbyViewModel() {
     self.lobbyHub.client.joinCallback = function(joinSuccesfull, slots) {
         self.slots(slots);
     }
+    self.lobbyHub.client.getMessage = function(message) {
+        $("#chat").append("<p>" + message + "</p>");
+    }
+    self.sendMessage = function(message) {
+        self.lobbyHub.server.sendMessage(self.gameId, message);
+    }
     self.switchToSlot = function (data, event) {
         self.lobbyHub.server.switch(self.gameId, ko.contextFor(event.target).$index());
     }
-    $.connection.hub.start().done(function() { self.lobbyHub.server.join(self.gameId, guid(), "playerName") });
+    $.connection.hub.start().done(function () { self.lobbyHub.server.join(self.gameId, guid(), "playerName") });
+
+    $("#sendMessage").keyup(function (event) {
+        if (event.keyCode === 13) {
+            var element = $("#sendMessage");
+            var value = element.val();
+            if (value != "") {
+                self.sendMessage(value);
+                element.val("");
+            }
+        }
+    });
 }
 
 ko.applyBindings(new LobbyViewModel());

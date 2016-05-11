@@ -7,35 +7,35 @@ namespace e.VOC.us.Hubs
 {
     public class LobbyHub : Hub
     {
-        private const string LobbyPrefix = "lobby_";
+        public const string LobbyPrefix = "lobby_";
 
-        private Lobby GetLobby(string gameId)
+        private Lobby GetLobby(string lobbyId)
         {
-            Guid id = new Guid(gameId);
+            Guid id = new Guid(lobbyId);
             Lobby lobby;
             Lobby.Lobbies.TryGetValue(id, out lobby);
             return lobby;
         }
 
-        public void Join(string gameId, string playerId, string name)
+        public void Join(string lobbyId, string playerId, string name)
         {
-            var lobby = GetLobby(gameId);
+            var lobby = GetLobby(lobbyId);
             var joinSuccesfull = lobby?.Join(new LobbyPlayer(new Guid(playerId), Context.ConnectionId, name)) ?? false;
             if (joinSuccesfull)
             {
                 Lobby.MemberShip.TryAdd(Context.ConnectionId, lobby.Id);
-                Groups.Add(Context.ConnectionId, LobbyPrefix + gameId);
-                Clients.OthersInGroup(LobbyPrefix + gameId).updateLobby(lobby.Slots);
+                Groups.Add(Context.ConnectionId, LobbyPrefix + lobbyId);
+                Clients.OthersInGroup(LobbyPrefix + lobbyId).updateLobby(lobby.Slots);
             }
             Clients.Caller.joinCallback(joinSuccesfull, lobby?.Slots);
         }
 
-        public void Switch(string gameId, int destination)
+        public void Switch(string lobbyId, int destination)
         {
-            var lobby = GetLobby(gameId);
+            var lobby = GetLobby(lobbyId);
             var switchSuccesfull = lobby.Switch(Context.ConnectionId, destination);
             if (switchSuccesfull)
-                Clients.Group(LobbyPrefix + gameId).updateLobby(lobby.Slots);
+                Clients.Group(LobbyPrefix + lobbyId).updateLobby(lobby.Slots);
         }
 
         public override Task OnDisconnected(bool stopCalled)
@@ -49,6 +49,11 @@ namespace e.VOC.us.Hubs
                 Clients.Group(LobbyPrefix + gameId)?.updateLobby(lobby?.Slots);
             }
             return base.OnDisconnected(stopCalled);
+        }
+
+        public void SendMessage(string lobbyId, string message)
+        {
+            Clients.Group(LobbyPrefix + lobbyId)?.getMessage(message);
         }
     }
 }

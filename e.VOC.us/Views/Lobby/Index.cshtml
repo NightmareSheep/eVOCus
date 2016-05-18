@@ -16,17 +16,20 @@
         <th>Team</th>
         <th>Name</th>
         <th>Switch</th>
+        <th>Ready</th>
     </tr>
     </thead>
     <tbody data-bind="foreach: slots">
-    <tr>
-        <td data-bind="text: Team"></td>
-        <td data-bind="text: LobbyPlayer !== null ? LobbyPlayer.Name : ''"></td>
-        <td><button data-bind="click: $parent.switchToSlot">Switch</button></td>
-    </tr>
+        <tr>
+            <td data-bind="text: Team"></td>
+            <td data-bind="text: LobbyPlayer !== null ? LobbyPlayer.Name : ''"></td>
+            <td><button data-bind="click: $parent.switchToSlot">Switch</button></td>
+            <td data-bind="text: LobbyPlayer !== null ? LobbyPlayer.Ready ? 'Ready' : 'Not ready' : ''"></td>
+        </tr>
     </tbody>
 </table>
 
+<td><button data-bind="click: ready">Ready</button></td>
 <input id="sendMessage" type="text">
 <div id="chat" style="height: 300px; overflow: scroll;">
     
@@ -39,5 +42,5 @@
     @* ReSharper disable once Html.PathError *@
     <script src="~/signalr/hubs"></script>
     @Scripts.Render("~/bundles/knockout")
-    <script src="~/Scripts/js/Lobby.js"></script>
+    <script src="~/Scripts/js/lobby.js"></script>
 }

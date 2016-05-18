@@ -44,7 +44,12 @@ namespace e.VOC.us
                         "~/Scripts/jquery-{version}.js",
                         "~/Scripts/jquery.signalR-{version}.js"));
 
-            
+            bundles.Add(new ScriptBundle("~/bundles/basic").Include(
+                        "~/Scripts/js/cookie.js",
+                        "~/Scripts/js/guid.js",
+                        "~/Scripts/js/playerData.js"));
+
+
         }
     }
 }

@@ -6,6 +6,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using e.VOC.us.Hubs;
 using Microsoft.AspNet.SignalR;
+using WebGrease.Css.Extensions;
 
 namespace e.VOC.us.Game
 {
@@ -22,7 +23,13 @@ namespace e.VOC.us.Game
         private Guid _countDownId;
         private readonly IHubContext _lobbyHub;
 
-        public void StateHasChanged() => _countDownId = Guid.Empty;
+        public void StateHasChanged()
+        {
+            StopCountdown();
+            Slots.Where(slot => slot.LobbyPlayer != null).ForEach(slot => slot.LobbyPlayer.Ready = false);
+        }
+
+        public void StopCountdown() => _countDownId = Guid.Empty;
 
         public Lobby(string name, List<Slot> slots)
         {
@@ -94,8 +101,8 @@ namespace e.VOC.us.Game
                 var positionSlot = Slots.FirstOrDefault(slot => slot.LobbyPlayer?.ConnectionId?.Equals(connectionId) ?? false);
                 if (positionSlot?.LobbyPlayer == null) return false;
                 positionSlot.LobbyPlayer.Ready = ready;
-                StateHasChanged();
-                if (Slots.All(slot => slot.LobbyPlayer == null || slot.LobbyPlayer.Ready))
+                StopCountdown();
+                if (Slots.All(slot => slot.LobbyPlayer == null || slot.LobbyPlayer.Ready) && Slots.Where(slot => slot.LobbyPlayer != null).Select(slot => slot.Team).Distinct().Count() > 1)
                     StartGame();
             }
             return true;
@@ -115,7 +122,10 @@ namespace e.VOC.us.Game
                         lock (_myLock)
                         {
                             if (countDownId != _countDownId)
+                            {
+                                _lobbyHub.Clients.Group(LobbyHub.LobbyPrefix + Id).getMessage("Countdown stopped");
                                 return;
+                            }
                         }
 
                         if (countdown == 0)

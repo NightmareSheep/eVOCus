@@ -55,5 +55,12 @@ namespace e.VOC.us.Hubs
         {
             Clients.Group(LobbyPrefix + lobbyId)?.getMessage(message);
         }
+
+        public void Ready(string lobbyId, bool ready)
+        {
+            var lobby = GetLobby(lobbyId);
+            if (lobby != null && lobby.Ready(Context.ConnectionId, ready))
+                Clients.Group(LobbyPrefix + lobbyId).updateLobby(lobby.Slots);
+        }
     }
 }

@@ -20,7 +20,8 @@ namespace e.VOC.us.Game
         [JsonIgnore]
         public IShipFactory ShipFactory => _shipFactory;
         [JsonProperty("gameObjects")]
-        public List<GameObject> GameObjects = new List<GameObject>(); 
+        public List<GameObject> GameObjects = new List<GameObject>();
+        [JsonProperty("gameTime")] public long GameTime;
 
         public GameState()
         {
@@ -29,6 +30,7 @@ namespace e.VOC.us.Game
 
         public void Update(GameTime gametime)
         {
+            GameTime = gametime.ElapsedMilliseconds;
             Explosions.Clear();
 
             for (int i = GameObjects.Count - 1; i >= 0; i--)

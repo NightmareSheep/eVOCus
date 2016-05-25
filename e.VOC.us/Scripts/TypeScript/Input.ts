@@ -5,6 +5,7 @@
         explosions: InputPosition[];
         map: InputMap;
         gameObjects: InputGameObject[];
+        gameTime : number;
     }
 
     export interface InputGameObject {

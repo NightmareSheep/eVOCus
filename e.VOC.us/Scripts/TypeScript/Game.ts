@@ -1,10 +1,8 @@
 ﻿module eVOCus {
-
     export class Game {
-        fps: number = 60;
         gameTime: number = 0;
-        timeStep: number;
-        static keyboard: Keyboard
+        //timeStep: number;
+        static keyboard: Keyboard;
         static instance:Game;
         canvas:Canvas;
         canonballs: SpriteObject[] = [];
@@ -17,31 +15,45 @@
         environment: Environment;
         focus: Vector2D = new Vector2D(0,0);
         gameObjects: IServerObject[] = [];
+        synchronization: Synchronization;
 
         
         constructor(public hub: GameHubProxy) {
             Game.instance = this;
             Game.keyboard = new Keyboard();
             this.canvas = new Canvas();
-            this.timeStep = Math.floor(1000 / this.fps);
             this.scoreboard = new Scoreboard();
             this.minimap = new Minimap();
             this.environment = new Environment();
-            setInterval(() => { this.gameLoop(this); }, this.timeStep);
+            this.synchronization = new Synchronization(this);
+        }
+
+        start(id: string, gameTime: number) {
+            this.id = id;
+            this.gameTime = gameTime;
+            requestAnimationFrame((timestamp) => {
+                this.lastFrameTimeMs = timestamp; this.gameLoop(this, timestamp); });
+        }
+
+        lastFrameTimeMs : number = 0; // The last time the loop was run
+        maxFps : number = 60; // The maximum FPS we want to allow
+
+        gameLoop(gameObject: Game, timestamp: number) {
             
-        }
-
-        inputName() {
-            Game.instance.hub.server.nameInput(prompt("What is your name"));
-        }
-
-        gameLoop(gameObject: Game) {
-            this.gameTime += this.timeStep;
+            if (timestamp < this.lastFrameTimeMs + (1000 / this.maxFps)) {
+                requestAnimationFrame((time) => { this.gameLoop(this, time); });
+                return;
+            }
+            const elapsedTime = timestamp - this.lastFrameTimeMs;
+            this.gameTime += elapsedTime;
+            this.lastFrameTimeMs = timestamp;
             this.update(this.gameTime);
             this.draw(this.canvas);
+            requestAnimationFrame((time) => { this.gameLoop(this, time); });
         }
 
         update(gameTime: number) {
+            this.synchronization.synchronize(gameTime);
             this.canvas.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
             for (var i = 0; i < this.players.length; i++) {
                 this.players[i].update(gameTime);
@@ -116,64 +128,6 @@
             }
             return null;
         }
-
-        // TODO: Refactor sync method
-        sync(state: InputGameState) {
-            for (var i = 0; i < state.gameObjects.length; i++) {
-                var serverObject = state.gameObjects[i];
-                var clientObjExists = false;
-                for (var j = 0; j < this.gameObjects.length; j++) {
-                    var clientObject = this.gameObjects[j];
-                    if (clientObject.id === serverObject.id) {
-                        clientObject.synchronize(serverObject);
-                        clientObjExists = true;
-                    }
-                }
-                if (!clientObjExists)
-                    Game.instance.gameObjects.push(Initializer.initialize(serverObject));
-            }
-
-            for (var i = this.gameObjects.length - 1; i >= 0; i--) {
-                var clientObject = this.gameObjects[i];
-                var serverObjectExists = false;
-                for (var j = 0; j < state.gameObjects.length; j++) {
-                    var serverObject = state.gameObjects[j];
-                    if (clientObject.id === serverObject.id) {
-                        serverObjectExists = true;
-                        break;
-                    }
-                }
-                if (!serverObjectExists)
-                    Game.instance.gameObjects.splice(i, 1); 
-            }
-
-            if (this.players.length != state.players.length) {
-                var image = new Image();
-                image.src = "../Assets/Boot-3.png";
-
-                this.players = [];
-                for (var i = 0; i < state.players.length; i++) {
-                    this.players.push(new Player(state.players[i].id, state.players[i].name));
-                }
-            }
-            
-            for (var i = 0; i < state.explosions.length; i++) {
-                var explosionImage = new Image();
-                explosionImage.src = "../Assets/explosion.png";
-                this.oneTimeAnimations.push(new AnimationWithRectangle(new RotatableRectangle(new Vector2D(state.explosions[i].x, state.explosions[i].y), 80, 80, 0), explosionImage, 80, 80 * 3, 3, 300, false));
-            }
-            
-
-            for (var i = 0; i < this.players.length; i++) {
-                this.players[i].PlayerName = state.players[i].name;
-                this.players[i].score = state.players[i].score;
-            }
-
-            var image = new Image();
-            image.src = "../Assets/canonball2.png";
-            this.canonballs = [];
-            for (var j = 0; j < state.canonballs.length; j++)
-                this.canonballs.push(new SpriteObject(new Vector2D(state.canonballs[j].position.x, state.canonballs[j].position.y), image));
-        }
+       
     }
 } 

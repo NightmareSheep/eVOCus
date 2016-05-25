@@ -22,7 +22,7 @@ namespace e.VOC.us.Game
             // Try catch because client could have disconnected
             try
             {
-                _hubContext.Clients.Client(_connectionId).RegisterId(player.Id);
+                _hubContext.Clients.Client(_connectionId).Start(player.Id, gamestate.GameTime);
             }
             catch
             {

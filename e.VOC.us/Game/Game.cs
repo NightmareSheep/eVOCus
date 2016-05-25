@@ -12,10 +12,10 @@ namespace e.VOC.us.Game
         private readonly IHubContext _hubContext;
         private readonly GameState _game = new GameState();
         public ConcurrentQueue<IInput> Input = new ConcurrentQueue<IInput>();
-        private const int MaxMilisecondsWithoutInput = 60000;
+        private const int MaxMilisecondsWithoutInput = 6000000;
         private readonly object _myLock = new object();
         private bool _hasStopped = true;
-        private const int Timestep = 32;
+        private const int Timestep = 64;
 
         public Game()
         {

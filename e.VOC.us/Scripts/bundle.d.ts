@@ -66,9 +66,9 @@ declare module eVOCus {
 declare module eVOCus {
     class Player {
         id: string;
-        PlayerName: string;
+        playerName: string;
         score: number;
-        constructor(id: string, PlayerName: string);
+        constructor(id: string, playerName: string);
         update(gameTime: number): void;
         draw(canvas: Canvas): void;
     }
@@ -156,6 +156,8 @@ declare module eVOCus {
         private _waveTime;
         private _currentWaveTime;
         id: string;
+        private currentTime;
+        private previousTime;
         constructor(id: string, playerId: string, speed: number, maxSpeed: number, rectangle: RotatableRectangle, image: HTMLImageElement);
         update(gameTime: number): void;
         draw(canvas: Canvas): void;
@@ -169,6 +171,7 @@ declare module eVOCus {
         explosions: InputPosition[];
         map: InputMap;
         gameObjects: InputGameObject[];
+        gameTime: number;
     }
     interface InputGameObject {
         id: string;
@@ -261,6 +264,17 @@ declare module eVOCus {
     }
 }
 declare module eVOCus {
+    class Synchronization {
+        private game;
+        inputGameStates: InputGameState[];
+        latency: number;
+        constructor(game: Game);
+        addInputGameState(inputGameState: InputGameState): void;
+        filterGamestates(gameTime: number): void;
+        synchronize(gameTime: number): void;
+    }
+}
+declare module eVOCus {
     class Wave {
         position: Vector2D;
         angle: number;
@@ -274,9 +288,7 @@ declare module eVOCus {
 declare module eVOCus {
     class Game {
         hub: GameHubProxy;
-        fps: number;
         gameTime: number;
-        timeStep: number;
         static keyboard: Keyboard;
         static instance: Game;
         canvas: Canvas;
@@ -290,13 +302,15 @@ declare module eVOCus {
         environment: Environment;
         focus: Vector2D;
         gameObjects: IServerObject[];
+        synchronization: Synchronization;
         constructor(hub: GameHubProxy);
-        inputName(): void;
-        gameLoop(gameObject: Game): void;
+        start(id: string, gameTime: number): void;
+        lastFrameTimeMs: number;
+        maxFps: number;
+        gameLoop(gameObject: Game, timestamp: number): void;
         update(gameTime: number): void;
         draw(canvas: Canvas): void;
         getCurrentPlayer(): Player;
-        sync(state: InputGameState): void;
     }
 }
 declare module eVOCus {

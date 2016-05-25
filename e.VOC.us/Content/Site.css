@@ -169,11 +169,13 @@ body {
     border-radius: 3px;
     text-align: center;
     cursor: pointer;
+    text-decoration: none;
 }
 
 .joinButton:hover {
     color: #000000;
     background-color: #ffffff;
+    text-decoration: none;
 }
 
 .newGameButton {
@@ -226,3 +228,5 @@ body {
 }
 
 .dropdown-content a:hover {background-color: #f1f1f1}
+
+

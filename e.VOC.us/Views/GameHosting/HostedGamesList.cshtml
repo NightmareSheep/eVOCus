@@ -9,21 +9,14 @@
         <img src="~/Assets/logo_small.png" />
     </div>
 
-    <div class="hostedGames">
+    <div class="hostedGames" >
 
         <h2>Kies een game</h2>
-
-        <div class="gamesList">
-            <h4>Name of game 1</h4>
-            <div class="joinButton">Join game</div>
-        </div>
-        <div class="gamesList">
-            <h4>Name of game 2</h4>
-            <div class="joinButton">Join game</div>
-        </div>
-        <div class="gamesList">
-            <h4>Name of game 3</h4>
-            <div class="joinButton">Join game</div>
+        <div data-bind="foreach: lobbies">
+            <div class="gamesList">
+                <h4 data-bind="text: Name"></h4>
+                <a class="joinButton" data-bind="attr: { href: 'index/' + Id }">join</a>
+            </div>
         </div>
 
         <div class="newGameButton">New Game</div>
@@ -31,3 +24,7 @@
     </div>
 </div>
 
+@section scripts
+{
+    @Scripts.Render("~/bundles/lobbies")
+}

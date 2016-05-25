@@ -9,7 +9,7 @@ interface GameHubProxy {
 }
 interface GameClient {
     updateCounter: (number) => void;
-    RegisterId: (string) => void;
+    Start: (id : string, gameTime : number) => void;
     sync: (state:eVOCus.InputGameState) => void;
 }
 interface GameServer {

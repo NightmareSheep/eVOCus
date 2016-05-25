@@ -5,7 +5,7 @@ module eVOCus {
 
         public score:number;
 
-        constructor(public id:string, public PlayerName: string) {
+        constructor(public id:string, public playerName: string) {
         }
 
         update(gameTime: number) {

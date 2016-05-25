@@ -8,8 +8,15 @@ namespace e.VOC.us
         // For more information on bundling, visit http://go.microsoft.com/fwlink/?LinkId=301862
         public static void RegisterBundles(BundleCollection bundles)
         {
+            bundles.Add(new ScriptBundle("~/bundles/lobbies").Include(
+                        "~/Scripts/knockout-{version}.js",
+                        "~/Scripts/js/lobbyList.js"));
+
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
                         "~/Scripts/jquery-{version}.js"));
+
+            bundles.Add(new ScriptBundle("~/bundles/knockout").Include(
+                        "~/Scripts/knockout-{version}.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
                         "~/Scripts/jquery.validate*"));
@@ -36,6 +43,13 @@ namespace e.VOC.us
             bundles.Add(new ScriptBundle("~/bundles/signalr").Include(
                         "~/Scripts/jquery-{version}.js",
                         "~/Scripts/jquery.signalR-{version}.js"));
+
+            bundles.Add(new ScriptBundle("~/bundles/basic").Include(
+                        "~/Scripts/js/cookie.js",
+                        "~/Scripts/js/guid.js",
+                        "~/Scripts/js/playerData.js"));
+
+
         }
     }
 }

@@ -13,7 +13,7 @@
 
             for (var i = 0; i < Game.instance.players.length; i++) {
                 var player = Game.instance.players[i];
-                playersWithScores.push({ 'name': player.PlayerName, 'score': player.score });
+                playersWithScores.push({ 'name': player.playerName, 'score': player.score });
             }
 
             playersWithScores.sort((p1, p2) => { return p2.score - p1.score });

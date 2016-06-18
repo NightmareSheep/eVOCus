@@ -4,12 +4,17 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
+using System.Web.Script.Serialization;
+using e.VOC.us.DAL;
 using e.VOC.us.Game;
+using Microsoft.Ajax.Utilities;
 
 namespace e.VOC.us.Controllers
 {
     public class LobbyController : Controller
     {
+        private GameContext Db = new GameContext();
+
         public ActionResult Index(string id)
         {
             Lobby lobby;
@@ -27,14 +32,16 @@ namespace e.VOC.us.Controllers
         [HttpGet]
         public ActionResult Create()
         {
-            return View();
+            var maps = Db.Maps.ToList();
+            return View(maps);
         }
 
         [HttpPost]
-        public ActionResult Create(string name)
+        public ActionResult Create(string name, string slots)
         {
-            if (string.IsNullOrEmpty(name))
+            if (string.IsNullOrEmpty(name) || string.IsNullOrEmpty(slots))
                 return RedirectToAction("Create");
+            int[] teams = new JavaScriptSerializer().Deserialize<int[]>(slots);
 
             var lobby = new Lobby(name, new List<Slot> { new Slot(1), new Slot(1) , new Slot(1) , new Slot(2), new Slot(2), new Slot(2) });
             Lobby.Lobbies.TryAdd(lobby.Id, lobby);

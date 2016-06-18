@@ -18,7 +18,7 @@ module eVOCus {
         Update(gameTime: number) {
             this.previousTime = this.currentTime;
             this.currentTime = gameTime;
-            const elapsedTime = this.previousTime === 0 ? 0 : this.currentTime - this.previousTime;
+            var elapsedTime = this.previousTime === 0 ? 0 : this.currentTime - this.previousTime;
             if (this.loop)
                 this.currentAnimationTime = (this.currentAnimationTime + elapsedTime) % this.duration;
             else

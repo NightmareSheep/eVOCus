@@ -11,6 +11,7 @@ namespace e.VOC.us.DAL
         }
 
         public DbSet<Map> Maps { get; set; }
+        public DbSet<StartLocation> StartLocations { get; set; } 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();

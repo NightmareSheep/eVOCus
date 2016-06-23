@@ -4,7 +4,8 @@ module eVOCus {
     export class Keyboard {
         keysDown: number[] = [];
         keysPressed: number[] = [];
-        constructor() {
+        
+        constructor(public gameId: string, public playerId: string) {
             document.addEventListener('keydown', this.keyDown.bind(this), false);
             document.addEventListener('keyup', this.keyUp.bind(this), false);
         }
@@ -16,12 +17,12 @@ module eVOCus {
         private keyDown(event: KeyboardEvent) {
             if (this.keysDown.indexOf(event.keyCode) == -1) {
                 this.keysDown.push(event.keyCode);
-                Game.instance.hub.server.keyboardInput(event.keyCode, "down");
+                Game.instance.hub.server.keyboardInput(event.keyCode, "down", this.gameId, this.playerId);
             }
         }
 
         private keyUp(event: KeyboardEvent) {
-            Game.instance.hub.server.keyboardInput(event.keyCode, "up");
+            Game.instance.hub.server.keyboardInput(event.keyCode, "up", this.gameId, this.playerId);
             this.keysPressed.push(event.keyCode);
             var index = this.keysDown.indexOf(event.keyCode, 0);
             if (index != undefined) {

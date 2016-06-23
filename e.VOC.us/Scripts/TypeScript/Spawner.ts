@@ -12,7 +12,7 @@
             this.playerId = serverObj.playerId;
             this.shipType = serverObj.shipType;
             var image = new Image();
-            image.src = "../Assets/Boot-3.png";
+            image.src = "/Assets/Boot-3.png";
             this.animation = new Animation(image, this.rectangle.width, this.rectangle.height * 5, 5, 2000, false);
         }
 

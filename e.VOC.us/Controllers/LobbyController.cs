@@ -7,7 +7,6 @@ using System.Web.Routing;
 using System.Web.Script.Serialization;
 using e.VOC.us.DAL;
 using e.VOC.us.Game;
-using Microsoft.Ajax.Utilities;
 
 namespace e.VOC.us.Controllers
 {
@@ -37,13 +36,12 @@ namespace e.VOC.us.Controllers
         }
 
         [HttpPost]
-        public ActionResult Create(string name, string slots)
+        public ActionResult Create(string name, string slots, int mapId)
         {
             if (string.IsNullOrEmpty(name) || string.IsNullOrEmpty(slots))
                 return RedirectToAction("Create");
             int[] teams = new JavaScriptSerializer().Deserialize<int[]>(slots);
-
-            var lobby = new Lobby(name, new List<Slot> { new Slot(1), new Slot(1) , new Slot(1) , new Slot(2), new Slot(2), new Slot(2) });
+            var lobby = new Lobby(name, teams.Select(team => new Slot(team)).ToList(), Db.Maps.FirstOrDefault(map => map.Id == mapId));
             Lobby.Lobbies.TryAdd(lobby.Id, lobby);
 
             return RedirectToAction("Index", new RouteValueDictionary { {"id", lobby.Id} });

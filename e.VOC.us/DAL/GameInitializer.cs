@@ -13,25 +13,25 @@ namespace e.VOC.us.DAL
                 {
                     X = 100,
                     Y = 100,
-                    Angle = 90
+                    Angle = 0
                 },
                 new StartLocation
                 {
                     X = 900,
                     Y = 100,
-                    Angle = 270
+                    Angle = 180
                 },
                 new StartLocation
                 {
                     X = 900,
                     Y = 900,
-                    Angle = 270
+                    Angle = 0
                 },
                 new StartLocation
                 {
                     X = 100,
                     Y = 900,
-                    Angle = 90
+                    Angle = 180
                 }
             };
             startLocations.ForEach(startLocation => context.StartLocations.Add(startLocation));
@@ -57,7 +57,7 @@ namespace e.VOC.us.DAL
                 {
                     X = 100,
                     Y = 100,
-                    Angle = 90
+                    Angle = 0
                 },
                 new StartLocation
                 {

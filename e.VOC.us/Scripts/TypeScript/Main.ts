@@ -1,12 +1,15 @@
-﻿module eVOCus {
+﻿declare var playerId: string;
+
+module eVOCus {
     var game: Game;
     window.onload = () => {
-         var name = prompt("What is your name");
+         var gameId = $("#canvas").attr("gameId");
          var gameHub = $.connection.gameHub;
-         game = new Game(gameHub);
-         gameHub.client.Start = (id, gameTime) => {game.start(id, gameTime);};
+        $.connection.hub.qs = { 'playerId' : playerId, 'gameId' : gameId }
+        game = new Game(gameHub, playerId, gameId);
+         gameHub.client.Start = (gameTime) => {game.start(gameTime);};
          gameHub.client.sync = game.synchronization.addInputGameState.bind(game.synchronization);
-         $.connection.hub.start().done(() => { gameHub.server.nameInput(name); });
+         $.connection.hub.start().done();
      }
 }
 

@@ -28,9 +28,9 @@ namespace e.VOC.us.Controllers
             return View();
         }
 
-        public ActionResult Prototype()
+        public ActionResult Prototype(string id)
         {
-            return View();
+            return View((object)id);
         }
 
         public ActionResult Chat()

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Concurrent;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Threading;
 using e.VOC.us.Hubs;
@@ -9,17 +10,21 @@ namespace e.VOC.us.Game
 {
     public class Game
     {
-        private readonly IHubContext _hubContext;
-        private readonly GameState _game = new GameState();
+        public readonly IHubContext HubContext;
+        public readonly GameState GameState;
         public ConcurrentQueue<IInput> Input = new ConcurrentQueue<IInput>();
         private const int MaxMilisecondsWithoutInput = 6000000;
         private readonly object _myLock = new object();
-        private bool _hasStopped = true;
         private const int Timestep = 64;
+        private readonly Guid _id;
 
-        public Game()
+        public Game(Models.Map map, List<Slot> slots, Guid id)
         {
-            _hubContext = GlobalHost.ConnectionManager.GetHubContext<GameHub>();
+            HubContext = GlobalHost.ConnectionManager.GetHubContext<GameHub>();
+            GameState = new GameState(map, slots);
+            _id = id;
+            var gameLoopThread = new Thread(GameLoop) { IsBackground = true };
+            gameLoopThread.Start();
         }
 
         private void GameLoop()
@@ -38,16 +43,16 @@ namespace e.VOC.us.Game
                     lastInput = gametime.ElapsedMilliseconds;
 
                 ProcesInput();
-                _game.Update(gametime);
-                _hubContext.Clients.All.sync(_game);
-
+                GameState.Update(gametime);
+                HubContext.Clients.Group(GameHub.GamePrefix + _id).sync(GameState);
                 if (gametime.ElapsedMilliseconds - lastInput > MaxMilisecondsWithoutInput)
                 {
                     lock (_myLock)
                     {
                         if (Input.IsEmpty)
                         {
-                            _hasStopped = true;
+                            Game game;
+                            GameHub.Games.TryRemove(_id, out game);
                             return;
                         }
                     }
@@ -56,34 +61,13 @@ namespace e.VOC.us.Game
 
         }
 
-        /// <summary>
-        /// Connects the player to the game.
-        /// Checks if the game is still running, restarts the game if it is not.
-        /// </summary>
-        /// <param name="id">Id of the player</param>
-        public void Connect(string id)
-        {
-            lock (_myLock)
-            {
-                Input.Enqueue(new ConnectInput(id, _hubContext));
-
-                // If game is still running do nothing
-                if (!_hasStopped) return;
-
-                // Else restart the game
-                _hasStopped = false;
-                var gameLoopThread = new Thread(GameLoop) { IsBackground = true };
-                gameLoopThread.Start();
-            }
-        }
-
         private void ProcesInput()
         {
             while (!Input.IsEmpty)
             {
                 IInput input;
                 Input.TryDequeue(out input);
-                input?.ProcesInput(_game);
+                input?.ProcesInput(GameState);
             }
         }
     }

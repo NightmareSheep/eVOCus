@@ -19,11 +19,11 @@ module eVOCus {
             this.id = id;
             this._animation = new Animation(image, rectangle.width, rectangle.height * 5, 5, 2000, false);
             var image2 = new Image();
-            image2.src = "../Assets/boot-3-dead.png";
+            image2.src = "/Assets/boot-3-dead.png";
             this._animation_death = new Animation(image2, rectangle.width, rectangle.height * 5, 5, 2000, false);
 
             var image = new Image();
-            image.src = "../Assets/cannon.png";
+            image.src = "/Assets/cannon.png";
             this._cannons = [new RotatableSpriteObject(new RotatableRectangle(new Vector2D(0, 0), 38, 20, 0), image)];
         }
 

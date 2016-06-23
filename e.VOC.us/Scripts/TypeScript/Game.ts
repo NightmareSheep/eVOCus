@@ -7,7 +7,6 @@
         canvas:Canvas;
         canonballs: SpriteObject[] = [];
         waves: Wave[] = [];
-        id: string;
         players: Player[] = [];
         oneTimeAnimations: AnimationWithRectangle[] = [];
         scoreboard: Scoreboard;
@@ -16,20 +15,20 @@
         focus: Vector2D = new Vector2D(0,0);
         gameObjects: IServerObject[] = [];
         synchronization: Synchronization;
-
         
-        constructor(public hub: GameHubProxy) {
+        constructor(public hub: GameHubProxy, public id: string, public gameId: string) {
+            
             Game.instance = this;
-            Game.keyboard = new Keyboard();
+            Game.keyboard = new Keyboard(this.gameId, this.id);
             this.canvas = new Canvas();
             this.scoreboard = new Scoreboard();
             this.minimap = new Minimap();
             this.environment = new Environment();
             this.synchronization = new Synchronization(this);
+            
         }
 
-        start(id: string, gameTime: number) {
-            this.id = id;
+        start(gameTime: number) {
             this.gameTime = gameTime;
             requestAnimationFrame((timestamp) => {
                 this.lastFrameTimeMs = timestamp; this.gameLoop(this, timestamp); });
@@ -44,7 +43,7 @@
                 requestAnimationFrame((time) => { this.gameLoop(this, time); });
                 return;
             }
-            const elapsedTime = timestamp - this.lastFrameTimeMs;
+            var elapsedTime = timestamp - this.lastFrameTimeMs;
             this.gameTime += elapsedTime;
             this.lastFrameTimeMs = timestamp;
             this.update(this.gameTime);

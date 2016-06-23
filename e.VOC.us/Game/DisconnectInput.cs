@@ -3,21 +3,17 @@
     public class DisconnectInput : IInput
     {
         private readonly string _connectionId;
+        private readonly string _playerId;
 
-        public DisconnectInput(string connectionId)
+        public DisconnectInput(string connectionId, string playerId)
         {
             _connectionId = connectionId;
+            _playerId = playerId;
         }
 
         public void ProcesInput(GameState gameState)
         {
-            if (gameState.PlayerDictionary.ContainsKey(_connectionId))
-            {
-                var player = gameState.PlayerDictionary[_connectionId];
-                player.Disconnect();
-                gameState.PlayerDictionary.Remove(_connectionId);
-                gameState.Players.Remove(player);
-            }
+            gameState.PlayerDisconnect(_connectionId, _playerId);
         }
     }
 }

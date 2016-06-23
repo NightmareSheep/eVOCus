@@ -1,4 +1,6 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
+using e.VOC.us.Models;
 using Newtonsoft.Json;
 
 namespace e.VOC.us.Game
@@ -23,9 +25,25 @@ namespace e.VOC.us.Game
         public List<GameObject> GameObjects = new List<GameObject>();
         [JsonProperty("gameTime")] public long GameTime;
 
-        public GameState()
+        public event ConnectEventHandler PlayerConnectEvent;
+        public event ConnectEventHandler PlayerDisconnectEvent;
+
+        public GameState(Map map, List<Slot> slots)
         {
-            Map = new Map(5000, 5000);
+            Map = map;
+            var startpositions = map.StartLocations.ToList();
+            for (int i = 0; i < slots.Count; i++)
+            {
+                var slot = slots[i];
+                var startPosition = startpositions[i];
+                if (slot.LobbyPlayer != null)
+                {
+                    var player = new Player(startPosition, slot.LobbyPlayer.Id.ToString(), slot.LobbyPlayer.Name);
+                    Players.Add(player);
+                    PlayerDictionary.Add(slot.LobbyPlayer.Id.ToString(), player);
+                    GameObjects.Add(ShipFactory.Ship(ShipTypes.Frigate, new Vector2D(startPosition.X, startPosition.Y), startPosition.Angle, player, this));
+                }
+            }
         }
 
         public void Update(GameTime gametime)
@@ -41,13 +59,22 @@ namespace e.VOC.us.Game
 
             for (int i = CannonBalls.Count - 1; i >= 0; i--)
                 CannonBalls[i].Update(gametime);
-        }  
+        }
 
-        public void AddPlayer(string id)
+        public void PlayerConnect(string connectionId, string playerId)
         {
-            var player = new Player(this);
-            Players.Add(player);
-            PlayerDictionary.Add(id,player);
+            var connectEventArgs = new ConnectEventArgs();
+            connectEventArgs.ConnectionId = connectionId;
+            connectEventArgs.PlayerId = playerId;
+            PlayerConnectEvent?.Invoke(this, connectEventArgs);
+        }
+
+        public void PlayerDisconnect(string connectionId, string playerId)
+        {
+            var connectEventArgs = new ConnectEventArgs();
+            connectEventArgs.ConnectionId = connectionId;
+            connectEventArgs.PlayerId = playerId;
+            PlayerDisconnectEvent?.Invoke(this, connectEventArgs);
         }
     }
 }

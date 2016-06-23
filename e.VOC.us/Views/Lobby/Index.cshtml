@@ -32,8 +32,9 @@
 <td><button data-bind="click: ready">Ready</button></td>
 <input id="sendMessage" type="text">
 <div id="chat" style="height: 300px; overflow: scroll;">
-    
+
 </div>
+@Html.ActionLink("Prototype", "Prototype", "Home", new { id = Model.Id }, new { id = "gameLink", @style = "display:none" })
 
 
 @section scripts

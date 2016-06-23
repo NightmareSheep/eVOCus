@@ -1,4 +1,5 @@
 ﻿using System;
+using e.VOC.us.Models;
 using Newtonsoft.Json;
 
 namespace e.VOC.us.Game
@@ -8,7 +9,7 @@ namespace e.VOC.us.Game
         [JsonIgnore]
         public Keyboard Keyboard { get; set; }
         [JsonProperty("id")]
-        public readonly string Id = Guid.NewGuid().ToString();
+        public string Id = Guid.NewGuid().ToString();
 
         [JsonProperty("name")]
         public string Name;
@@ -16,17 +17,20 @@ namespace e.VOC.us.Game
         [JsonProperty("score")]
         public int Score;
 
-        public event Action PlayerDisconnect;
-
-        public void Disconnect()
-        {
-            PlayerDisconnect?.Invoke();
-        }
+        [JsonIgnore]
+        public StartLocation StartLocation { get; set; }
 
         public Player(GameState game)
         {
             Keyboard = new Keyboard();
             game.GameObjects.Add(game.ShipFactory.Ship(ShipTypes.Frigate, new Vector2D(100, 100), 0, this, game));
+        }
+
+        public Player(StartLocation startLocation, string id, string name)
+        {
+            Keyboard = new Keyboard();
+            StartLocation = startLocation;
+            Id = id;
         }
 
         public void Update(GameTime gametime)

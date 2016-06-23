@@ -15,6 +15,10 @@
         self.slots(slots);
     }
 
+    self.lobbyHub.client.startGame = function() {
+        document.getElementById('gameLink').click();
+    }
+
     self.lobbyHub.client.getMessage = function(message) {
         $("#chat").append("<p>" + message + "</p>");
     }
@@ -31,7 +35,7 @@
         self.lobbyHub.server.ready(self.gameId, true);
     }
 
-    $.connection.hub.start().done(function () { self.lobbyHub.server.join(self.gameId, guid(), self.name) });
+    $.connection.hub.start().done(function () { self.lobbyHub.server.join(self.gameId, playerId, self.name) });
 
     $("#sendMessage").keyup(function (event) {
         if (event.keyCode === 13) {

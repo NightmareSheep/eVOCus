@@ -18,7 +18,6 @@ namespace e.VOC.us.Game
             _rectangle = new RotatableRectangle(position, 180, 110, angle);
             _playerId = player.Id;
             TypeId = "spawner";
-            player.PlayerDisconnect += () => { game.GameObjects.Remove(this); };
         }
 
         public override void Update(GameTime gametime)

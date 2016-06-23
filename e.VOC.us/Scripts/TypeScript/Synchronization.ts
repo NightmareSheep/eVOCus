@@ -70,7 +70,7 @@
 
             for (var i = 0; i < state.explosions.length; i++) {
                 var explosionImage = new Image();
-                explosionImage.src = "../Assets/explosion.png";
+                explosionImage.src = "/Assets/explosion.png";
                 this.game.oneTimeAnimations.push(new AnimationWithRectangle(new RotatableRectangle(new Vector2D(state.explosions[i].x, state.explosions[i].y), 80, 80, 0), explosionImage, 80, 80 * 3, 3, 300, false));
             }
 
@@ -78,7 +78,7 @@
 
 
             var image = new Image();
-            image.src = "../Assets/canonball2.png";
+            image.src = "/Assets/canonball2.png";
             this.game.canonballs = [];
             for (var j = 0; j < state.canonballs.length; j++)
                 this.game.canonballs.push(new SpriteObject(new Vector2D(state.canonballs[j].position.x, state.canonballs[j].position.y), image));

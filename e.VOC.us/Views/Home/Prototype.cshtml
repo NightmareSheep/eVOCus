@@ -1,4 +1,6 @@
-﻿<div class="background-animations fullscreen">
+﻿@model string
+
+<div class="background-animations fullscreen">
     <div class="water-background fullscreen"></div>
     <div class="water-entities"></div>
     <div class="water-middle fullscreen"></div>
@@ -20,7 +22,7 @@
     </canvas>
 </div>
 
-<canvas id="canvas">
+<canvas id="canvas" gameId="@Model">
     Your browser does not support the HTML5 canvas tag.
 </canvas>
 

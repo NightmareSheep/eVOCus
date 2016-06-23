@@ -9,7 +9,7 @@ module eVOCus {
         constructor(public position: Vector2D, public angle: number) {
             //this._waveDuration = 100;
             var waveImage = new Image();
-            waveImage.src = "../Assets/ship-waves.png";
+            waveImage.src = "/Assets/ship-waves.png";
             this._rectangle = new RotatableSpriteObject(new RotatableRectangle(position, 80, 80, angle), waveImage);
         }
 

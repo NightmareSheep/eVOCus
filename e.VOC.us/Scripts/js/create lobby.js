@@ -3,12 +3,14 @@
     self.maps = ko.observableArray(JSON.parse($("#maps").attr("maps")));
     self.selectedMap = ko.observable(self.maps()[0]);
     self.slots = ko.observableArray([]);
-    self.setSlots = ko.computed(function () {
+    self.mapId = ko.observable("");
+    self.setSlotsAndMapId = ko.computed(function () {
         var slots = [];
         for (var i = 0; i < self.selectedMap().StartLocations.length; i++) {
             slots.push({"team":ko.observable(1)});
         }
         self.slots(slots);
+        self.mapId(self.selectedMap().Id);
     });
     self.slotsString = ko.computed(function () {
         var teams = [];

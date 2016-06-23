@@ -206,6 +206,7 @@
     <Compile Include="DAL\GameInitializer.cs" />
     <Compile Include="Game\Cannon.cs" />
     <Compile Include="Game\Cannonball.cs" />
+    <Compile Include="Game\ConnectEvent.cs" />
     <Compile Include="Game\ConnectInput.cs" />
     <Compile Include="Game\DisconnectInput.cs" />
     <Compile Include="Game\DyingShipBehaviour.cs" />
@@ -220,8 +221,6 @@
     <Compile Include="Game\KeyboardInput.cs" />
     <Compile Include="Game\Keyboard.cs" />
     <Compile Include="Game\Lobby.cs" />
-    <Compile Include="Game\Map.cs" />
-    <Compile Include="Game\NameInput.cs" />
     <Compile Include="Game\NormalShipBehaviour.cs" />
     <Compile Include="Game\NormalShipFactory.cs" />
     <Compile Include="Game\LobbyPlayer.cs" />

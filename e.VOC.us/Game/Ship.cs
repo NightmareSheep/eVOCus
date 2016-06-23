@@ -44,8 +44,6 @@ namespace e.VOC.us.Game
             Cannons = cannons;
             ShipBehaviour = new NormalShipBehaviour(this, _game);
             Platform = new Platform(Rectangle);
-            player.PlayerDisconnect += () => { game.GameObjects.Remove(this); };
-            
         }
 
         public override void Update(GameTime gametime)

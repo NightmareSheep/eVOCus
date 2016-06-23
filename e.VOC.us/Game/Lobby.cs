@@ -22,6 +22,7 @@ namespace e.VOC.us.Game
         private bool _disbanded;
         private Guid _countDownId;
         private readonly IHubContext _lobbyHub;
+        private Models.Map _map;
 
         public void StateHasChanged()
         {
@@ -31,10 +32,11 @@ namespace e.VOC.us.Game
 
         public void StopCountdown() => _countDownId = Guid.Empty;
 
-        public Lobby(string name, List<Slot> slots)
+        public Lobby(string name, List<Slot> slots, Models.Map map)
         {
             Name = name;
             Slots = slots;
+            _map = map;
             _lobbyHub = GlobalHost.ConnectionManager.GetHubContext<LobbyHub>();
         }
 
@@ -130,11 +132,13 @@ namespace e.VOC.us.Game
 
                         if (countdown == 0)
                         {
-                            // create game
+                            var game = new Game(_map, Slots, Id);
+                            GameHub.Games.TryAdd(Id, game);
                             _lobbyHub.Clients.Group(LobbyHub.LobbyPrefix + Id).getMessage("Game started");
                             _disbanded = true;
                             Lobby lobby;
                             Lobbies.TryRemove(Id, out lobby);
+                            _lobbyHub.Clients.Group(LobbyHub.LobbyPrefix + Id).startGame();
                             return;
                         }
 

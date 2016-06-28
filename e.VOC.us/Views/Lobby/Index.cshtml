@@ -1,39 +1,64 @@
 ﻿@model e.VOC.us.Game.Lobby
 
+@{
+    ViewBag.Title = "Creat New Game";
+}
 
-<br />
-<br />
-<br />
-<br />
-<br/>
-<h1>@Model.Name</h1>
-<h2>@Model.Id</h2>
-<div id="gameId" gameId="@Model.Id"></div>
 
-<table>
-    <thead>
-    <tr>
-        <th>Team</th>
-        <th>Name</th>
-        <th>Switch</th>
-        <th>Ready</th>
-    </tr>
-    </thead>
-    <tbody data-bind="foreach: slots">
-        <tr>
-            <td data-bind="text: Team"></td>
-            <td data-bind="text: LobbyPlayer !== null ? LobbyPlayer.Name : ''"></td>
-            <td><button data-bind="click: $parent.switchToSlot">Switch</button></td>
-            <td data-bind="text: LobbyPlayer !== null ? LobbyPlayer.Ready ? 'Ready' : 'Not ready' : ''"></td>
-        </tr>
-    </tbody>
-</table>
+<div class="home">
+    <div class="logoSmall">
+        <img src="~/Assets/logo_small.png" />
+    </div>
 
-<td><button data-bind="click: ready">Ready</button></td>
-<input id="sendMessage" type="text">
-<div id="chat" style="height: 300px; overflow: scroll;">
-    
+    <div class="hostedGames">
+
+        <h2>@Model.Name</h2>
+        <!--<h4>@Model.Id</h4>-->
+        <div id="gameId" gameId="@Model.Id"></div>
+
+        <table class="slotList">
+            <thead>
+                <tr>
+                    <th>Team</th>
+                    <th>Name</th>
+                    <th>Switch</th>
+                    <th>Ready</th>
+                </tr>
+            </thead>
+            <tbody data-bind="foreach: slots">
+                <tr>
+                    <td data-bind="text: Team"></td>
+                    <td data-bind="text: LobbyPlayer !== null ? LobbyPlayer.Name : ''"></td>
+                    <td><button data-bind="click: $parent.switchToSlot">Switch</button></td>
+                    <td data-bind="text: LobbyPlayer !== null ? LobbyPlayer.Ready ? 'Ready' : 'Not ready' : ''"></td>
+                </tr>
+                
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td><button class="newGameButton" data-bind="click: ready">Ready</button></td>
+                </tr>
+            </tfoot>
+        </table>
+
+        
+
+        <div class="chat">
+            <h3>Lets chat!</h3>
+            <input class="nameInput" id="sendMessage" type="text">
+            <div id="chat" style="height: 100%;">
+
+            </div>
+        </div>
+
+
+
+    </div>
 </div>
+
+
+
+
 
 
 @section scripts

@@ -1,29 +1,34 @@
 ﻿@model IEnumerable<e.VOC.us.Models.Map>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
+
 <div id="maps" maps="@Json.Encode(Model)"></div>
-<h2>Create</h2>
 
-<select data-bind="options: maps, optionsText: 'Name', value: selectedMap, optionsCaption: 'Choose a map'"></select>
-<div data-bind="foreach: slots">
-    <span data-bind="text: $index"></span>
-    <input type="number" data-bind="value: team">
+<div class="home">
+    <div class="logoSmall">
+        <img src="~/Assets/logo_small.png" />
+    </div>
+
+    <div class="hostedGames">
+
+        <h2>Create</h2>
+
+        <select data-bind="options: maps, optionsText: 'Name', value: selectedMap, optionsCaption: 'Choose a map'"></select>
+        <div data-bind="foreach: slots">
+            <span data-bind="text: $index"></span>
+            <input type="number" data-bind="value: team">
+        </div>
+
+        @using (Html.BeginForm())
+        {
+            <text>Name:</text>@Html.TextBox("Name")
+            <input type="hidden" name="slots" data-bind="value: slotsString">
+            <input type="hidden" name="mapId" data-bind="value: mapId">
+            <input type="submit" value="Submit" />
+        }
+    </div>
 </div>
-
-@using (Html.BeginForm())
-{
-    <text>Name:</text>@Html.TextBox("Name")
-    <input type="hidden" name="slots" data-bind="value: slotsString">
-    <input type="hidden" name="mapId" data-bind="value: mapId">
-    <input type="submit" value="Submit" />
-}
-
 @section scripts
 {
     @Scripts.Render("~/bundles/knockout")
     <script src="~/Scripts/js/create lobby.js"></script>
+
 }

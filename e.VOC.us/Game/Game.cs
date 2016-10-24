@@ -31,13 +31,9 @@ namespace e.VOC.us.Game
         {
             var gametime = new GameTime();
             long lastInput = 0;
-
+            long last = 0;
             while (true)
             {
-                if (gametime.ElapsedMillisecondsSinceLastUpdate < Timestep - 10)
-                    Thread.Sleep(Math.Max(0, (Timestep - 10) - (int) gametime.ElapsedMillisecondsSinceLastUpdate));
-                while (gametime.ElapsedMillisecondsSinceLastUpdate < Timestep) { }
-                
                 gametime.Update();
                 if (!Input.IsEmpty)
                     lastInput = gametime.ElapsedMilliseconds;
@@ -57,6 +53,14 @@ namespace e.VOC.us.Game
                         }
                     }
                 }
+
+                if (gametime.ElapsedMillisecondsSinceLastUpdateGameloop < Timestep - 10)
+                    Thread.Sleep(Math.Max(0, (Timestep - 10) - (int)gametime.ElapsedMillisecondsSinceLastUpdateGameloop));
+                while (gametime.ElapsedMillisecondsSinceLastUpdateGameloop < Timestep) { }
+                Debug.WriteLine("difference " + (last - gametime.ElapsedMilliseconds));
+                Debug.WriteLine("gametime timestep " + gametime.ElapsedMillisecondsSinceLastUpdateGameloop);
+                last = gametime.ElapsedMilliseconds;
+                Debug.WriteLine(gametime.ElapsedMilliseconds);
             }
 
         }

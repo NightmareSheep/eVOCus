@@ -7,7 +7,7 @@
     self.setSlotsAndMapId = ko.computed(function () {
         var slots = [];
         for (var i = 0; i < self.selectedMap().StartLocations.length; i++) {
-            slots.push({"team":ko.observable(1)});
+            slots.push({"team":ko.observable(i + 1)});
         }
         self.slots(slots);
         self.mapId(self.selectedMap().Id);

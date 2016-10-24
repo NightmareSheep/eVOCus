@@ -17,20 +17,23 @@ namespace e.VOC.us.Game
         [JsonProperty("score")]
         public int Score;
 
+        [JsonProperty("team")] public int Team;
+
         [JsonIgnore]
         public StartLocation StartLocation { get; set; }
 
         public Player(GameState game)
         {
             Keyboard = new Keyboard();
-            game.GameObjects.Add(game.ShipFactory.Ship(ShipTypes.Frigate, new Vector2D(100, 100), 0, this, game));
         }
 
-        public Player(StartLocation startLocation, string id, string name)
+        public Player(StartLocation startLocation, string id, string name, int team)
         {
             Keyboard = new Keyboard();
             StartLocation = startLocation;
             Id = id;
+            Name = name;
+            Team = team;
         }
 
         public void Update(GameTime gametime)

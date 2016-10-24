@@ -1,14 +1,16 @@
-﻿using System.Diagnostics;
+﻿using System;
+using System.Diagnostics;
 
 namespace e.VOC.us.Game
 {
     public class GameTime
     {
         private readonly Stopwatch _stopwatch = new Stopwatch();
-        private long _lastUpdate;
+        private long _currentUpdate;
 
         public long ElapsedMilliseconds => _stopwatch?.ElapsedMilliseconds ?? 0;
-        public long ElapsedMillisecondsSinceLastUpdate => ElapsedMilliseconds - _lastUpdate;
+        public long ElapsedMillisecondsSinceLastUpdate => 64;
+        public long ElapsedMillisecondsSinceLastUpdateGameloop => ElapsedMilliseconds - _currentUpdate;
 
         public GameTime()
         {
@@ -17,7 +19,7 @@ namespace e.VOC.us.Game
 
         public void Update()
         {
-            _lastUpdate = ElapsedMilliseconds;
+            _currentUpdate = ElapsedMilliseconds;
         }
     }
 }

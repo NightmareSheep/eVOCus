@@ -7,7 +7,11 @@
                     image.src = "/Assets/Boot-3.png";
                     return new Ship(serverObj.id, serverObj.playerId, 0, 5, new RotatableRectangle(new Vector2D(0, 0), 180, 110, 0), image);
                 case "spawner":
-                    return  new Spawner(serverObj);
+                    return new Spawner(serverObj);
+                case "message":
+                    return new Message(serverObj);
+                case "fakeShip":
+                    return new FakeShip(serverObj);
                 default:
                     return null;
             }

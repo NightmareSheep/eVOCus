@@ -1,4 +1,5 @@
 ﻿using System.Web.Script.Serialization;
+using e.VOC.us.Game;
 using Newtonsoft.Json;
 
 namespace e.VOC.us.Models
@@ -12,5 +13,8 @@ namespace e.VOC.us.Models
         [JsonIgnore]
         [ScriptIgnore]
         public Map Map { get; set; }
+
+        [ScriptIgnore]
+        public Vector2D StartPosition => new Vector2D(X, Y);
     }
 }

@@ -208,12 +208,21 @@
     <Compile Include="Game\Cannonball.cs" />
     <Compile Include="Game\ConnectEvent.cs" />
     <Compile Include="Game\ConnectInput.cs" />
+    <Compile Include="Game\DelegatesAndEventArgs\ShipIsHitEventArgs.cs" />
+    <Compile Include="Game\DelegatesAndEventArgs\ShipIsHitEventHandler.cs" />
     <Compile Include="Game\DisconnectInput.cs" />
     <Compile Include="Game\DyingShipBehaviour.cs" />
     <Compile Include="Game\Game.cs" />
+    <Compile Include="Game\GameModes\Survival\SurvivalPlayer.cs" />
+    <Compile Include="Game\GameModes\Survival\SurvivalScoreBoard.cs" />
+    <Compile Include="Game\GameModes\Survival\SurvivalTeam.cs" />
     <Compile Include="Game\GameObject.cs" />
+    <Compile Include="Game\GameObjects\CountDown.cs" />
+    <Compile Include="Game\GameObjects\FakeShip.cs" />
+    <Compile Include="Game\GameObjects\Message.cs" />
     <Compile Include="Game\GameState.cs" />
     <Compile Include="Game\GameTime.cs" />
+    <Compile Include="Game\GameModes\IGameMode.cs" />
     <Compile Include="Game\IHasRotatableRectangle.cs" />
     <Compile Include="Game\IInput.cs" />
     <Compile Include="Game\IShipFactory.cs" />
@@ -233,6 +242,7 @@
     <Compile Include="Game\Slot.cs" />
     <Compile Include="Game\Spawner.cs" />
     <Compile Include="Game\SpawningShipBehaviour.cs" />
+    <Compile Include="Game\GameModes\Survival\Survival.cs" />
     <Compile Include="Game\Vector2D.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -323,6 +333,9 @@
     <Content Include="Views\Lobby\List.cshtml" />
     <Content Include="Views\Lobby\Create.cshtml" />
     <TypeScriptCompile Include="Scripts\TypeScript\AnimationWithRectangle.ts" />
+    <TypeScriptCompile Include="Scripts\TypeScript\FakeShip.ts" />
+    <TypeScriptCompile Include="Scripts\TypeScript\Map.ts" />
+    <TypeScriptCompile Include="Scripts\TypeScript\Message.ts" />
     <TypeScriptCompile Include="Scripts\TypeScript\Minimap.ts" />
     <TypeScriptCompile Include="Scripts\TypeScript\Player.ts" />
     <TypeScriptCompile Include="Scripts\TypeScript\Keyboard.ts" />

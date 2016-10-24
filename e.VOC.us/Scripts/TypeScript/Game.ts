@@ -15,6 +15,7 @@
         focus: Vector2D = new Vector2D(0,0);
         gameObjects: IServerObject[] = [];
         synchronization: Synchronization;
+        map: Map;
         
         constructor(public hub: GameHubProxy, public id: string, public gameId: string) {
             
@@ -28,7 +29,12 @@
             
         }
 
-        start(gameTime: number) {
+        initialize(gameState: InputGameState) {
+            this.map = new Map(gameState.map.width, gameState.map.height);
+        }
+
+        start(gameTime: number, gameState: InputGameState) {
+            this.initialize(gameState);
             this.gameTime = gameTime;
             requestAnimationFrame((timestamp) => {
                 this.lastFrameTimeMs = timestamp; this.gameLoop(this, timestamp); });
@@ -89,8 +95,8 @@
 
             this.canvas.ctx.fillStyle = "#FF0000";
             this.canvas.ctx.clearRect(0, 0, canvas.width, canvas.height);
-            this.canvas.ctx.lineWidth = 10;
-            this.canvas.ctx.strokeRect(0,0,5000,5000);
+
+            this.map.draw(canvas);
 
             for (var i = 0; i < this.oneTimeAnimations.length; i++) {
                 this.oneTimeAnimations[i].Draw(canvas, this.gameTime);

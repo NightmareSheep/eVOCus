@@ -1,4 +1,5 @@
 ﻿using System.Drawing;
+using e.VOC.us.Game.GameObjects;
 
 namespace e.VOC.us.Game
 {
@@ -17,6 +18,17 @@ namespace e.VOC.us.Game
                     return ship;
             }
             
+            return null;
+        }
+
+        public FakeShip FakeShip(ShipTypes shipType, Vector2D position, float angle, Player player, GameState game)
+        {
+            switch (shipType)
+            {
+                case ShipTypes.Frigate:
+                    return new FakeShip(new RotatableRectangle(position, 180, 110, angle), player);
+            }
+
             return null;
         }
     }

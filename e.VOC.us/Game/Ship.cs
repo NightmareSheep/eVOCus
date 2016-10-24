@@ -1,4 +1,5 @@
 ﻿using System;
+using e.VOC.us.Game.DelegatesAndEventArgs;
 using Newtonsoft.Json;
 
 namespace e.VOC.us.Game
@@ -21,8 +22,16 @@ namespace e.VOC.us.Game
         [JsonIgnore] public float AccelSpeed { get; }
         //Constants
         [JsonIgnore] public float MaxSpeed { get; }
+        [JsonIgnore] public Action DeathRattle { get; set; }
+
+        public event ShipIsHitEventHandler IsHit;
         public const int DeathTimer = 2000;
         public const int SpawnTimer = 3000;
+
+        protected virtual void OnIsHit(ShipIsHitEventArgs e)
+        {
+            IsHit?.Invoke(this, e);
+        }
 
         public float Speed
         {
@@ -30,7 +39,7 @@ namespace e.VOC.us.Game
             set { _speed = Math.Max(0, Math.Min(MaxSpeed, value)); }
         }
 
-        public Ship(ShipTypes shipType, RotatableRectangle rectangle, Cannon[] cannons, Player player, GameState game, float turnSpeed, float accelSpeed, float maxSpeed)
+        public Ship(ShipTypes shipType, RotatableRectangle rectangle, Cannon[] cannons, Player player, GameState game, float turnSpeed, float accelSpeed, float maxSpeed, Action deathRattle = null)
         {
             TypeId = "ship";
             _playerId = player.Id;
@@ -44,6 +53,7 @@ namespace e.VOC.us.Game
             Cannons = cannons;
             ShipBehaviour = new NormalShipBehaviour(this, _game);
             Platform = new Platform(Rectangle);
+            DeathRattle = deathRattle;
         }
 
         public override void Update(GameTime gametime)
@@ -66,9 +76,9 @@ namespace e.VOC.us.Game
 
         public void Damage(Player source = null)
         {
-            if (source != null) source.Score++;
+            OnIsHit(new ShipIsHitEventArgs(source));
             BoatState = "dying";
-            ShipBehaviour = new DyingShipBehaviour(this, DeathTimer, _game);
+            ShipBehaviour = new DyingShipBehaviour(this, DeathTimer, _game, DeathRattle);
         }
     }
 }

@@ -32,7 +32,7 @@ module eVOCus {
         update(gameTime: number) {
             this.previousTime = this.currentTime;
             this.currentTime = gameTime;
-            const elapsedTime = this.previousTime === 0 ? 0 : this.currentTime - this.previousTime;
+            var elapsedTime = this.previousTime === 0 ? 0 : this.currentTime - this.previousTime;
             this._currentWaveTime -= elapsedTime * (this.speed + 0.1);
             if (this._currentWaveTime < 0) {
                 this._currentWaveTime = this._waveTime;
@@ -56,7 +56,12 @@ module eVOCus {
                 this._cannons[i].draw(canvas, 0);
             }
 
-            canvas.drawRotatableText(Game.instance.getCurrentPlayer().playerName, this.rectangle);
+            var owner;
+            var players = Game.instance.players;
+            players.forEach(player => {
+                if (player.id === this.playerId) { owner = player; }
+            });
+            canvas.drawRotatableText(owner.playerName, this.rectangle);
         }
 
         synchronize(serverObj: any) {

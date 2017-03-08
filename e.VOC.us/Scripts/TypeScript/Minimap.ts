@@ -6,25 +6,25 @@
         minimapElement: HTMLElement;
 
         constructor() {
-            var minicanvas = <HTMLCanvasElement>document.getElementById("map");
-            this.ctx = minicanvas.getContext("2d");
+            //var minicanvas = <HTMLCanvasElement>document.getElementById("map");
+            //this.ctx = minicanvas.getContext("2d");
             
-            minicanvas.width = minicanvas.clientWidth;
-            minicanvas.height = minicanvas.clientHeight;
+            //minicanvas.width = minicanvas.clientWidth;
+            //minicanvas.height = minicanvas.clientHeight;
 
-            this.width = minicanvas.width;
-            this.height = minicanvas.height;
+            //this.width = minicanvas.width;
+            //this.height = minicanvas.height;
         }
 
         update() {
-            this.ctx.clearRect(0, 0, this.width, this.height);
+            //this.ctx.clearRect(0, 0, this.width, this.height);
         }
 
         draw() {
-            this.ctx.strokeStyle = "#ededed";
-            this.ctx.clearRect(0, 0, this.width, this.height);
-            this.ctx.lineWidth = 0;
-            this.ctx.strokeRect(0, 0, this.width, this.height);
+            //this.ctx.strokeStyle = "#ededed";
+            //this.ctx.clearRect(0, 0, this.width, this.height);
+            //this.ctx.lineWidth = 0;
+            //this.ctx.strokeRect(0, 0, this.width, this.height);
             /*
             for (var i = 0; i < Game.instance.players.length; i++) {
                 var player = Game.instance.players[i];

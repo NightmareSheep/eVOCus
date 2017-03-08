@@ -16,6 +16,7 @@
         gameObjects: IServerObject[] = [];
         synchronization: Synchronization;
         map: Map;
+        latency: number = 128;
         
         constructor(public hub: GameHubProxy, public id: string, public gameId: string) {
             
@@ -35,7 +36,7 @@
 
         start(gameTime: number, gameState: InputGameState) {
             this.initialize(gameState);
-            this.gameTime = gameTime;
+            this.gameTime = gameTime - this.latency;
             requestAnimationFrame((timestamp) => {
                 this.lastFrameTimeMs = timestamp; this.gameLoop(this, timestamp); });
         }
@@ -49,6 +50,9 @@
                 requestAnimationFrame((time) => { this.gameLoop(this, time); });
                 return;
             }
+
+
+
             var elapsedTime = timestamp - this.lastFrameTimeMs;
             this.gameTime += elapsedTime;
             this.lastFrameTimeMs = timestamp;

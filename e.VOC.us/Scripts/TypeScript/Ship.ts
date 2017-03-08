@@ -64,14 +64,30 @@ module eVOCus {
             canvas.drawRotatableText(owner.playerName, this.rectangle);
         }
 
-        synchronize(serverObj: any) {
-            this.rectangle.position.x = serverObj.rectangle.position.x;
-            this.rectangle.position.y = serverObj.rectangle.position.y;
+        private lastSync:number = 0;
+        synchronize(serverObj: any, serverTime: number, lastSyncTime: number) {
+
+            var newPostion = Helper
+                .linearInterpolatePosition(this.rectangle.position,
+                    lastSyncTime,
+                    serverObj.rectangle.position,
+                    serverTime,
+                    Game.instance.gameTime);
+
+            var newCannonPosition = Helper
+                .linearInterpolatePosition(this._cannons[0].rectangle.position,
+                lastSyncTime,
+                serverObj.cannons[0].rectangle.position,
+                serverTime,
+                Game.instance.gameTime);
+
+            this.rectangle.position = newPostion;
             this.rectangle.angle = serverObj.rectangle.angle;
             this._boatState = serverObj.boatState;
             this.speed = serverObj.speed;
-            this._cannons[0].rectangle.position = serverObj.cannons[0].rectangle.position;
+            this._cannons[0].rectangle.position = newCannonPosition;
             this._cannons[0].rectangle.angle = serverObj.cannons[0].rectangle.angle;
+            this.lastSync = Game.instance.gameTime;
         }
     }
 }

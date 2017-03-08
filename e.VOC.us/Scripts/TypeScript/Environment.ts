@@ -12,25 +12,25 @@
 
 
         constructor() {
-            this.waterEntities = $('.water-entities');
-            this.waterForeground = $('.water-foreground');
-            this.waterMiddle = $('.water-middle');
-            this.cloudsBackground = $('.clouds-background');
-            this.cloudsMiddle = $('.clouds-middle');
-            this.cloudsForeground = $('.clouds-foreground');
+            //this.waterEntities = $('.water-entities');
+            //this.waterForeground = $('.water-foreground');
+            //this.waterMiddle = $('.water-middle');
+            //this.cloudsBackground = $('.clouds-background');
+            //this.cloudsMiddle = $('.clouds-middle');
+            //this.cloudsForeground = $('.clouds-foreground');
 
-            this.createClouds();
-            this.createAI();
+            //this.createClouds();
+            //this.createAI();
         }
 
         update() {
             this.player = Game.instance.getCurrentPlayer();
 
-            if (this.player != null) {
-                this.animateWater();
-                this.animateClouds();
-                this.updateAI();
-            }
+            //if (this.player != null) {
+            //    this.animateWater();
+            //    this.animateClouds();
+            //    this.updateAI();
+            //}
         }
 
         createClouds() {

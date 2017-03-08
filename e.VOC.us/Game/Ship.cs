@@ -64,11 +64,6 @@ namespace e.VOC.us.Game
                 cannon.Update(gametime);
         }
 
-        public void Fire()
-        {
-            _game.CannonBalls.Add(new Cannonball(new Vector2D(Rectangle.Position.X,Rectangle.Position.Y).Add(Helper.AngleToUnitVector(Rectangle.Angle).Multiply((float)Rectangle.Width/2 + 20)), Rectangle.Angle, _game, 2000, _speed + 5, Player));
-        }
-
         public bool Hit(Vector2D position)
         {
             return BoatState == "normal" && Rectangle.Contains(position);

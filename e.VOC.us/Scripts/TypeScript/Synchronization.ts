@@ -1,7 +1,7 @@
 ﻿module eVOCus {
     export class Synchronization {
         inputGameStates: InputGameState[] = [];
-        latency = 128;
+        lastSyncTime: number = 0;
 
         constructor(private game: Game) {
         }
@@ -13,7 +13,7 @@
         filterGamestates(gameTime : number) {
             for (var i = this.inputGameStates.length - 1; i >= 0; i--) {
                 var gamestate = this.inputGameStates[i];
-                if (gamestate.gameTime < gameTime - this.latency) {
+                if (gamestate.gameTime < gameTime) {
                     this.inputGameStates.splice(0, i + 1);
                     return;
                 }
@@ -27,6 +27,8 @@
             var state = this.inputGameStates[0];
             if (!state)
                 return;
+
+            console.log(state.gameTime - Game.instance.gameTime);
 
             if (this.game.players.length !== state.players.length) {
                 this.game.players = [];
@@ -46,7 +48,7 @@
                 for (var j = 0; j < this.game.gameObjects.length; j++) {
                     var clientObject = this.game.gameObjects[j];
                     if (clientObject.id === serverObject.id) {
-                        clientObject.synchronize(serverObject);
+                        clientObject.synchronize(serverObject, state.gameTime, this.lastSyncTime);
                         clientObjExists = true;
                     }
                 }
@@ -84,6 +86,8 @@
             this.game.canonballs = [];
             for (var j = 0; j < state.canonballs.length; j++)
                 this.game.canonballs.push(new SpriteObject(new Vector2D(state.canonballs[j].position.x, state.canonballs[j].position.y), image));
+
+            this.lastSyncTime = Game.instance.gameTime;
         }
 
     }

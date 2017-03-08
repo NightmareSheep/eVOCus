@@ -12,5 +12,11 @@ module eVOCus {
             var distanceY = (position2.y - position1.y) * relativeTime;
             return new Vector2D(position1.x + distanceX, position1.y + distanceY);
         }
+
+        static linearInterpolateAngle(angle1: number, time1: number, angle2: number, time2: number, currentTime: number): number {
+            var relativeTime = (currentTime - time1) / (time2 - time1);
+            var distance = (angle2 - angle1) * relativeTime;
+            return angle1 + distance;
+        }
     }
 }

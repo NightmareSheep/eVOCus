@@ -33,6 +33,47 @@ declare module eVOCus {
     }
 }
 declare module eVOCus {
+    class FakeShip implements IServerObject {
+        rectangle: RotatableRectangle;
+        id: string;
+        player: Player;
+        animation: Animation;
+        constructor(serverObj: any);
+        update(gametime: number): void;
+        synchronize(serverObj: any): void;
+        draw(canvas: Canvas): void;
+    }
+}
+declare module eVOCus {
+    class Map {
+        width: number;
+        height: number;
+        constructor(width: number, height: number);
+        draw(canvas: Canvas): void;
+    }
+}
+declare module eVOCus {
+    class Message implements IServerObject {
+        text: string;
+        id: string;
+        constructor(serverObj: any);
+        update(gametime: number): void;
+        synchronize(serverObj: any): void;
+        draw(canvas: Canvas): void;
+    }
+}
+declare module eVOCus {
+    class Minimap {
+        ctx: CanvasRenderingContext2D;
+        width: number;
+        height: number;
+        minimapElement: HTMLElement;
+        constructor();
+        update(): void;
+        draw(): void;
+    }
+}
+declare module eVOCus {
     class GameObject {
         name: string;
         position: Vector2D;
@@ -42,6 +83,38 @@ declare module eVOCus {
         setPosition(p: Vector2D): void;
         update(gameTime: number): void;
         draw(context: CanvasRenderingContext2D, gameTime: number): void;
+    }
+}
+declare module eVOCus {
+    class RotatableSpriteObject {
+        rectangle: RotatableRectangle;
+        image: HTMLImageElement;
+        constructor(rectangle: RotatableRectangle, image: HTMLImageElement);
+        draw(canvas: Canvas, gameTime: number): void;
+    }
+}
+declare module eVOCus {
+    class Player {
+        id: string;
+        playerName: string;
+        score: number;
+        constructor(id: string, playerName: string);
+        update(gameTime: number): void;
+        draw(canvas: Canvas): void;
+    }
+}
+declare module eVOCus {
+    class Keyboard {
+        gameId: string;
+        playerId: string;
+        keysDown: number[];
+        keysPressed: number[];
+        constructor(gameId: string, playerId: string);
+        update(): void;
+        private keyDown(event);
+        private keyUp(event);
+        isKeyDown(key: number): boolean;
+        isKeyPressed(key: number): boolean;
     }
 }
 declare module eVOCus {
@@ -56,30 +129,28 @@ declare module eVOCus {
     }
 }
 declare module eVOCus {
-    class Environment {
-        player: Player;
-        private waterEntities;
-        private waterMiddle;
-        private waterForeground;
-        private cloudsBackground;
-        private cloudsMiddle;
-        private cloudsForeground;
-        private environmentAI;
-        private testAI;
-        constructor();
-        update(): void;
-        createClouds(): void;
-        createAI(): void;
-        updateAI(): void;
-        animateWater(): void;
-        animateClouds(): void;
+    class Helper {
+        static angleToUnitVector(angle: number): Vector2D;
+        static linearInterpolatePosition(position1: Vector2D, time1: number, position2: Vector2D, time2: number, currentTime: number): Vector2D;
+        static linearInterpolateAngle(angle1: number, time1: number, angle2: number, time2: number, currentTime: number): number;
     }
 }
 declare module eVOCus {
-    class FakeShip implements IServerObject {
-        rectangle: RotatableRectangle;
+    class CannonBall extends RotatableSpriteObject implements IServerObject {
         id: string;
-        player: Player;
+        rectangle: RotatableRectangle;
+        constructor(id: string, rectangle: RotatableRectangle, image: HTMLImageElement);
+        update(gameTime: number): void;
+        draw(canvas: Canvas): void;
+        synchronize(serverObj: any, serverTime: number, lastSyncTime: number): void;
+    }
+}
+declare module eVOCus {
+    class Spawner implements IServerObject {
+        rectangle: RotatableRectangle;
+        playerId: string;
+        shipType: string;
+        id: string;
         animation: Animation;
         constructor(serverObj: any);
         update(gametime: number): void;
@@ -88,46 +159,54 @@ declare module eVOCus {
     }
 }
 declare module eVOCus {
-    class Game {
-        hub: GameHubProxy;
+    interface IServerObject {
         id: string;
-        gameId: string;
-        gameTime: number;
-        static keyboard: Keyboard;
-        static instance: Game;
-        canvas: Canvas;
-        canonballs: SpriteObject[];
-        waves: Wave[];
-        players: Player[];
-        oneTimeAnimations: AnimationWithRectangle[];
-        scoreboard: Scoreboard;
-        minimap: Minimap;
-        environment: Environment;
-        focus: Vector2D;
-        gameObjects: IServerObject[];
-        synchronization: Synchronization;
-        map: Map;
-        latency: number;
-        constructor(hub: GameHubProxy, id: string, gameId: string);
-        initialize(gameState: InputGameState): void;
-        start(gameTime: number, gameState: InputGameState): void;
-        lastFrameTimeMs: number;
-        maxFps: number;
-        gameLoop(gameObject: Game, timestamp: number): void;
+        update(gametime: number): void;
+        draw(canvas: Canvas): void;
+        synchronize(serverObj: any, serverTime: number, lastSyncTime: number): void;
+    }
+}
+declare module eVOCus {
+    class Rectangle {
+        x: number;
+        y: number;
+        width: number;
+        height: number;
+        constructor(x: number, y: number, width: number, height: number);
+        contains(v: Vector2D): boolean;
+    }
+}
+declare module eVOCus {
+    class RotatableRectangle {
+        position: Vector2D;
+        width: number;
+        height: number;
+        angle: number;
+        constructor(position: Vector2D, width: number, height: number, angle: number);
+    }
+}
+declare module eVOCus {
+    class Ship extends RotatableSpriteObject implements IServerObject {
+        playerId: string;
+        speed: number;
+        maxSpeed: number;
+        rectangle: RotatableRectangle;
+        private _speed;
+        private _maxSpeed;
+        private _animation;
+        private _animation_death;
+        _boatState: string;
+        _cannons: RotatableSpriteObject[];
+        private _waveTime;
+        private _currentWaveTime;
+        id: string;
+        private currentTime;
+        private previousTime;
+        constructor(id: string, playerId: string, speed: number, maxSpeed: number, rectangle: RotatableRectangle, image: HTMLImageElement);
         update(gameTime: number): void;
         draw(canvas: Canvas): void;
-        getCurrentPlayer(): Player;
-    }
-}
-declare module eVOCus {
-    class Helper {
-        static angleToUnitVector(angle: number): Vector2D;
-        static linearInterpolatePosition(position1: Vector2D, time1: number, position2: Vector2D, time2: number, currentTime: number): Vector2D;
-    }
-}
-declare module eVOCus {
-    class Initializer {
-        static initialize(serverObj: any): IServerObject;
+        private lastSync;
+        synchronize(serverObj: any, serverTime: number, lastSyncTime: number): void;
     }
 }
 declare module eVOCus {
@@ -177,89 +256,6 @@ declare module eVOCus {
     }
 }
 declare module eVOCus {
-    class Keyboard {
-        gameId: string;
-        playerId: string;
-        keysDown: number[];
-        keysPressed: number[];
-        constructor(gameId: string, playerId: string);
-        update(): void;
-        private keyDown(event);
-        private keyUp(event);
-        isKeyDown(key: number): boolean;
-        isKeyPressed(key: number): boolean;
-    }
-}
-declare var playerId: string;
-declare module eVOCus {
-}
-declare module eVOCus {
-    class Map {
-        width: number;
-        height: number;
-        constructor(width: number, height: number);
-        draw(canvas: Canvas): void;
-    }
-}
-declare module eVOCus {
-    class Message implements IServerObject {
-        text: string;
-        id: string;
-        constructor(serverObj: any);
-        update(gametime: number): void;
-        synchronize(serverObj: any): void;
-        draw(canvas: Canvas): void;
-    }
-}
-declare module eVOCus {
-    class Minimap {
-        ctx: CanvasRenderingContext2D;
-        width: number;
-        height: number;
-        minimapElement: HTMLElement;
-        constructor();
-        update(): void;
-        draw(): void;
-    }
-}
-declare module eVOCus {
-    class RotatableSpriteObject {
-        rectangle: RotatableRectangle;
-        image: HTMLImageElement;
-        constructor(rectangle: RotatableRectangle, image: HTMLImageElement);
-        draw(canvas: Canvas, gameTime: number): void;
-    }
-}
-declare module eVOCus {
-    class Player {
-        id: string;
-        playerName: string;
-        score: number;
-        constructor(id: string, playerName: string);
-        update(gameTime: number): void;
-        draw(canvas: Canvas): void;
-    }
-}
-declare module eVOCus {
-    class Rectangle {
-        x: number;
-        y: number;
-        width: number;
-        height: number;
-        constructor(x: number, y: number, width: number, height: number);
-        contains(v: Vector2D): boolean;
-    }
-}
-declare module eVOCus {
-    class RotatableRectangle {
-        position: Vector2D;
-        width: number;
-        height: number;
-        angle: number;
-        constructor(position: Vector2D, width: number, height: number, angle: number);
-    }
-}
-declare module eVOCus {
     class Scoreboard {
         scoreboardElement: HTMLElement;
         constructor();
@@ -271,48 +267,37 @@ declare module eVOCus {
     }
 }
 declare module eVOCus {
-    interface IServerObject {
-        id: string;
-        update(gametime: number): void;
-        draw(canvas: Canvas): void;
-        synchronize(serverObj: any, serverTime: number, lastSyncTime: number): void;
+    class Environment {
+        player: Player;
+        private waterEntities;
+        private waterMiddle;
+        private waterForeground;
+        private cloudsBackground;
+        private cloudsMiddle;
+        private cloudsForeground;
+        private environmentAI;
+        private testAI;
+        constructor();
+        update(): void;
+        createClouds(): void;
+        createAI(): void;
+        updateAI(): void;
+        animateWater(): void;
+        animateClouds(): void;
     }
 }
 declare module eVOCus {
-    class Ship extends RotatableSpriteObject implements IServerObject {
-        playerId: string;
-        speed: number;
-        maxSpeed: number;
-        rectangle: RotatableRectangle;
-        private _speed;
-        private _maxSpeed;
-        private _animation;
-        private _animation_death;
-        _boatState: string;
-        _cannons: RotatableSpriteObject[];
-        private _waveTime;
-        private _currentWaveTime;
-        id: string;
-        private currentTime;
-        private previousTime;
-        constructor(id: string, playerId: string, speed: number, maxSpeed: number, rectangle: RotatableRectangle, image: HTMLImageElement);
-        update(gameTime: number): void;
-        draw(canvas: Canvas): void;
-        private lastSync;
-        synchronize(serverObj: any, serverTime: number, lastSyncTime: number): void;
+    class Initializer {
+        static initialize(serverObj: any): IServerObject;
     }
 }
 declare module eVOCus {
-    class Spawner implements IServerObject {
-        rectangle: RotatableRectangle;
-        playerId: string;
-        shipType: string;
-        id: string;
-        animation: Animation;
-        constructor(serverObj: any);
-        update(gametime: number): void;
-        synchronize(serverObj: any): void;
-        draw(canvas: Canvas): void;
+    class Vector2D {
+        x: number;
+        y: number;
+        constructor(x: number, y: number);
+        add(vector: Vector2D): Vector2D;
+        multiply(i: number): Vector2D;
     }
 }
 declare module eVOCus {
@@ -335,15 +320,6 @@ declare module eVOCus {
     }
 }
 declare module eVOCus {
-    class Vector2D {
-        x: number;
-        y: number;
-        constructor(x: number, y: number);
-        add(vector: Vector2D): Vector2D;
-        multiply(i: number): Vector2D;
-    }
-}
-declare module eVOCus {
     class Wave {
         position: Vector2D;
         angle: number;
@@ -353,4 +329,38 @@ declare module eVOCus {
         update(gameTime: number): void;
         draw(canvas: Canvas, gameTime: number): void;
     }
+}
+declare module eVOCus {
+    class Game {
+        hub: GameHubProxy;
+        id: string;
+        gameId: string;
+        gameTime: number;
+        static keyboard: Keyboard;
+        static instance: Game;
+        canvas: Canvas;
+        waves: Wave[];
+        players: Player[];
+        oneTimeAnimations: AnimationWithRectangle[];
+        scoreboard: Scoreboard;
+        minimap: Minimap;
+        environment: Environment;
+        focus: Vector2D;
+        gameObjects: IServerObject[];
+        synchronization: Synchronization;
+        map: Map;
+        latency: number;
+        constructor(hub: GameHubProxy, id: string, gameId: string);
+        initialize(gameState: InputGameState): void;
+        start(gameTime: number, gameState: InputGameState): void;
+        lastFrameTimeMs: number;
+        maxFps: number;
+        gameLoop(gameObject: Game, timestamp: number): void;
+        update(gameTime: number): void;
+        draw(canvas: Canvas): void;
+        getCurrentPlayer(): Player;
+    }
+}
+declare var playerId: string;
+declare module eVOCus {
 }

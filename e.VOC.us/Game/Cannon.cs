@@ -27,11 +27,11 @@ namespace e.VOC.us.Game
             if (_ship.Player.Keyboard.IsKeyPressed(32) && (int) Math.Ceiling(_reloadTimer) == 0)
             {
                 _reloadTimer = ReloadTime;
-                _game.CannonBalls.Add(
+                _game.GameObjects.Add(
                     new Cannonball(
                         new Vector2D(Rectangle.Position.X, Rectangle.Position.Y).Add(
-                            Helper.AngleToUnitVector(Rectangle.Angle).Multiply((float) Rectangle.Width/2 + 20)),
-                        Rectangle.Angle, _game, 2000, _ship.Speed + 5, _ship.Player));
+                            Helper.AngleToUnitVector(Rectangle.Angle).Multiply((float) Rectangle.Width/2 + 2)),
+                        Rectangle.Angle, _game, 500, _ship.Speed + 25, _ship.Player));
             }
         }
     }

@@ -5,7 +5,6 @@
         static keyboard: Keyboard;
         static instance:Game;
         canvas:Canvas;
-        canonballs: SpriteObject[] = [];
         waves: Wave[] = [];
         players: Player[] = [];
         oneTimeAnimations: AnimationWithRectangle[] = [];
@@ -116,10 +115,6 @@
 
             for (var i = this.gameObjects.length - 1; i >= 0; i--) {
                 this.gameObjects[i].draw(canvas);
-            }
-
-            for (var i = 0; i < this.canonballs.length; i++) {
-                this.canonballs[i].draw(canvas.ctx, this.gameTime);
             }
                         
             this.minimap.draw();

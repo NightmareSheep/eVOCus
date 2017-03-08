@@ -74,6 +74,13 @@ module eVOCus {
                     serverTime,
                     Game.instance.gameTime);
 
+            var newAngle = Helper
+                .linearInterpolateAngle(this.rectangle.angle,
+                lastSyncTime,
+                serverObj.rectangle.angle,
+                serverTime,
+                Game.instance.gameTime);
+
             var newCannonPosition = Helper
                 .linearInterpolatePosition(this._cannons[0].rectangle.position,
                 lastSyncTime,
@@ -81,12 +88,19 @@ module eVOCus {
                 serverTime,
                 Game.instance.gameTime);
 
+            var newCannonAngle = Helper
+                .linearInterpolateAngle(this._cannons[0].rectangle.angle,
+                lastSyncTime,
+                serverObj.cannons[0].rectangle.angle,
+                serverTime,
+                Game.instance.gameTime);
+
             this.rectangle.position = newPostion;
-            this.rectangle.angle = serverObj.rectangle.angle;
+            this.rectangle.angle = newAngle;
             this._boatState = serverObj.boatState;
             this.speed = serverObj.speed;
             this._cannons[0].rectangle.position = newCannonPosition;
-            this._cannons[0].rectangle.angle = serverObj.cannons[0].rectangle.angle;
+            this._cannons[0].rectangle.angle = newCannonAngle;
             this.lastSync = Game.instance.gameTime;
         }
     }

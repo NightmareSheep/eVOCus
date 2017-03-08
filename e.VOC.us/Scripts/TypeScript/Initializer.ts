@@ -12,6 +12,10 @@
                     return new Message(serverObj);
                 case "fakeShip":
                     return new FakeShip(serverObj);
+                case "cannonball":
+                    var image = new Image();
+                    image.src = "/Assets/canonball2.png";
+                    return new CannonBall(serverObj.id, new RotatableRectangle(new Vector2D(serverObj.position.x, serverObj.position.y), 10, 10, 0), image);
                 default:
                     return null;
             }

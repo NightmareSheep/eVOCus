@@ -3,7 +3,7 @@ using Newtonsoft.Json;
 
 namespace e.VOC.us.Game
 {
-    public class Cannonball
+    public class Cannonball : GameObject
     {
         [JsonProperty("position")] private readonly Vector2D _position;
         [JsonIgnore] private readonly float _direction;
@@ -14,6 +14,7 @@ namespace e.VOC.us.Game
 
         public Cannonball(Vector2D position, float direction, GameState game, int lifetime, float speed, Player owner = null)
         {
+            TypeId = "cannonball";
             _position = position;
             _direction = direction;
             _game = game;
@@ -22,7 +23,7 @@ namespace e.VOC.us.Game
             _owner = owner;
         }
 
-        public void Update(GameTime gametime)
+        public override void Update(GameTime gametime)
         {
             _position.Add(Helper.AngleToUnitVector(_direction).Multiply(_speed));
             _lifetime -= (int)gametime.ElapsedMillisecondsSinceLastUpdate;
@@ -33,12 +34,12 @@ namespace e.VOC.us.Game
             }))
             {
                 ship.Damage(_owner);
-                _game.CannonBalls.Remove(this);
+                _game.RemoveList.Add(this);
                 _game.Explosions.Add(_position);
             }
 
             if (_position.X < 0 || _position.Y < 0 || _position.X > _game.Map.Width || _position.Y > _game.Map.Height || _lifetime < 0)
-                _game.CannonBalls.Remove(this);
+                _game.RemoveList.Add(this);
         }
     }
 }

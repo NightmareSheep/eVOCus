@@ -346,6 +346,7 @@
     <TypeScriptCompile Include="Scripts\TypeScript\Keyboard.ts" />
     <TypeScriptCompile Include="Scripts\TypeScript\Canvas.ts" />
     <TypeScriptCompile Include="Scripts\TypeScript\Helper.ts" />
+    <TypeScriptCompile Include="Scripts\TypeScript\Cannonball.ts" />
     <TypeScriptCompile Include="Scripts\TypeScript\Spawner.ts" />
     <TypeScriptCompile Include="Scripts\TypeScript\ServerObject.ts" />
     <TypeScriptCompile Include="Scripts\TypeScript\RotatableRectangle.ts" />

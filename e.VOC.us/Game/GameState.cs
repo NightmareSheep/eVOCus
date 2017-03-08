@@ -15,8 +15,6 @@ namespace e.VOC.us.Game
         public readonly Dictionary<string,Player> PlayerDictionary = new Dictionary<string, Player>();
         [JsonProperty("players")]
         public List<Player> Players = new List<Player>();
-        [JsonProperty("canonballs")]
-        public List<Cannonball> CannonBalls = new List<Cannonball>();
         [JsonProperty("explosions")]
         public List<Vector2D> Explosions = new List<Vector2D>();
         [JsonProperty("map")]
@@ -62,9 +60,6 @@ namespace e.VOC.us.Game
 
             foreach (var player in Players)
                 player.Update(gametime);
-
-            for (int i = CannonBalls.Count - 1; i >= 0; i--)
-                CannonBalls[i].Update(gametime);
 
             _gameMode.Update();
 

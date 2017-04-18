@@ -18,5 +18,10 @@ namespace e.VOC.us.Game
         {
             return (float)(Math.PI/180f) *degrees;
         }
+
+        public static float RadiansToDegrees(float radians)
+        {
+            return radians / (float)Math.PI * 180;
+        }
     }
 }

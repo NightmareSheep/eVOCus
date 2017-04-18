@@ -22,6 +22,7 @@ namespace e.VOC.us.Game
             _deathTimer -= (int)gametime.ElapsedMillisecondsSinceLastUpdate;
             if (_deathTimer <= 0)
             {
+                _ship.Dispose();
                 _game.GameObjects.Remove(_ship);
                 _deathRattle?.Invoke();
             }

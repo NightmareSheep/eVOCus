@@ -1,5 +1,9 @@
 ﻿using System;
 using e.VOC.us.Game.DelegatesAndEventArgs;
+using FarseerPhysics;
+using FarseerPhysics.Dynamics;
+using FarseerPhysics.Factories;
+using Microsoft.Xna.Framework;
 using Newtonsoft.Json;
 
 namespace e.VOC.us.Game
@@ -23,6 +27,7 @@ namespace e.VOC.us.Game
         //Constants
         [JsonIgnore] public float MaxSpeed { get; }
         [JsonIgnore] public Action DeathRattle { get; set; }
+        [JsonIgnore] public readonly Body Body;
 
         public event ShipIsHitEventHandler IsHit;
         public const int DeathTimer = 2000;
@@ -41,6 +46,10 @@ namespace e.VOC.us.Game
 
         public Ship(ShipTypes shipType, RotatableRectangle rectangle, Cannon[] cannons, Player player, GameState game, float turnSpeed, float accelSpeed, float maxSpeed, Action deathRattle = null)
         {
+            Body = BodyFactory.CreateRectangle(game.World, ConvertUnits.ToSimUnits(rectangle.Width), ConvertUnits.ToSimUnits(rectangle.Height), 1,
+                new Vector2(ConvertUnits.ToSimUnits(rectangle.Position.X), ConvertUnits.ToSimUnits(rectangle.Position.Y)));
+            Body.Rotation = Helper.DegreesToRadians(rectangle.Angle);
+            Body.BodyType = BodyType.Dynamic;
             TypeId = "ship";
             _playerId = player.Id;
             ShipType = shipType;
@@ -58,6 +67,10 @@ namespace e.VOC.us.Game
 
         public override void Update(GameTime gametime)
         {
+            Rectangle.Position.X = ConvertUnits.ToDisplayUnits(Body.Position.X);
+            Rectangle.Position.Y = ConvertUnits.ToDisplayUnits(Body.Position.Y);
+            Rectangle.Angle = Helper.RadiansToDegrees(Body.Rotation);
+
             ShipBehaviour?.Update(gametime);
             Platform.Update();
             foreach (var cannon in Cannons)
@@ -74,6 +87,11 @@ namespace e.VOC.us.Game
             OnIsHit(new ShipIsHitEventArgs(source));
             BoatState = "dying";
             ShipBehaviour = new DyingShipBehaviour(this, DeathTimer, _game, DeathRattle);
+        }
+
+        public void Dispose()
+        {
+            _game.World.RemoveBody(Body);
         }
     }
 }

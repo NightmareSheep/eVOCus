@@ -1,4 +1,6 @@
-﻿namespace e.VOC.us.Game
+﻿using Microsoft.Xna.Framework;
+
+namespace e.VOC.us.Game
 {
     public class NormalShipBehaviour : IUpdatable
     {
@@ -14,14 +16,25 @@
         public void Update(GameTime gametime)
         {
             if (_ship.Player.Keyboard.IsKeyDown(37))
-                _ship.Rectangle.Angle -= _ship.TurnSpeed;
+                _ship.Body.ApplyTorque(-_ship.TurnSpeed);
             if (_ship.Player.Keyboard.IsKeyDown(38))
                 _ship.Speed += _ship.AccelSpeed;
             if (_ship.Player.Keyboard.IsKeyDown(39))
-                _ship.Rectangle.Angle += _ship.TurnSpeed;
+                _ship.Body.ApplyTorque(_ship.TurnSpeed);
             if (_ship.Player.Keyboard.IsKeyDown(40))
                 _ship.Speed -= _ship.AccelSpeed;
-            _ship.Rectangle.Position.Add(Helper.AngleToUnitVector(_ship.Rectangle.Angle).Multiply(_ship.Speed));
+            //_ship.Rectangle.Position.Add(Helper.AngleToUnitVector(_ship.Rectangle.Angle).Multiply(_ship.Speed));
+
+            Vector2 currentForwardVector = _ship.Body.GetWorldVector(new Vector2(1, 0));
+            float currentSpeed = Vector2.Dot(_ship.Body.LinearVelocity, currentForwardVector);
+            float force = 0;
+            if (_ship.Speed > currentSpeed)
+                force = 10;
+            else if (_ship.Speed < currentSpeed)
+                force = -10;
+            _ship.Body.ApplyForce(force * currentForwardVector);
+
+            //_ship.Body.ApplyForce(new Vector2(1,0));
 
             if (_ship.Rectangle.Position.X < 0)
                 _ship.Rectangle.Position.X = _game.Map.Width;

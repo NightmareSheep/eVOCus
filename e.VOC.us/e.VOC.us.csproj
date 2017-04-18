@@ -55,6 +55,10 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
+    <Reference Include="FarseerPhysics, Version=3.5.0.38023, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\FarseerPhysics.3.5.0\lib\NET40\FarseerPhysics.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Microsoft.AspNet.Identity.Core, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Microsoft.AspNet.Identity.Core.2.2.1\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
@@ -207,6 +211,7 @@
     <Compile Include="DAL\GameInitializer.cs" />
     <Compile Include="Game\Cannon.cs" />
     <Compile Include="Game\Cannonball.cs" />
+    <Compile Include="Game\Circle.cs" />
     <Compile Include="Game\ConnectEvent.cs" />
     <Compile Include="Game\ConnectInput.cs" />
     <Compile Include="Game\DelegatesAndEventArgs\ShipIsHitEventArgs.cs" />
@@ -338,6 +343,7 @@
     <Content Include="Views\Lobby\List.cshtml" />
     <Content Include="Views\Lobby\Create.cshtml" />
     <TypeScriptCompile Include="Scripts\TypeScript\AnimationWithRectangle.ts" />
+    <TypeScriptCompile Include="Scripts\TypeScript\Circle.ts" />
     <TypeScriptCompile Include="Scripts\TypeScript\FakeShip.ts" />
     <TypeScriptCompile Include="Scripts\TypeScript\Map.ts" />
     <TypeScriptCompile Include="Scripts\TypeScript\Message.ts" />

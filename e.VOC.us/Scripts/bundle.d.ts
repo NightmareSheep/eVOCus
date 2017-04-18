@@ -33,6 +33,36 @@ declare module eVOCus {
     }
 }
 declare module eVOCus {
+    class GameObject {
+        name: string;
+        position: Vector2D;
+        id: string;
+        constructor(name: string, position: Vector2D, id: string);
+        getPosition(): Vector2D;
+        setPosition(p: Vector2D): void;
+        update(gameTime: number): void;
+        draw(context: CanvasRenderingContext2D, gameTime: number): void;
+    }
+}
+declare module eVOCus {
+    class RotatableSpriteObject {
+        rectangle: RotatableRectangle;
+        image: HTMLImageElement;
+        constructor(rectangle: RotatableRectangle, image: HTMLImageElement);
+        draw(canvas: Canvas, gameTime: number): void;
+    }
+}
+declare module eVOCus {
+    class Circle implements IServerObject {
+        id: string;
+        position: Vector2D;
+        constructor(id: string);
+        update(gameTime: number): void;
+        draw(canvas: Canvas): void;
+        synchronize(serverObj: any, serverTime: number, lastSyncTime: number): void;
+    }
+}
+declare module eVOCus {
     class FakeShip implements IServerObject {
         rectangle: RotatableRectangle;
         id: string;
@@ -71,26 +101,6 @@ declare module eVOCus {
         constructor();
         update(): void;
         draw(): void;
-    }
-}
-declare module eVOCus {
-    class GameObject {
-        name: string;
-        position: Vector2D;
-        id: string;
-        constructor(name: string, position: Vector2D, id: string);
-        getPosition(): Vector2D;
-        setPosition(p: Vector2D): void;
-        update(gameTime: number): void;
-        draw(context: CanvasRenderingContext2D, gameTime: number): void;
-    }
-}
-declare module eVOCus {
-    class RotatableSpriteObject {
-        rectangle: RotatableRectangle;
-        image: HTMLImageElement;
-        constructor(rectangle: RotatableRectangle, image: HTMLImageElement);
-        draw(canvas: Canvas, gameTime: number): void;
     }
 }
 declare module eVOCus {

@@ -4,6 +4,9 @@ using System.Linq;
 using e.VOC.us.Game.GameModes;
 using e.VOC.us.Game.GameModes.Survival;
 using e.VOC.us.Models;
+using FarseerPhysics.Dynamics;
+using FarseerPhysics.Factories;
+using Microsoft.Xna.Framework;
 using Newtonsoft.Json;
 
 namespace e.VOC.us.Game
@@ -28,6 +31,9 @@ namespace e.VOC.us.Game
         [JsonProperty("gameTime")] public long GameTime;
         [JsonIgnore] private readonly IGameMode _gameMode;
         [JsonIgnore] public List<GameObject> RemoveList = new List<GameObject>();
+        [JsonIgnore] public World World;
+        [JsonIgnore] public Circle Circle1;
+        [JsonIgnore] public Circle Circle2;
 
         public event ConnectEventHandler PlayerConnectEvent;
         public event ConnectEventHandler PlayerDisconnectEvent;
@@ -48,11 +54,24 @@ namespace e.VOC.us.Game
                 }
             }
             _gameMode = new Survival(3, Players, this);
+
+            World = new World(Vector2.Zero);
+            Circle1 = new Circle(World, 100, 100);
+            GameObjects.Add(Circle1);
+            Circle2 = new Circle(World, 100, 400);
+            GameObjects.Add(Circle2);
+            
+
         }
 
         public void Update(GameTime gametime)
         {
-            GameTime = gametime.ElapsedMilliseconds;
+            if (Players.FirstOrDefault()?.Keyboard?.IsKeyDown(38) ?? false)
+            {
+                Circle1.Body.ApplyForce(new Vector2(0, 1));
+            }
+
+                GameTime = gametime.ElapsedMilliseconds;
             Explosions.Clear();
 
             for (int i = GameObjects.Count - 1; i >= 0; i--)
@@ -65,6 +84,8 @@ namespace e.VOC.us.Game
 
             GameObjects = GameObjects.Except(RemoveList).ToList();
             RemoveList.Clear();
+
+            World.Step(0.064f);
         }
 
         public void PlayerConnect(string connectionId, string playerId)

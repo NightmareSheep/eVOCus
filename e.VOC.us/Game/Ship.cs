@@ -25,6 +25,7 @@ namespace e.VOC.us.Game
         [JsonIgnore] public float TurnSpeed { get; }
         [JsonIgnore] public float AccelSpeed { get; }
         //Constants
+        [JsonIgnore] public float MinSpeed { get; }
         [JsonIgnore] public float MaxSpeed { get; }
         [JsonIgnore] public Action DeathRattle { get; set; }
         [JsonIgnore] public readonly Body Body;
@@ -40,11 +41,11 @@ namespace e.VOC.us.Game
 
         public float Speed
         {
-            get { return _speed; }
-            set { _speed = Math.Max(0, Math.Min(MaxSpeed, value)); }
+            get => _speed;
+            set => _speed = Math.Max(MinSpeed, Math.Min(MaxSpeed, value));
         }
 
-        public Ship(ShipTypes shipType, RotatableRectangle rectangle, Cannon[] cannons, Player player, GameState game, float turnSpeed, float accelSpeed, float maxSpeed, Action deathRattle = null)
+        public Ship(ShipTypes shipType, RotatableRectangle rectangle, Cannon[] cannons, Player player, GameState game, float turnSpeed, float accelSpeed, float minSpeed, float maxSpeed, Action deathRattle = null)
         {
             Body = BodyFactory.CreateRectangle(game.World, ConvertUnits.ToSimUnits(rectangle.Width), ConvertUnits.ToSimUnits(rectangle.Height), 1,
                 new Vector2(ConvertUnits.ToSimUnits(rectangle.Position.X), ConvertUnits.ToSimUnits(rectangle.Position.Y)));
@@ -58,6 +59,7 @@ namespace e.VOC.us.Game
             _game = game;
             TurnSpeed = turnSpeed;
             AccelSpeed = accelSpeed;
+            MinSpeed = minSpeed;
             MaxSpeed = maxSpeed;
             Cannons = cannons;
             ShipBehaviour = new NormalShipBehaviour(this, _game);

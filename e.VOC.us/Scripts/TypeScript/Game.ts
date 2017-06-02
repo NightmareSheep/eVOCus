@@ -41,7 +41,7 @@
         }
 
         lastFrameTimeMs : number = 0; // The last time the loop was run
-        maxFps : number = 60; // The maximum FPS we want to allow
+        maxFps : number = 30; // The maximum FPS we want to allow
 
         gameLoop(gameObject: Game, timestamp: number) {
             

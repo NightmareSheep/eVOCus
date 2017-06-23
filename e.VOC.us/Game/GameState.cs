@@ -54,18 +54,8 @@ namespace e.VOC.us.Game
                 }
             }
             _gameMode = new Survival(3, Players, this);
-
-            World = new World(Vector2.Zero);
-            Vector2[] vertices = 
-            {
-                new Vector2(0,0),
-                new Vector2(ConvertUnits.ToSimUnits(map.Width), 0),
-                new Vector2(ConvertUnits.ToSimUnits(map.Width), ConvertUnits.ToSimUnits(map.Height)),
-                new Vector2(0, ConvertUnits.ToSimUnits(map.Height)),
-                new Vector2(0,0),
-            };
-
-            var chain = BodyFactory.CreateChainShape(World, new Vertices(vertices), new Vector2(0, 0));
+            ResetWorld();
+            
         }
 
         public void Update(GameTime gametime)
@@ -105,6 +95,21 @@ namespace e.VOC.us.Game
                 PlayerId = playerId
             };
             PlayerDisconnectEvent?.Invoke(this, connectEventArgs);
+        }
+
+        public void ResetWorld()
+        {
+            World = new World(Vector2.Zero);
+            Vector2[] vertices =
+            {
+                new Vector2(0,0),
+                new Vector2(ConvertUnits.ToSimUnits(Map.Width), 0),
+                new Vector2(ConvertUnits.ToSimUnits(Map.Width), ConvertUnits.ToSimUnits(Map.Height)),
+                new Vector2(0, ConvertUnits.ToSimUnits(Map.Height)),
+                new Vector2(0,0),
+            };
+
+            BodyFactory.CreateChainShape(World, new Vertices(vertices), new Vector2(0, 0));
         }
     }
 }

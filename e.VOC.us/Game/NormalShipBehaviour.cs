@@ -16,11 +16,11 @@ namespace e.VOC.us.Game
 
         public void Update(GameTime gametime)
         {
-            if (_ship.Player.Keyboard.IsKeyDown(37) && _ship.Body.AngularVelocity > -_ship.TurnSpeed * 20)
+            if (_ship.Player.Keyboard.IsKeyDown(37) && _ship.Body.AngularVelocity > -_ship.TurnSpeed * 2)
                 _ship.Body.ApplyTorque(-_ship.TurnSpeed);
             if (_ship.Player.Keyboard.IsKeyDown(38))
                 _ship.Speed += _ship.AccelSpeed;
-            if (_ship.Player.Keyboard.IsKeyDown(39) && _ship.Body.AngularVelocity < _ship.TurnSpeed * 20)
+            if (_ship.Player.Keyboard.IsKeyDown(39) && _ship.Body.AngularVelocity < _ship.TurnSpeed * 2)
                 _ship.Body.ApplyTorque(_ship.TurnSpeed);
             if (_ship.Player.Keyboard.IsKeyDown(40))
                 _ship.Speed -= _ship.AccelSpeed;

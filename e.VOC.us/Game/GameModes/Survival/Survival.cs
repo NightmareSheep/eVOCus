@@ -53,6 +53,7 @@ namespace e.VOC.us.Game.GameModes.Survival
 
         private void RoundStart()
         {
+            _game.ResetWorld();
             _game.RemoveList.AddRange(_game.GameObjects.Where(x => x is FakeShip));
             var players = _players.ToList();
             foreach (var survivalPlayer in _teams.SelectMany(team => team.Players).ToList())

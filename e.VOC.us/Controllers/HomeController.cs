@@ -28,7 +28,7 @@ namespace e.VOC.us.Controllers
             return View();
         }
 
-        public ActionResult Prototype(string id)
+        public ActionResult Game(string id)
         {
             return View((object)id);
         }

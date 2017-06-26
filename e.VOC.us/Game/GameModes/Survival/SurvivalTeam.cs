@@ -7,6 +7,7 @@ namespace e.VOC.us.Game.GameModes.Survival
     {
         public List<SurvivalPlayer> Players;
         public int Score;
+        
         public SurvivalTeam(IEnumerable<Player> players)
         {
             Players = players.Select(player => new SurvivalPlayer(player)).ToList();

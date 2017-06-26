@@ -14,7 +14,6 @@ module eVOCus {
         }
 
         update(gameTime: number) {
-            //console.log("in wave update");
             this._rectangle.rectangle.width -= this.reduce;
             this._rectangle.rectangle.height -= this.reduce;
             //this._rectangle.rectangle.position.x += this.reduce / 2;

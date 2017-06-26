@@ -18,6 +18,8 @@
                     return new CannonBall(serverObj.id, new RotatableRectangle(new Vector2D(serverObj.position.x, serverObj.position.y), 10, 10, 0), image);
                 case "circle":
                     return new Circle(serverObj.id);
+                case "survival scoreboard":
+                    return new SurvivalScoreboard(serverObj);
                 default:
                     return null;
             }

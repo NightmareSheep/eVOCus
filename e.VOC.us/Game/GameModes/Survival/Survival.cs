@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Remoting.Channels;
 using e.VOC.us.Game.DelegatesAndEventArgs;
@@ -8,25 +9,33 @@ namespace e.VOC.us.Game.GameModes.Survival
 {
     public class Survival : IGameMode
     {
-        private readonly int _rounds;
+        public readonly int RoundsToWin;
         private readonly List<SurvivalTeam> _teams;
+        public List<SurvivalTeam> Teams => _teams;
         private readonly GameState _game;
-        private readonly List<SurvivalPlayer> _players; 
+        private readonly List<SurvivalPlayer> _players;
+        public int Round { get; private set; }
+        private bool _gameHasEnded;
 
-        public Survival(int rounds, List<Player> players, GameState gameState)
+
+        public Survival(int roundsToWin, List<Player> players, GameState gameState)
         {
             _game = gameState;
-            _rounds = rounds;
+            RoundsToWin = roundsToWin;
             var teamNumbers = players.Select(player => player.Team).Distinct().ToArray();
             _teams = teamNumbers.Select(teamNumber => new SurvivalTeam(players.Where(player => player.Team == teamNumber))).ToList();
             _players = _teams.SelectMany(team => team.Players).ToList();
             _game.GameObjects.Add(new Message("Waiting for players...", 5000, RoundIntro, _game));
+            _game.GameObjects.Add(new SurvivalScoreBoard(this));
         }
 
         private IEnumerable<SurvivalTeam> RemainingTeams => _teams.Where(team => team.AnyPlayersAlive);
 
         public void Update()
         {
+            if (_gameHasEnded)
+                return;
+
             var reamingTeams = RemainingTeams.ToList();
             if (reamingTeams.Count == 1)
                 reamingTeams[0].Score++;
@@ -36,7 +45,7 @@ namespace e.VOC.us.Game.GameModes.Survival
 
         private void RoundEnd()
         {
-            if (_teams.Any(team => team.Score >= _rounds))
+            if (_teams.Any(team => team.Score >= RoundsToWin))
                 FinishGame();
             else
                 RoundIntro();
@@ -53,6 +62,7 @@ namespace e.VOC.us.Game.GameModes.Survival
 
         private void RoundStart()
         {
+            Round++;
             _game.ResetWorld();
             _game.RemoveList.AddRange(_game.GameObjects.Where(x => x is FakeShip));
             var players = _players.ToList();
@@ -61,7 +71,8 @@ namespace e.VOC.us.Game.GameModes.Survival
                 var ship = _game.ShipFactory.Ship(ShipTypes.Frigate, survivalPlayer.Player.StartLocation.StartPosition, survivalPlayer.Player.StartLocation.Angle, survivalPlayer.Player, _game);
                 ship.DeathRattle = () =>
                 {
-                    survivalPlayer.Alive = false; 
+                    survivalPlayer.Alive = false;
+                    survivalPlayer.Deaths++;
                 };
                 ship.IsHit += (Ship sender, ShipIsHitEventArgs e) =>
                 {
@@ -77,6 +88,7 @@ namespace e.VOC.us.Game.GameModes.Survival
         {
             _game.RemoveList.AddRange(_game.GameObjects.Where(x => x is Ship));
             _game.GameObjects.Add(new Message("Game has ended", 60000, null, _game));
+            _gameHasEnded = true;
         }
     }
 }

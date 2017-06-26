@@ -5,6 +5,7 @@
         public Player Player { get; set; }
         public bool Alive { get; set; }
         public int Kills { get; set; }
+        public int Deaths { get; set; }
 
         public SurvivalPlayer(Player player)
         {

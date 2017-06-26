@@ -339,6 +339,7 @@
     <Content Include="Scripts\jquery-3.1.1.min.map" />
     <TypeScriptCompile Include="Scripts\TypeScript\AnimationWithRectangle.ts" />
     <TypeScriptCompile Include="Scripts\TypeScript\Circle.ts" />
+    <TypeScriptCompile Include="Scripts\TypeScript\SurvivalScoreboard.ts" />
     <TypeScriptCompile Include="Scripts\TypeScript\FakeShip.ts" />
     <TypeScriptCompile Include="Scripts\TypeScript\Map.ts" />
     <TypeScriptCompile Include="Scripts\TypeScript\Message.ts" />

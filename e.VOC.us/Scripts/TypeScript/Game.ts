@@ -8,7 +8,6 @@
         waves: Wave[] = [];
         players: Player[] = [];
         oneTimeAnimations: AnimationWithRectangle[] = [];
-        scoreboard: Scoreboard;
         minimap: Minimap;
         environment: Environment;
         focus: Vector2D = new Vector2D(0,0);
@@ -22,7 +21,7 @@
             Game.instance = this;
             Game.keyboard = new Keyboard(this.gameId, this.id);
             this.canvas = new Canvas();
-            this.scoreboard = new Scoreboard();
+            //this.scoreboard = new Scoreboard();
             this.minimap = new Minimap();
             this.environment = new Environment();
             this.synchronization = new Synchronization(this);
@@ -49,8 +48,6 @@
                 requestAnimationFrame((time) => { this.gameLoop(this, time); });
                 return;
             }
-
-
 
             var elapsedTime = timestamp - this.lastFrameTimeMs;
             this.gameTime += elapsedTime;
@@ -86,7 +83,6 @@
             }
 
             Game.keyboard.update();
-            this.scoreboard.update();
             this.minimap.update();
             this.environment.update();
         }
@@ -124,9 +120,9 @@
         }
 
         getCurrentPlayer() {
-            if (this.id != "" && this.id != null) {
+            if (this.id !== "" && this.id != null) {
                 for (var i = 0; i < this.players.length; i++) {
-                    if (this.id == this.players[i].id)
+                    if (this.id === this.players[i].id)
                         return this.players[i];
                 }
             }

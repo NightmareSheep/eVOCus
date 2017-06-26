@@ -21,14 +21,12 @@
         }
 
         synchronize(gameTime: number) {
-            //console.log(this.inputGameStates.length);
             this.filterGamestates(gameTime);
 
             var state = this.inputGameStates[0];
             if (!state)
                 return;
 
-            console.log(state.gameTime - Game.instance.gameTime);
 
             if (this.game.players.length !== state.players.length) {
                 this.game.players = [];

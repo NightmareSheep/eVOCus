@@ -23,7 +23,7 @@ module eVOCus {
                 this.currentAnimationTime = (this.currentAnimationTime + elapsedTime) % this.duration;
             else
                 this.currentAnimationTime = Math.min(this.currentAnimationTime + elapsedTime, this.duration);
-            if (!this.loop && this.currentAnimationTime == this.duration)
+            if (!this.loop && this.currentAnimationTime === this.duration)
                 this.ended = true;
             this.currentFrame = Math.min(this.frames - 1, Math.floor(this.frames * (this.currentAnimationTime / this.duration)));
         }

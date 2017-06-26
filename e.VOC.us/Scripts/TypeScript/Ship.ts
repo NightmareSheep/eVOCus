@@ -17,7 +17,7 @@ module eVOCus {
         constructor(id: string, public playerId : string, public speed: number, public maxSpeed: number, public rectangle: RotatableRectangle, image: HTMLImageElement) {
             super(rectangle, image);
             this.id = id;
-            this._animation = new Animation(image, rectangle.width, rectangle.height * 5, 5, 2000, false);
+            this._animation = new Animation(image, rectangle.width, rectangle.height * 5, 5, 2000, true);
             var image2 = new Image();
             image2.src = "/Assets/boot-3-dead.png";
             this._animation_death = new Animation(image2, rectangle.width, rectangle.height * 5, 5, 2000, false);

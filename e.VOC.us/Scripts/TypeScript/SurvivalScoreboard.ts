@@ -27,5 +27,7 @@
             }
             this.previousMessages = this.messages;
         }
+
+        dispose() {}
     }
 } 

@@ -104,5 +104,7 @@ module eVOCus {
             this._cannons[0].rectangle.angle = newCannonAngle;
             this.lastSync = Game.instance.gameTime;
         }
+
+        dispose() {}
     }
 }

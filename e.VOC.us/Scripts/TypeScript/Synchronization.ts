@@ -64,8 +64,10 @@
                         break;
                     }
                 }
-                if (!serverObjectExists)
+                if (!serverObjectExists) {
+                    clientObject.dispose();
                     Game.instance.gameObjects.splice(i, 1);
+                }
             }
 
 

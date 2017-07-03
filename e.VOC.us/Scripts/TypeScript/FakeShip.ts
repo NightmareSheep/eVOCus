@@ -24,5 +24,7 @@
         draw(canvas: Canvas) {
             this.animation.Draw(canvas, 0, this.rectangle);
         }
+
+        dispose() {}
     }
 } 

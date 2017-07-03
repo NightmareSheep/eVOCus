@@ -29,5 +29,7 @@ module eVOCus {
             this.rectangle.position = newPostion;
             this.rectangle.angle = 0;
         }
+
+        dispose() {}
     }
 }

@@ -35,5 +35,7 @@ module eVOCus {
 
             this.position = newPostion;
         }
+
+        dispose() {}
     }
 }

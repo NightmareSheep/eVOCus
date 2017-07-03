@@ -6,9 +6,13 @@
         constructor(serverObj: any) {
             this.id = serverObj.id;
             this.text = serverObj.text;
+
+            
         }
 
         update(gametime: number) {
+            $("#overlayText").html(this.text);
+            $("#overlay").show();
         }
 
         synchronize(serverObj: any) {
@@ -16,7 +20,11 @@
         }
 
         draw(canvas: Canvas) {
-            canvas.drawRotatableText(this.text, new RotatableRectangle(new Vector2D(100, 100), 400, 100, 0));
+            //canvas.drawRotatableText(this.text, new RotatableRectangle(new Vector2D(100, 100), 400, 100, 0));
+        }
+
+        dispose() {
+            $("#overlay").hide();
         }
     }
 } 

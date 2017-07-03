@@ -49,6 +49,7 @@ namespace e.VOC.us.Game
         {
             Body = BodyFactory.CreateRectangle(game.World, ConvertUnits.ToSimUnits(rectangle.Width), ConvertUnits.ToSimUnits(rectangle.Height), 1,
                 new Vector2(ConvertUnits.ToSimUnits(rectangle.Position.X), ConvertUnits.ToSimUnits(rectangle.Position.Y)));
+            Body.AngularDamping = 1f;
             Body.Rotation = Helper.DegreesToRadians(rectangle.Angle);
             Body.BodyType = BodyType.Dynamic;
             TypeId = "ship";

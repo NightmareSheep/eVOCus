@@ -24,7 +24,8 @@ namespace e.VOC.us.Game
                 _ship.Body.ApplyTorque(_ship.TurnSpeed);
             if (_ship.Player.Keyboard.IsKeyDown(40))
                 _ship.Speed -= _ship.AccelSpeed;
-            //_ship.Rectangle.Position.Add(Helper.AngleToUnitVector(_ship.Rectangle.Angle).Multiply(_ship.Speed));
+
+            
 
             // Kill lateral velocity
             Vector2 currentRightNormal = _ship.Body.GetWorldVector(new Vector2(0, 1));
@@ -40,7 +41,6 @@ namespace e.VOC.us.Game
             force = Math.Min(Math.Max(_ship.Speed - currentSpeed, -5), 5);
             _ship.Body.ApplyForce(force * currentForwardVector);
 
-            //_ship.Body.ApplyForce(new Vector2(1,0));
 
             if (_ship.Rectangle.Position.X < 0)
                 _ship.Rectangle.Position.X = _game.Map.Width;

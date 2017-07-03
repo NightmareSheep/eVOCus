@@ -87,7 +87,7 @@ namespace e.VOC.us.Game.GameModes.Survival
         private void FinishGame()
         {
             _game.RemoveList.AddRange(_game.GameObjects.Where(x => x is Ship));
-            _game.GameObjects.Add(new Message("Game has ended", 60000, null, _game));
+            _game.GameObjects.Add(new Message("Game over", 60000, null, _game));
             _gameHasEnded = true;
         }
     }

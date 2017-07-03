@@ -21,6 +21,7 @@
 
     self.lobbyHub.client.getMessage = function(message) {
         $("#chat").append("<p>" + message + "</p>");
+        $("#chat").scrollTop($("#chat").height());
     }
 
     self.sendMessage = function(message) {
@@ -41,6 +42,7 @@
         if (event.keyCode === 13) {
             var element = $("#sendMessage");
             var value = element.val();
+            value = self.name + ": " + value;
             if (value !== "") {
                 self.sendMessage(value);
                 element.val("");

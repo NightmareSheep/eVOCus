@@ -11,10 +11,9 @@
 
         <h2>Create</h2>
 
-        <select data-bind="options: maps, optionsText: 'Name', value: selectedMap, optionsCaption: 'Choose a map'"></select>
+        <div>Map: <select data-bind="options: maps, optionsText: 'Name', value: selectedMap, optionsCaption: 'Choose a map'"></select></div>
         <div data-bind="foreach: slots">
-            <span data-bind="text: $index"></span>
-            <input type="number" data-bind="value: team">
+            <div>Position <span data-bind="text: ($index() + 1)"></span>: Team: <input style="width: 40px;" type="number" data-bind="value: team"></div>
         </div>
 
         @using (Html.BeginForm())
